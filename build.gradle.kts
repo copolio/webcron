@@ -25,6 +25,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webmvc-core
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.11")
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-kotlin
+    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.6.11")
 }
 
 tasks.withType<KotlinCompile> {
