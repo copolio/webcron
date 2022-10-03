@@ -1,5 +1,6 @@
 spring:
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mysql.cj.jdbc.MysqlDataSource
     url: jdbc:mysql://localhost:3306/quartz
     username: root
@@ -9,3 +10,18 @@ spring:
     job-store-type: jdbc
     jdbc:
       initialize-schema: always
+    wait-for-jobs-to-complete-on-shutdown: true
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+            instanceName: ApiQuartzClusteredScheduler
+          threadPool:
+            threadCount: 25
+            threadPriority: 5
+          jobStore:
+            #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            isClustered: true
+#            clusterCheckinInterval: 20000
+#            dataSource: spring.datasource
