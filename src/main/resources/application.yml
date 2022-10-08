@@ -2,14 +2,14 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mysql.cj.jdbc.MysqlDataSource
-    url: jdbc:mysql://localhost:3306/quartz
+    url: jdbc:mysql://localhost:3306/bartz
     username: root
     password: test
   quartz:
     scheduler-name: api-quartz
     job-store-type: jdbc
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
     wait-for-jobs-to-complete-on-shutdown: true
     properties:
       org:
@@ -21,7 +21,7 @@ spring:
             threadCount: 25
             threadPriority: 5
           jobStore:
-            #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
             isClustered: true
-#            clusterCheckinInterval: 20000
+#            class: org.quartz.impl.jdbcjobstore.JobStoreTX
 #            dataSource: spring.datasource
+#            clusterCheckinInterval: 20000
