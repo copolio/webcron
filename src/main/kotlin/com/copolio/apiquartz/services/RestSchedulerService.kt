@@ -7,19 +7,12 @@ import com.copolio.apiquartz.dto.PostRestJobRequest
 import org.quartz.JobKey
 
 interface RestSchedulerService {
-    fun getGroups(): List<String>
     fun addJob(params: PostRestJobRequest): GetRestJobResponse
-
-    /**
-     * TODO
-     */
+    fun getGroups(): List<String>
     fun getJobs(jobGroup: String): List<JobKey>
     fun getJob(jobName: String, jobGroup: String): GetRestJobResponse
-
-    //    fun updateJob(params)
     fun deleteJob(jobName: String, jobGroup: String): String
-    fun addTrigger(params: PostCronTriggerRequest): String
+    fun addTrigger(params: PostCronTriggerRequest): GetCronTriggerResponse
     fun getTriggers(jobName: String, jobGroup: String): List<GetCronTriggerResponse>
-    fun getTrigger(triggerName: String, triggerGroup: String): GetCronTriggerResponse
-    fun deleteTrigger(triggerName: String, triggerGroup: String): String
+    fun deleteTrigger(triggerName: String): String
 }

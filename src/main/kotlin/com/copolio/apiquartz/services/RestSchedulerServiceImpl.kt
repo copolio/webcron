@@ -66,15 +66,21 @@ class RestSchedulerServiceImpl(
         return "Deleted scheduler job (${jobGroup} : ${jobName})"
     }
 
-    override fun addTrigger(params: PostCronTriggerRequest): String {
+    override fun addTrigger(params: PostCronTriggerRequest): GetCronTriggerResponse {
         val job = scheduler.getJobDetail(JobKey(params.jobName, params.jobGroup))
         val trigger = TriggerBuilder.newTrigger()
             .forJob(job)
-            .withIdentity(params.triggerName, params.triggerGroup)
+            .withIdentity(params.triggerName)
             .withDescription(params.description)
             .withSchedule(CronScheduleBuilder.cronSchedule(params.cronExpression))
             .build()
-        return scheduler.scheduleJob(job, trigger).toString()
+        val scheduleJob = scheduler.scheduleJob(trigger)
+        return GetCronTriggerResponse(
+            jobGroup = trigger.jobKey.group,
+            jobName = trigger.jobKey.name,
+            description = trigger.description,
+            cronExpression = trigger.cronExpression
+        )
     }
 
     override fun getTriggers(jobName: String, jobGroup: String): List<GetCronTriggerResponse> {
@@ -84,8 +90,8 @@ class RestSchedulerServiceImpl(
             val cronTrigger = t as CronTrigger
             result.add(
                 GetCronTriggerResponse(
-                    triggerGroup = cronTrigger.key.group,
-                    triggerName = cronTrigger.key.name,
+                    jobGroup = cronTrigger.key.group,
+                    jobName = cronTrigger.key.name,
                     description = cronTrigger.description,
                     cronExpression = cronTrigger.cronExpression
                 )
@@ -94,18 +100,8 @@ class RestSchedulerServiceImpl(
         return result
     }
 
-    override fun getTrigger(triggerName: String, triggerGroup: String): GetCronTriggerResponse {
-        val trigger = scheduler.getTrigger(TriggerKey(triggerName, triggerGroup)) as CronTrigger
-        return GetCronTriggerResponse(
-            triggerGroup = trigger.key.group,
-            triggerName = trigger.key.name,
-            description = trigger.description,
-            cronExpression = trigger.cronExpression
-        )
-    }
-
-    override fun deleteTrigger(triggerName: String, triggerGroup: String): String {
-        if (!scheduler.unscheduleJob(TriggerKey(triggerName, triggerGroup))) {
+    override fun deleteTrigger(triggerName: String): String {
+        if (!scheduler.unscheduleJob(TriggerKey(triggerName))) {
             throw NoSuchElementException("Requested trigger does not exists")
         }
         return "Trigger was deleted"
