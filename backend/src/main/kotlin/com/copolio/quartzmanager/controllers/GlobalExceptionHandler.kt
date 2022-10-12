@@ -1,4 +1,4 @@
-package com.copolio.apiquartz.controllers
+package com.copolio.quartzmanager.controllers
 
 import org.quartz.SchedulerException
 import org.springframework.http.ResponseEntity

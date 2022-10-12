@@ -1,4 +1,4 @@
-package com.copolio.apiquartz.dto
+package com.copolio.quartzmanager.dto
 
 import org.springframework.http.HttpMethod
 
@@ -9,7 +9,8 @@ data class PostRestJobRequest(
     val url: String,
     val username: String?,
     val password: String?,
-    val httpMethod: HttpMethod
+    val httpMethod: HttpMethod,
+    val cronExpression: String,
 )
 
 data class PatchRestJobRequest(
@@ -27,5 +28,5 @@ data class GetRestJobResponse(
     val jobGroup: String,
     val jobName: String,
     val description: String,
-    val triggers: List<GetCronTriggerResponse>,
+    val cronExpression: String,
 )

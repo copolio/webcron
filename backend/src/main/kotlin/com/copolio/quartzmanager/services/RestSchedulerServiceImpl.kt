@@ -1,10 +1,8 @@
-package com.copolio.apiquartz.services
+package com.copolio.quartzmanager.services
 
-import com.copolio.apiquartz.config.RestJob
-import com.copolio.apiquartz.dto.GetCronTriggerResponse
-import com.copolio.apiquartz.dto.GetRestJobResponse
-import com.copolio.apiquartz.dto.PostCronTriggerRequest
-import com.copolio.apiquartz.dto.PostRestJobRequest
+import com.copolio.quartzmanager.config.RestJob
+import com.copolio.quartzmanager.dto.GetRestJobResponse
+import com.copolio.quartzmanager.dto.PostRestJobRequest
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import org.springframework.stereotype.Service
@@ -32,12 +30,18 @@ class RestSchedulerServiceImpl(
             .withDescription(params.description)
             .setJobData(jobDataMap)
             .build()
-        scheduler.addJob(jobDetail, false)
+        val trigger = TriggerBuilder.newTrigger()
+            .forJob(jobDetail)
+            .withIdentity("${jobDetail.key.group}-${jobDetail.key.name}")
+            .withDescription(jobDetail.description)
+            .withSchedule(CronScheduleBuilder.cronSchedule(params.cronExpression))
+            .build()
+        scheduler.scheduleJob(trigger)
         return GetRestJobResponse(
             jobName = jobDetail.key.name,
             jobGroup = jobDetail.key.group,
             description = jobDetail.description,
-            triggers = emptyList()
+            cronExpression = params.cronExpression
         )
     }
 
@@ -55,7 +59,7 @@ class RestSchedulerServiceImpl(
             jobGroup = jobDetail.key.group,
             jobName = jobDetail.key.name,
             description = jobDetail.description,
-            triggers = getTriggers(jobName, jobGroup)
+            cronExpression = getTrigger(jobName, jobGroup)
         )
     }
 
@@ -66,44 +70,10 @@ class RestSchedulerServiceImpl(
         return "Deleted scheduler job (${jobGroup} : ${jobName})"
     }
 
-    override fun addTrigger(params: PostCronTriggerRequest): GetCronTriggerResponse {
-        val job = scheduler.getJobDetail(JobKey(params.jobName, params.jobGroup))
-        val trigger = TriggerBuilder.newTrigger()
-            .forJob(job)
-            .withIdentity(params.triggerName)
-            .withDescription(params.description)
-            .withSchedule(CronScheduleBuilder.cronSchedule(params.cronExpression))
-            .build()
-        val scheduleJob = scheduler.scheduleJob(trigger)
-        return GetCronTriggerResponse(
-            jobGroup = trigger.jobKey.group,
-            jobName = trigger.jobKey.name,
-            description = trigger.description,
-            cronExpression = trigger.cronExpression
-        )
-    }
-
-    override fun getTriggers(jobName: String, jobGroup: String): List<GetCronTriggerResponse> {
-        val result = ArrayList<GetCronTriggerResponse>()
+    override fun getTrigger(jobName: String, jobGroup: String): String {
         val triggersOfJob = scheduler.getTriggersOfJob(JobKey(jobName, jobGroup))
-        triggersOfJob.forEach { t ->
-            val cronTrigger = t as CronTrigger
-            result.add(
-                GetCronTriggerResponse(
-                    jobGroup = cronTrigger.key.group,
-                    jobName = cronTrigger.key.name,
-                    description = cronTrigger.description,
-                    cronExpression = cronTrigger.cronExpression
-                )
-            )
-        }
-        return result
-    }
-
-    override fun deleteTrigger(triggerName: String): String {
-        if (!scheduler.unscheduleJob(TriggerKey(triggerName))) {
-            throw NoSuchElementException("Requested trigger does not exists")
-        }
-        return "Trigger was deleted"
+        if (triggersOfJob.isEmpty())
+            throw NoSuchElementException("Cron Trigger does not exists for the job(${jobGroup} : ${jobName})")
+        return (triggersOfJob[0] as CronTrigger).cronExpression
     }
 }

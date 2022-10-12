@@ -1,1 +1,2 @@
-rootProject.name = "api-quartz"
+rootProject.name = "quartz-manager"
+include("backend")

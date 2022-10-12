@@ -1,4 +1,4 @@
-package com.copolio.apiquartz.services
+package com.copolio.quartzmanager.services
 
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.stereotype.Service

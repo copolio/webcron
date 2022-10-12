@@ -1,11 +1,11 @@
-package com.copolio.apiquartz
+package com.copolio.quartzmanager
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ApiQuartzApplication
+class QuartzManagerApplication
 
 fun main(args: Array<String>) {
-    runApplication<ApiQuartzApplication>(*args)
+    runApplication<QuartzManagerApplication>(*args)
 }

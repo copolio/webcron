@@ -1,4 +1,4 @@
-package com.copolio.apiquartz.dto
+package com.copolio.quartzmanager.dto
 
 data class PostCronTriggerRequest(
     val jobGroup: String,

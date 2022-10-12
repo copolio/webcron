@@ -1,10 +1,8 @@
-package com.copolio.apiquartz.controllers
+package com.copolio.quartzmanager.controllers
 
-import com.copolio.apiquartz.dto.GetCronTriggerResponse
-import com.copolio.apiquartz.dto.GetRestJobResponse
-import com.copolio.apiquartz.dto.PostCronTriggerRequest
-import com.copolio.apiquartz.dto.PostRestJobRequest
-import com.copolio.apiquartz.services.RestSchedulerService
+import com.copolio.quartzmanager.dto.GetRestJobResponse
+import com.copolio.quartzmanager.dto.PostRestJobRequest
+import com.copolio.quartzmanager.services.RestSchedulerService
 import org.quartz.JobKey
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 class SchedulerController(
     val restSchedulerService: RestSchedulerService
 ) {
-    @PostMapping("/groups")
+    @PostMapping("/")
     fun addJob(@RequestBody params: PostRestJobRequest): ResponseEntity<GetRestJobResponse> {
         return ResponseEntity(restSchedulerService.addJob(params), HttpStatus.CREATED)
     }
@@ -56,25 +54,6 @@ class SchedulerController(
                 jobName = jobName,
                 jobGroup = groupName
             )
-        )
-    }
-
-    @PostMapping("/groups/{groupName}/jobs/{jobName}/triggers")
-    fun addTrigger(
-        @PathVariable("groupName") groupName: String,
-        @PathVariable("jobName") jobName: String,
-        @RequestBody requestBody: PostCronTriggerRequest
-    ): ResponseEntity<GetCronTriggerResponse> {
-        return ResponseEntity(restSchedulerService.addTrigger(params = requestBody), HttpStatus.CREATED)
-    }
-
-    @GetMapping("/groups/{groupName}/jobs/{jobName}/triggers")
-    fun getTriggers(
-        @PathVariable("groupName") groupName: String,
-        @PathVariable("jobName") jobName: String,
-    ): ResponseEntity<List<GetCronTriggerResponse>> {
-        return ResponseEntity.ok(
-            restSchedulerService.getTriggers(jobName, groupName)
         )
     }
 }
