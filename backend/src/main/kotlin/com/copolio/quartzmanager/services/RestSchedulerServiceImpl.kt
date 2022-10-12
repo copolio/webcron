@@ -32,11 +32,11 @@ class RestSchedulerServiceImpl(
             .build()
         val trigger = TriggerBuilder.newTrigger()
             .forJob(jobDetail)
-            .withIdentity("${jobDetail.key.group}-${jobDetail.key.name}")
+            .withIdentity(jobDetail.key.group, jobDetail.key.name)
             .withDescription(jobDetail.description)
             .withSchedule(CronScheduleBuilder.cronSchedule(params.cronExpression))
             .build()
-        scheduler.scheduleJob(trigger)
+        scheduler.scheduleJob(jobDetail, trigger)
         return GetRestJobResponse(
             jobName = jobDetail.key.name,
             jobGroup = jobDetail.key.group,

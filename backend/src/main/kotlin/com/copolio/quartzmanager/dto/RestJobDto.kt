@@ -13,17 +13,6 @@ data class PostRestJobRequest(
     val cronExpression: String,
 )
 
-data class PatchRestJobRequest(
-    val jobGroup: String,
-    val jobName: String,
-    val description: String
-)
-
-data class DeleteRestJobRequest(
-    val jobGroup: String,
-    val jobName: String
-)
-
 data class GetRestJobResponse(
     val jobGroup: String,
     val jobName: String,

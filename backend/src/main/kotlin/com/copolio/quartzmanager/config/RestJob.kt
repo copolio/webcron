@@ -20,11 +20,11 @@ class RestJob(
         this.url = url
     }
 
-    fun setUsername(user: String) {
+    fun setUsername(user: String?) {
         this.username = user
     }
 
-    fun setPassword(pass: String) {
+    fun setPassword(pass: String?) {
         this.password = pass
     }
 
