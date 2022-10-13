@@ -1,27 +1,18 @@
 <template>
-    <slot :isLoading="isLoading" :jobGroups="jobGroups" :getJobGroupList="getJobGroupList" />
+  <slot :isLoading="isLoading" :isError="isError" :data="data" :error="error" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, Ref, ref } from 'vue';
-import { SchedulerControllerApi } from '../api';
+import { useQuery } from "vue-query";
+import { useQuartzApi } from "../util/AxiosUtil";
 
-const isLoading = ref(false);
-const jobGroups: Ref<Array<string>> = ref([]);
-const getJobGroupList = () => {
-    isLoading.value = true;
-    const api = new SchedulerControllerApi();
-    api.getGroups()
-        .then(res => jobGroups.value = res.data)
-        .catch(err => alert(err))
-        .finally(() => isLoading.value = false);
+const quartzApi = useQuartzApi();
+
+const useJobGroupsQuery = () => {
+  return useQuery("jobGroups", quartzApi.SchedulerApi.getGroups);
 };
 
-onMounted(() => {
-    getJobGroupList();
-});
+const { isLoading, isError, data, error } = useJobGroupsQuery();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
