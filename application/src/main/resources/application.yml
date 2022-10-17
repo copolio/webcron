@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mysql.cj.jdbc.MysqlDataSource
-    url: jdbc:mysql://localhost:3306/bartz
+    url: jdbc:mysql://localhost:3306/quartz
     username: root
     password: test
   quartz:

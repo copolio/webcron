@@ -1,2 +1,2 @@
 rootProject.name = "quartz-manager"
-include("backend")
+include("application")
