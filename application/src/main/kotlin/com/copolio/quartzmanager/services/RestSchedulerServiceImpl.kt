@@ -1,6 +1,7 @@
 package com.copolio.quartzmanager.services
 
 import com.copolio.quartzmanager.config.RestJob
+import com.copolio.quartzmanager.dto.GetJobGroupResponse
 import com.copolio.quartzmanager.dto.GetRestJobResponse
 import com.copolio.quartzmanager.dto.PostRestJobRequest
 import org.quartz.*
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service
 class RestSchedulerServiceImpl(
     private val scheduler: Scheduler
 ) : RestSchedulerService {
-    override fun getGroups(): List<String> {
-        return scheduler.jobGroupNames
+    override fun getGroups(): List<GetJobGroupResponse> {
+        return scheduler.jobGroupNames.map { groupName -> GetJobGroupResponse(groupName) }
     }
 
     override fun addJob(
