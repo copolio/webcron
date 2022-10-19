@@ -3,7 +3,7 @@ package com.copolio.quartzmanager.dto
 import org.springframework.http.HttpMethod
 
 data class GetJobGroupResponse(
-    val groupName: String
+    val name: String
 )
 
 data class PostRestJobRequest(
@@ -18,8 +18,7 @@ data class PostRestJobRequest(
 )
 
 data class GetRestJobResponse(
-    val jobGroup: String,
-    val jobName: String,
+    val name: String,
     val description: String,
     val cronExpression: String,
 )

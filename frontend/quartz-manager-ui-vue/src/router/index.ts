@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import JobGroupList from "../views/JobGroupList.vue";
+import QuartzJobTreeVue from "../views/QuartzJobTree.vue";
 
 const routes: RouteRecordRaw[] = [];
 
@@ -9,7 +9,7 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: JobGroupList,
+      component: QuartzJobTreeVue,
     },
   ],
 });

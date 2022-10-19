@@ -1,26 +1,14 @@
 <template>
   <a-layout>
     <a-layout-header class="header">
-      <div class="logo" />
-      <a-menu
-        v-model:selectedKeys="selectedKeys1"
-        theme="dark"
-        mode="horizontal"
-        :style="{ lineHeight: '64px' }"
-      >
-        <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item>
-      </a-menu>
+      <div class="logo">
+        Quartz Manager
+      </div>
     </a-layout-header>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff">
-        <a-menu
-          v-model:selectedKeys="selectedKeys2"
-          v-model:openKeys="openKeys"
-          mode="inline"
-          :style="{ height: '100%', borderRight: 0 }"
-        >
+        <a-menu v-model:selectedKeys="selectedKeys2" v-model:openKeys="openKeys" mode="inline"
+          :style="{ height: '100%', borderRight: 0 }">
           <a-sub-menu key="sub1">
             <template #title>
               <span>
@@ -65,14 +53,12 @@
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb>
-        <a-layout-content
-          :style="{
-            background: '#fff',
-            padding: '24px',
-            margin: 0,
-            minHeight: '280px',
-          }"
-        >
+        <a-layout-content :style="{
+          background: '#fff',
+          padding: '24px',
+          margin: 0,
+          minHeight: '280px',
+        }">
           <router-view></router-view>
         </a-layout-content>
       </a-layout>
@@ -83,7 +69,7 @@
 import {
   LaptopOutlined,
   NotificationOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons-vue";
 import { defineComponent, ref } from "vue";
 export default defineComponent({
@@ -97,7 +83,7 @@ export default defineComponent({
       selectedKeys1: ref<string[]>(["2"]),
       selectedKeys2: ref<string[]>(["1"]),
       collapsed: ref<boolean>(false),
-      openKeys: ref<string[]>(["sub1"]),
+      openKeys: ref<string[]>([]),
     };
   },
 });
@@ -114,6 +100,11 @@ export default defineComponent({
 .ant-row-rtl #components-layout-demo-top-side-2 .logo {
   float: right;
   margin: 16px 0 16px 24px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 20px;
 }
 
 .site-layout-background {

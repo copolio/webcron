@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import QuartzLayout from "./components/QuartzLayout.vue";
+import AntLayout from "./components/AntLayout.vue";
 </script>
 
 <template>
-  <QuartzLayout />
+  <AntLayout />
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

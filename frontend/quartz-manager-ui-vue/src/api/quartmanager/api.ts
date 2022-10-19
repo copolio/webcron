@@ -24,6 +24,19 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface GetJobGroupResponse
+ */
+export interface GetJobGroupResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetJobGroupResponse
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
  * @interface GetRestJobResponse
  */
 export interface GetRestJobResponse {
@@ -32,13 +45,7 @@ export interface GetRestJobResponse {
      * @type {string}
      * @memberof GetRestJobResponse
      */
-    'jobGroup': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetRestJobResponse
-     */
-    'jobName': string;
+    'name': string;
     /**
      * 
      * @type {string}
@@ -51,25 +58,6 @@ export interface GetRestJobResponse {
      * @memberof GetRestJobResponse
      */
     'cronExpression': string;
-}
-/**
- * 
- * @export
- * @interface JobKey
- */
-export interface JobKey {
-    /**
-     * 
-     * @type {string}
-     * @memberof JobKey
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof JobKey
-     */
-    'group'?: string;
 }
 /**
  * 
@@ -354,7 +342,7 @@ export const SchedulerControllerApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGroups(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+        async getGroups(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetJobGroupResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getGroups(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -375,7 +363,7 @@ export const SchedulerControllerApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobs(groupName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<JobKey>>> {
+        async getJobs(groupName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetRestJobResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobs(groupName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -413,7 +401,7 @@ export const SchedulerControllerApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGroups(options?: any): AxiosPromise<Array<string>> {
+        getGroups(options?: any): AxiosPromise<Array<GetJobGroupResponse>> {
             return localVarFp.getGroups(options).then((request) => request(axios, basePath));
         },
         /**
@@ -432,7 +420,7 @@ export const SchedulerControllerApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobs(groupName: string, options?: any): AxiosPromise<Array<JobKey>> {
+        getJobs(groupName: string, options?: any): AxiosPromise<Array<GetRestJobResponse>> {
             return localVarFp.getJobs(groupName, options).then((request) => request(axios, basePath));
         },
     };

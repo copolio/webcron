@@ -39,17 +39,16 @@ class RestSchedulerServiceImpl(
             .build()
         scheduler.scheduleJob(jobDetail, trigger)
         return GetRestJobResponse(
-            jobName = jobDetail.key.name,
-            jobGroup = jobDetail.key.group,
+            name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = params.cronExpression
         )
     }
 
-    override fun getJobs(jobGroup: String): List<JobKey> {
-        val jobs = ArrayList<JobKey>()
+    override fun getJobs(jobGroup: String): List<GetRestJobResponse> {
+        val jobs = ArrayList<GetRestJobResponse>()
         for (jobKey in scheduler.getJobKeys(GroupMatcher.jobGroupEquals(jobGroup))) {
-            jobs.add(jobKey)
+            jobs.add(getJob(jobKey.name, jobKey.group))
         }
         return jobs
     }
@@ -57,8 +56,7 @@ class RestSchedulerServiceImpl(
     override fun getJob(jobName: String, jobGroup: String): GetRestJobResponse {
         val jobDetail = scheduler.getJobDetail(JobKey(jobName, jobGroup))
         return GetRestJobResponse(
-            jobGroup = jobDetail.key.group,
-            jobName = jobDetail.key.name,
+            name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = getTrigger(jobName, jobGroup)
         )

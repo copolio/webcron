@@ -1,9 +1,9 @@
 package com.copolio.quartzmanager.controllers
 
+import com.copolio.quartzmanager.dto.GetJobGroupResponse
 import com.copolio.quartzmanager.dto.GetRestJobResponse
 import com.copolio.quartzmanager.dto.PostRestJobRequest
 import com.copolio.quartzmanager.services.RestSchedulerService
-import org.quartz.JobKey
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,14 +19,14 @@ class SchedulerController(
     }
 
     @GetMapping("/groups")
-    fun getGroups(): ResponseEntity<List<String>> {
+    fun getGroups(): ResponseEntity<List<GetJobGroupResponse>> {
         return ResponseEntity.ok(
             restSchedulerService.getGroups()
         )
     }
 
     @GetMapping("/groups/{groupName}/jobs")
-    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<JobKey>> {
+    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<GetRestJobResponse>> {
         return ResponseEntity.ok(
             restSchedulerService.getJobs(groupName)
         )
