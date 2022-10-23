@@ -13,7 +13,7 @@ const quartzApi = useQuartzApi();
 const useJobGroupQuery = () => {
   return useQuery<AxiosResponse<Array<GetJobGroupResponse>>, AxiosError<string>>(
     "jobGroups",
-    quartzApi.SchedulerApi.getGroups
+    quartzApi.HttpSchedulerApi.getGroups
   );
 };
 

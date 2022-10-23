@@ -1,6 +1,6 @@
 import {
   Configuration,
-  SchedulerControllerApiFactory,
+  HttpSchedulerControllerApiFactory,
 } from "../api/quartmanager";
 
 export function useQuartzApi() {
@@ -9,6 +9,6 @@ export function useQuartzApi() {
     baseOptions: { withCredentials: true },
   });
   return {
-    SchedulerApi: SchedulerControllerApiFactory(config),
+    HttpSchedulerApi: HttpSchedulerControllerApiFactory(config),
   };
 }

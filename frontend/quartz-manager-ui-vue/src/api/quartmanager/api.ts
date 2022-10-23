@@ -24,6 +24,37 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface GetHttpJobResponse
+ */
+export interface GetHttpJobResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof GetHttpJobResponse
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetHttpJobResponse
+     */
+    'description': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetHttpJobResponse
+     */
+    'cronExpression': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetHttpJobResponse
+     */
+    'url': string;
+}
+/**
+ * 
+ * @export
  * @interface GetJobGroupResponse
  */
 export interface GetJobGroupResponse {
@@ -37,85 +68,60 @@ export interface GetJobGroupResponse {
 /**
  * 
  * @export
- * @interface GetRestJobResponse
+ * @interface PostHttpJobRequest
  */
-export interface GetRestJobResponse {
+export interface PostHttpJobRequest {
     /**
      * 
      * @type {string}
-     * @memberof GetRestJobResponse
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetRestJobResponse
-     */
-    'description': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetRestJobResponse
-     */
-    'cronExpression': string;
-}
-/**
- * 
- * @export
- * @interface PostRestJobRequest
- */
-export interface PostRestJobRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'jobGroup'?: string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'jobName': string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'description': string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'url': string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'username'?: string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'password'?: string;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
-    'httpMethod': PostRestJobRequestHttpMethodEnum;
+    'httpMethod': PostHttpJobRequestHttpMethodEnum;
     /**
      * 
      * @type {string}
-     * @memberof PostRestJobRequest
+     * @memberof PostHttpJobRequest
      */
     'cronExpression': string;
 }
 
-export const PostRestJobRequestHttpMethodEnum = {
+export const PostHttpJobRequestHttpMethodEnum = {
     Get: 'GET',
     Head: 'HEAD',
     Post: 'POST',
@@ -126,24 +132,24 @@ export const PostRestJobRequestHttpMethodEnum = {
     Trace: 'TRACE'
 } as const;
 
-export type PostRestJobRequestHttpMethodEnum = typeof PostRestJobRequestHttpMethodEnum[keyof typeof PostRestJobRequestHttpMethodEnum];
+export type PostHttpJobRequestHttpMethodEnum = typeof PostHttpJobRequestHttpMethodEnum[keyof typeof PostHttpJobRequestHttpMethodEnum];
 
 
 /**
- * SchedulerControllerApi - axios parameter creator
+ * HttpSchedulerControllerApi - axios parameter creator
  * @export
  */
-export const SchedulerControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const HttpSchedulerControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {PostRestJobRequest} postRestJobRequest 
+         * @param {PostHttpJobRequest} postHttpJobRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addJob: async (postRestJobRequest: PostRestJobRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'postRestJobRequest' is not null or undefined
-            assertParamExists('addJob', 'postRestJobRequest', postRestJobRequest)
+        addJob: async (postHttpJobRequest: PostHttpJobRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'postHttpJobRequest' is not null or undefined
+            assertParamExists('addJob', 'postHttpJobRequest', postHttpJobRequest)
             const localVarPath = `/scheduler/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -163,7 +169,7 @@ export const SchedulerControllerApiAxiosParamCreator = function (configuration?:
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(postRestJobRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(postHttpJobRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -310,20 +316,20 @@ export const SchedulerControllerApiAxiosParamCreator = function (configuration?:
 };
 
 /**
- * SchedulerControllerApi - functional programming interface
+ * HttpSchedulerControllerApi - functional programming interface
  * @export
  */
-export const SchedulerControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = SchedulerControllerApiAxiosParamCreator(configuration)
+export const HttpSchedulerControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = HttpSchedulerControllerApiAxiosParamCreator(configuration)
     return {
         /**
          * 
-         * @param {PostRestJobRequest} postRestJobRequest 
+         * @param {PostHttpJobRequest} postHttpJobRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addJob(postRestJobRequest: PostRestJobRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRestJobResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addJob(postRestJobRequest, options);
+        async addJob(postHttpJobRequest: PostHttpJobRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetHttpJobResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addJob(postHttpJobRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -353,7 +359,7 @@ export const SchedulerControllerApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJob(groupName: string, jobName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRestJobResponse>> {
+        async getJob(groupName: string, jobName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetHttpJobResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJob(groupName, jobName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -363,7 +369,7 @@ export const SchedulerControllerApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobs(groupName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetRestJobResponse>>> {
+        async getJobs(groupName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetHttpJobResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobs(groupName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -371,20 +377,20 @@ export const SchedulerControllerApiFp = function(configuration?: Configuration) 
 };
 
 /**
- * SchedulerControllerApi - factory interface
+ * HttpSchedulerControllerApi - factory interface
  * @export
  */
-export const SchedulerControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = SchedulerControllerApiFp(configuration)
+export const HttpSchedulerControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = HttpSchedulerControllerApiFp(configuration)
     return {
         /**
          * 
-         * @param {PostRestJobRequest} postRestJobRequest 
+         * @param {PostHttpJobRequest} postHttpJobRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addJob(postRestJobRequest: PostRestJobRequest, options?: any): AxiosPromise<GetRestJobResponse> {
-            return localVarFp.addJob(postRestJobRequest, options).then((request) => request(axios, basePath));
+        addJob(postHttpJobRequest: PostHttpJobRequest, options?: any): AxiosPromise<GetHttpJobResponse> {
+            return localVarFp.addJob(postHttpJobRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -411,7 +417,7 @@ export const SchedulerControllerApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob(groupName: string, jobName: string, options?: any): AxiosPromise<GetRestJobResponse> {
+        getJob(groupName: string, jobName: string, options?: any): AxiosPromise<GetHttpJobResponse> {
             return localVarFp.getJob(groupName, jobName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -420,28 +426,28 @@ export const SchedulerControllerApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobs(groupName: string, options?: any): AxiosPromise<Array<GetRestJobResponse>> {
+        getJobs(groupName: string, options?: any): AxiosPromise<Array<GetHttpJobResponse>> {
             return localVarFp.getJobs(groupName, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * SchedulerControllerApi - object-oriented interface
+ * HttpSchedulerControllerApi - object-oriented interface
  * @export
- * @class SchedulerControllerApi
+ * @class HttpSchedulerControllerApi
  * @extends {BaseAPI}
  */
-export class SchedulerControllerApi extends BaseAPI {
+export class HttpSchedulerControllerApi extends BaseAPI {
     /**
      * 
-     * @param {PostRestJobRequest} postRestJobRequest 
+     * @param {PostHttpJobRequest} postHttpJobRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SchedulerControllerApi
+     * @memberof HttpSchedulerControllerApi
      */
-    public addJob(postRestJobRequest: PostRestJobRequest, options?: AxiosRequestConfig) {
-        return SchedulerControllerApiFp(this.configuration).addJob(postRestJobRequest, options).then((request) => request(this.axios, this.basePath));
+    public addJob(postHttpJobRequest: PostHttpJobRequest, options?: AxiosRequestConfig) {
+        return HttpSchedulerControllerApiFp(this.configuration).addJob(postHttpJobRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -450,20 +456,20 @@ export class SchedulerControllerApi extends BaseAPI {
      * @param {string} jobName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SchedulerControllerApi
+     * @memberof HttpSchedulerControllerApi
      */
     public deleteJob(groupName: string, jobName: string, options?: AxiosRequestConfig) {
-        return SchedulerControllerApiFp(this.configuration).deleteJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
+        return HttpSchedulerControllerApiFp(this.configuration).deleteJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SchedulerControllerApi
+     * @memberof HttpSchedulerControllerApi
      */
     public getGroups(options?: AxiosRequestConfig) {
-        return SchedulerControllerApiFp(this.configuration).getGroups(options).then((request) => request(this.axios, this.basePath));
+        return HttpSchedulerControllerApiFp(this.configuration).getGroups(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -472,10 +478,10 @@ export class SchedulerControllerApi extends BaseAPI {
      * @param {string} jobName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SchedulerControllerApi
+     * @memberof HttpSchedulerControllerApi
      */
     public getJob(groupName: string, jobName: string, options?: AxiosRequestConfig) {
-        return SchedulerControllerApiFp(this.configuration).getJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
+        return HttpSchedulerControllerApiFp(this.configuration).getJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -483,10 +489,10 @@ export class SchedulerControllerApi extends BaseAPI {
      * @param {string} groupName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SchedulerControllerApi
+     * @memberof HttpSchedulerControllerApi
      */
     public getJobs(groupName: string, options?: AxiosRequestConfig) {
-        return SchedulerControllerApiFp(this.configuration).getJobs(groupName, options).then((request) => request(this.axios, this.basePath));
+        return HttpSchedulerControllerApiFp(this.configuration).getJobs(groupName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
