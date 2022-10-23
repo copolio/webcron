@@ -6,7 +6,7 @@ data class GetJobGroupResponse(
     val name: String
 )
 
-data class PostRestJobRequest(
+data class PostHttpJobRequest(
     val jobGroup: String?,
     val jobName: String,
     val description: String,
@@ -17,8 +17,9 @@ data class PostRestJobRequest(
     val cronExpression: String,
 )
 
-data class GetRestJobResponse(
+data class GetHttpJobResponse(
     val name: String,
     val description: String,
     val cronExpression: String,
+    val url: String,
 )

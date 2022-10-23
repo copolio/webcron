@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForObject
 
-interface RestService {
+interface HttpService {
     fun sendRequest(url: String): String
 }
 
 @Service
-class RestServiceImpl(
+class HttpServiceImpl(
     restTemplateBuilder: RestTemplateBuilder
-) : RestService {
+) : HttpService {
     private val restTemplate: RestTemplate
 
     init {

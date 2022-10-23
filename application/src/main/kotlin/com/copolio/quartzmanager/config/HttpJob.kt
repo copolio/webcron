@@ -1,15 +1,15 @@
 package com.copolio.quartzmanager.config
 
-import com.copolio.quartzmanager.services.RestService
+import com.copolio.quartzmanager.services.HttpService
 import org.quartz.JobExecutionContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpMethod
 import org.springframework.scheduling.quartz.QuartzJobBean
 
-class RestJob(
-    private val restService: RestService,
-    private val logger: Logger = LoggerFactory.getLogger(RestJob::class.java)
+class HttpJob(
+    private val httpService: HttpService,
+    private val logger: Logger = LoggerFactory.getLogger(HttpJob::class.java)
 ) : QuartzJobBean() {
     private lateinit var url: String
     private var username: String? = null
@@ -34,7 +34,7 @@ class RestJob(
 
     override fun executeInternal(context: JobExecutionContext) {
         logger.info("Start RestJob")
-        restService.sendRequest(url = url)
+        httpService.sendRequest(url = url)
         logger.info("End RestJob")
     }
 }

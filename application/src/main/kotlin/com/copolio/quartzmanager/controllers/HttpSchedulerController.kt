@@ -1,34 +1,34 @@
 package com.copolio.quartzmanager.controllers
 
+import com.copolio.quartzmanager.dto.GetHttpJobResponse
 import com.copolio.quartzmanager.dto.GetJobGroupResponse
-import com.copolio.quartzmanager.dto.GetRestJobResponse
-import com.copolio.quartzmanager.dto.PostRestJobRequest
-import com.copolio.quartzmanager.services.RestSchedulerService
+import com.copolio.quartzmanager.dto.PostHttpJobRequest
+import com.copolio.quartzmanager.services.HttpSchedulerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/scheduler")
-class SchedulerController(
-    val restSchedulerService: RestSchedulerService
+class HttpSchedulerController(
+    val httpSchedulerService: HttpSchedulerService
 ) {
     @PostMapping("/")
-    fun addJob(@RequestBody params: PostRestJobRequest): ResponseEntity<GetRestJobResponse> {
-        return ResponseEntity(restSchedulerService.addJob(params), HttpStatus.CREATED)
+    fun addJob(@RequestBody params: PostHttpJobRequest): ResponseEntity<GetHttpJobResponse> {
+        return ResponseEntity(httpSchedulerService.addJob(params), HttpStatus.CREATED)
     }
 
     @GetMapping("/groups")
     fun getGroups(): ResponseEntity<List<GetJobGroupResponse>> {
         return ResponseEntity.ok(
-            restSchedulerService.getGroups()
+            httpSchedulerService.getGroups()
         )
     }
 
     @GetMapping("/groups/{groupName}/jobs")
-    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<GetRestJobResponse>> {
+    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<GetHttpJobResponse>> {
         return ResponseEntity.ok(
-            restSchedulerService.getJobs(groupName)
+            httpSchedulerService.getJobs(groupName)
         )
     }
 
@@ -36,9 +36,9 @@ class SchedulerController(
     fun getJob(
         @PathVariable("groupName") groupName: String,
         @PathVariable("jobName") jobName: String
-    ): ResponseEntity<GetRestJobResponse> {
+    ): ResponseEntity<GetHttpJobResponse> {
         return ResponseEntity.ok(
-            restSchedulerService.getJob(
+            httpSchedulerService.getJob(
                 groupName, jobName
             )
         )
@@ -50,7 +50,7 @@ class SchedulerController(
         @PathVariable("jobName") jobName: String
     ): ResponseEntity<String> {
         return ResponseEntity.ok(
-            restSchedulerService.deleteJob(
+            httpSchedulerService.deleteJob(
                 jobName = jobName,
                 jobGroup = groupName
             )

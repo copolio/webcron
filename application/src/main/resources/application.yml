@@ -6,7 +6,7 @@ spring:
     username: root
     password: test
   quartz:
-    scheduler-name: api-quartz
+    scheduler-name: common
     job-store-type: jdbc
     jdbc:
       initialize-schema: never
@@ -25,3 +25,6 @@ spring:
 #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
 #            dataSource: spring.datasource
 #            clusterCheckinInterval: 20000
+logging:
+  level:
+    org.spring.framework.web.filter.CommonsRequestLoggingFilter: DEBUG
