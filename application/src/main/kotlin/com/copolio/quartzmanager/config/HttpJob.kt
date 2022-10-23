@@ -35,6 +35,7 @@ class HttpJob(
     override fun executeInternal(context: JobExecutionContext) {
         logger.info("Start RestJob")
         httpService.sendRequest(url = url)
+//        httpService.send(url = url, httpMethod = httpMethod, )
         logger.info("End RestJob")
     }
 }
