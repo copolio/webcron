@@ -58,7 +58,7 @@
                 <template #bodyCell="{ column, record }">
                   <template v-if="column.key === 'action'">
                     <HttpJobDelete :group-name="record.groupName" :job-name="record.name" v-slot="{ mutate }">
-                      <Button @click="mutate()" danger>
+                      <Button @click="showDeleteConfirm(() => mutate())" danger>
                         <template #icon>
                           <DeleteOutlined />
                         </template>
@@ -76,9 +76,9 @@
 </template>
 
 <script setup lang="ts">
-import { DeleteOutlined } from "@ant-design/icons-vue";
+import { DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import { Button, Col, Form, FormItem, Input, InputPassword, Modal, Row, Select, SelectOption, Table, Textarea } from "ant-design-vue";
-import { ref } from "vue";
+import { createVNode, ref } from "vue";
 import HttpJobDelete from "../components/HttpJobDelete.vue";
 import HttpJobForm from "../components/HttpJobForm.vue";
 import HttpJobGroupList from "../components/HttpJobGroupList.vue";
@@ -97,6 +97,21 @@ const groupColumns = [
     fixed: true
   }
 ];
+
+const showDeleteConfirm = (callback: Function) => {
+  Modal.confirm({
+    title: "Do you want to delete this job?",
+    icon: createVNode(ExclamationCircleOutlined),
+    content: createVNode('div', { style: 'color:red;' }, 'Some descriptions'),
+    onOk() {
+      console.log('OK');
+      callback();
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  })
+}
 
 const jobColumns = [
   {
