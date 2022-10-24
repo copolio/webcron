@@ -34,12 +34,13 @@ class HttpSchedulerServiceImpl(
             .build()
         val trigger = TriggerBuilder.newTrigger()
             .forJob(jobDetail)
-            .withIdentity(jobDetail.key.group, jobDetail.key.name)
+            .withIdentity(jobDetail.key.name, jobDetail.key.group)
             .withDescription(jobDetail.description)
             .withSchedule(CronScheduleBuilder.cronSchedule(params.cronExpression))
             .build()
         scheduler.scheduleJob(jobDetail, trigger)
         return GetHttpJobResponse(
+            groupName = jobDetail.key.group,
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = params.cronExpression,
@@ -58,6 +59,7 @@ class HttpSchedulerServiceImpl(
     override fun getJob(jobName: String, jobGroup: String): GetHttpJobResponse {
         val jobDetail = scheduler.getJobDetail(JobKey(jobName, jobGroup))
         return GetHttpJobResponse(
+            groupName = jobDetail.key.group,
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = getTrigger(jobName, jobGroup),

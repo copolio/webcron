@@ -32,6 +32,12 @@ export interface GetHttpJobResponse {
      * @type {string}
      * @memberof GetHttpJobResponse
      */
+    'groupName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetHttpJobResponse
+     */
     'name': string;
     /**
      * 

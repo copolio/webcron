@@ -54,7 +54,19 @@
           <p style="margin: 0">
             {{ record.description }}
             <HttpJobList :group-name="record.name" v-slot="{ isLoading, data }">
-              <Table :columns="jobColumns" :data-source="data?.data" :loading="isLoading" />
+              <Table :columns="jobColumns" :data-source="data?.data" :loading="isLoading">
+                <template #bodyCell="{ column, record }">
+                  <template v-if="column.key === 'action'">
+                    <HttpJobDelete :group-name="record.groupName" :job-name="record.name" v-slot="{ mutate }">
+                      <Button @click="mutate()" danger>
+                        <template #icon>
+                          <DeleteOutlined />
+                        </template>
+                      </Button>
+                    </HttpJobDelete>
+                  </template>
+                </template>
+              </Table>
             </HttpJobList>
           </p>
         </template>
@@ -64,8 +76,10 @@
 </template>
 
 <script setup lang="ts">
+import { DeleteOutlined } from "@ant-design/icons-vue";
 import { Button, Col, Form, FormItem, Input, InputPassword, Modal, Row, Select, SelectOption, Table, Textarea } from "ant-design-vue";
 import { ref } from "vue";
+import HttpJobDelete from "../components/HttpJobDelete.vue";
 import HttpJobForm from "../components/HttpJobForm.vue";
 import HttpJobGroupList from "../components/HttpJobGroupList.vue";
 import HttpJobList from "../components/HttpJobList.vue";
@@ -100,7 +114,13 @@ const jobColumns = [
   {
     title: 'Description',
     dataIndex: 'description',
+    key: 'description',
     width: '30%',
+  },
+  {
+    title: "Action",
+    key: "action",
+    width: "20%"
   },
 ];
 </script>

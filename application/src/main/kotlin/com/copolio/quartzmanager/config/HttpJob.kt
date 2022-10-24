@@ -18,7 +18,7 @@ class HttpJob(
     private var httpMethod: HttpMethod = HttpMethod.GET
 
     fun setUrl(url: String) {
-        this.url = url
+        this.url = if (url.startsWith("http")) url else "https://$url"
     }
 
     fun setUsername(user: String?) {

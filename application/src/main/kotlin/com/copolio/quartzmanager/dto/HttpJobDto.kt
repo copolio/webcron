@@ -19,6 +19,7 @@ data class PostHttpJobRequest(
 )
 
 data class GetHttpJobResponse(
+    val groupName: String,
     val name: String,
     val description: String,
     val cronExpression: String,
