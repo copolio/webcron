@@ -23,6 +23,9 @@
               </Col>
             </Row>
           </FormItem>
+          <FormItem label="Request Body">
+            <Textarea v-model:value="formState.requestBody" />
+          </FormItem>
           <FormItem label="Username">
             <Input v-model:value="formState.username" />
           </FormItem>
@@ -47,11 +50,6 @@
     <HttpJobGroupList v-slot="{ isLoading, data }">
       <Table :columns="groupColumns" :data-source="data?.data" :loading="isLoading"
         :pagination="{ hideOnSinglePage: true }" rowKey="name">
-        <template #bodyCell="{ column }">
-          <template v-if="column.key === 'action'">
-            <Button>Add</Button>
-          </template>
-        </template>
         <template #expandedRowRender="{ record }">
           <p style="margin: 0">
             {{ record.description }}
@@ -66,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Col, Form, FormItem, Input, InputPassword, Modal, Row, Select, SelectOption, Table } from "ant-design-vue";
+import { Button, Col, Form, FormItem, Input, InputPassword, Modal, Row, Select, SelectOption, Table, Textarea } from "ant-design-vue";
 import { ref } from "vue";
 import HttpJobForm from "../components/HttpJobForm.vue";
 import HttpJobGroupList from "../components/HttpJobGroupList.vue";
@@ -83,10 +81,6 @@ const groupColumns = [
     dataIndex: 'name',
     key: 'name',
     fixed: true
-  },
-  {
-    title: 'Action',
-    key: 'action'
   }
 ];
 

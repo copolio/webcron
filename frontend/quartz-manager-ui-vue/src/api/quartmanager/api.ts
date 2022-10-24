@@ -112,6 +112,12 @@ export interface PostHttpJobRequest {
      * @type {string}
      * @memberof PostHttpJobRequest
      */
+    'requestBody'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostHttpJobRequest
+     */
     'httpMethod': PostHttpJobRequestHttpMethodEnum;
     /**
      * 

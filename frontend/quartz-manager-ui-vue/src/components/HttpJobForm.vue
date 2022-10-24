@@ -18,6 +18,7 @@ const formState: Ref<PostHttpJobRequest> = ref({
     url: "",
     username: "",
     password: "",
+    requestBody: "",
     httpMethod: "GET",
     cronExpression: "",
 } as PostHttpJobRequest);

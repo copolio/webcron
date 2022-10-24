@@ -23,6 +23,7 @@ class HttpSchedulerServiceImpl(
         jobDataMap.put("url", params.url)
         jobDataMap.put("username", params.username)
         jobDataMap.put("password", params.password)
+        jobDataMap.put("requestBody", params.requestBody)
         jobDataMap.put("httpMethod", params.httpMethod)
         val jobDetail = JobBuilder.newJob()
             .ofType(HttpJob::class.java)

@@ -14,6 +14,7 @@ class HttpJob(
     private lateinit var url: String
     private var username: String? = null
     private var password: String? = null
+    private var requestBody: String? = null
     private var httpMethod: HttpMethod = HttpMethod.GET
 
     fun setUrl(url: String) {
@@ -28,14 +29,17 @@ class HttpJob(
         this.password = pass
     }
 
+    fun setRequestBody(req: String?) {
+        this.requestBody = req
+    }
+
     fun setHttpMethod(httpMethod: HttpMethod) {
         this.httpMethod = httpMethod
     }
 
     override fun executeInternal(context: JobExecutionContext) {
         logger.info("Start RestJob")
-        httpService.sendRequest(url = url)
-//        httpService.send(url = url, httpMethod = httpMethod, )
+        httpService.send(url = url, httpMethod = httpMethod, body = requestBody)
         logger.info("End RestJob")
     }
 }

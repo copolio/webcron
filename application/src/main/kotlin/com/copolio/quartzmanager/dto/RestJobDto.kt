@@ -13,6 +13,7 @@ data class PostHttpJobRequest(
     val url: String,
     val username: String?,
     val password: String?,
+    val requestBody: String?,
     val httpMethod: HttpMethod,
     val cronExpression: String,
 )
