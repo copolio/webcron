@@ -1,78 +1,80 @@
 <template>
   <div>
-    <a-button @click="() => showJobForm = true">Add</a-button>
-    <a-modal v-model:visible="showJobForm" title="Add Job" @ok="closeJobForm">
-      <HttpJobForm v-slot="{formState, isLoading, isError, error, isSuccess, mutate}">
-        <a-form v-bind="{
+    <Button @click="() => showJobForm = true">Add</Button>
+    <HttpJobForm v-slot="{ formState, isLoading, isError, error, isSuccess, mutate }">
+      <Modal v-model:visible="showJobForm" title="Add Job" @ok="() => closeJobForm(mutate)">
+        <Form v-bind="{
           labelCol: { span: 5 },
           wrapperCol: { span: 19 },
-        }">
-          <a-form-item label="URL">
-            <a-row>
-              <a-col :span="6">
-                <a-select v-model:value="formState.httpMethod">
-                  <a-select-option value="GET">GET</a-select-option>
-                  <a-select-option value="POST">POST</a-select-option>
-                  <a-select-option value="PUT">PUT</a-select-option>
-                  <a-select-option value="PATCH">PATCH</a-select-option>
-                  <a-select-option value="DELETE">DELETE</a-select-option>
-                </a-select>
-              </a-col>
-              <a-col :span="18">
-                <a-input v-model="formState.url" />
-              </a-col>
-            </a-row>
-          </a-form-item>
-          <a-form-item label="Username">
-            <a-input v-model="formState.username" />
-          </a-form-item>
-          <a-form-item label="Password">
-            <a-input v-model="formState.password" type="password" />
-          </a-form-item>
-          <a-form-item label="Cron">
-            <a-input v-model="formState.cronExpression" />
-          </a-form-item>
-          <a-form-item label="Group">
-            <a-input v-model="formState.jobGroup" />
-          </a-form-item>
-          <a-form-item label="Name">
-            <a-input v-model="formState.jobName" />
-          </a-form-item>
-          <a-form-item label="Description">
-            <a-input v-model="formState.description" />
-          </a-form-item>
-        </a-form>
-      </HttpJobForm>
-    </a-modal>
+        }" :model="formState">
+          <FormItem label="URL">
+            <Row>
+              <Col :span="6">
+              <Select v-model:value="formState.httpMethod">
+                <SelectOption value="GET">GET</SelectOption>
+                <SelectOption value="POST">POST</SelectOption>
+                <SelectOption value="PUT">PUT</SelectOption>
+                <SelectOption value="PATCH">PATCH</SelectOption>
+                <SelectOption value="DELETE">DELETE</SelectOption>
+              </Select>
+              </Col>
+              <Col :span="18">
+              <Input v-model:value="formState.url" />
+              </Col>
+            </Row>
+          </FormItem>
+          <FormItem label="Username">
+            <Input v-model:value="formState.username" />
+          </FormItem>
+          <FormItem label="Password">
+            <InputPassword v-model:value="formState.password" />
+          </FormItem>
+          <FormItem label="Cron">
+            <Input v-model:value="formState.cronExpression" />
+          </FormItem>
+          <FormItem label="Group">
+            <Input v-model:value="formState.jobGroup" />
+          </FormItem>
+          <FormItem label="Name">
+            <Input v-model:value="formState.jobName" />
+          </FormItem>
+          <FormItem label="Description">
+            <Input v-model:value="formState.description" />
+          </FormItem>
+        </Form>
+      </Modal>
+    </HttpJobForm>
     <HttpJobGroupList v-slot="{ isLoading, data }">
-      <a-table :columns="groupColumns" :data-source="data?.data" :loading="isLoading"
-        :pagination="{hideOnSinglePage: true}" rowKey="name">
+      <Table :columns="groupColumns" :data-source="data?.data" :loading="isLoading"
+        :pagination="{ hideOnSinglePage: true }" rowKey="name">
         <template #bodyCell="{ column }">
           <template v-if="column.key === 'action'">
-            <a-button>Add</a-button>
+            <Button>Add</Button>
           </template>
         </template>
         <template #expandedRowRender="{ record }">
           <p style="margin: 0">
             {{ record.description }}
-            <HttpJobList :group-name="record.name" v-slot="{isLoading, data}">
-              <a-table :columns="jobColumns" :data-source="data?.data" :loading="isLoading" />
+            <HttpJobList :group-name="record.name" v-slot="{ isLoading, data }">
+              <Table :columns="jobColumns" :data-source="data?.data" :loading="isLoading" />
             </HttpJobList>
           </p>
         </template>
-      </a-table>
+      </Table>
     </HttpJobGroupList>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Button, Col, Form, FormItem, Input, InputPassword, Modal, Row, Select, SelectOption, Table } from "ant-design-vue";
 import { ref } from "vue";
 import HttpJobForm from "../components/HttpJobForm.vue";
 import HttpJobGroupList from "../components/HttpJobGroupList.vue";
 import HttpJobList from "../components/HttpJobList.vue";
 
 const showJobForm = ref(false);
-const closeJobForm = () => {
+const closeJobForm = (callback: Function) => {
+  callback();
   showJobForm.value = false;
 }
 const groupColumns = [
