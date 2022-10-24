@@ -102,13 +102,11 @@ const showDeleteConfirm = (callback: Function) => {
   Modal.confirm({
     title: "Do you want to delete this job?",
     icon: createVNode(ExclamationCircleOutlined),
-    content: createVNode('div', { style: 'color:red;' }, 'Some descriptions'),
+    content: createVNode('div', { style: 'color:red;' }, 'Deleted job will be permanently removed from the database.'),
     onOk() {
-      console.log('OK');
       callback();
     },
     onCancel() {
-      console.log('Cancel');
     },
   })
 }

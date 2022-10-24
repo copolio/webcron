@@ -1,78 +1,63 @@
 <template>
-  <a-layout>
-    <a-layout-header class="header">
-      <div class="logo">
+  <Layout>
+    <LayoutHeader class="header">
+      <div class="logo" @click="router.push('/')">
         Quartz Manager
       </div>
-    </a-layout-header>
-    <a-layout>
-      <a-layout-sider width="200" style="background: #fff">
-        <a-menu v-model:selectedKeys="selectedKeys2" v-model:openKeys="openKeys" mode="inline"
+    </LayoutHeader>
+    <Layout>
+      <LayoutSider width="200" style="background: #fff">
+        <Menu :selectedKeys="selectedKey" v-model:openKeys="openKeys" mode="inline"
           :style="{ height: '100%', borderRight: 0 }">
-          <a-sub-menu key="sub1">
+          <MenuItem key="Home" @click="router.push('/')">Home</MenuItem>
+          <SubMenu key="quartz">
             <template #title>
               <span>
-                <schedule-outlined />
+                <ScheduleOutlined />
                 Quartz
               </span>
             </template>
-            <a-menu-item key="1">HTTP Jobs</a-menu-item>
-            <a-menu-item key="2">Batch Jobs</a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="sub2">
+            <MenuItem key="QuartzHttpScheduler" @click="router.push('/quartz/http-scheduler')">HTTP Jobs</MenuItem>
+            <MenuItem key="QuartzBatchScheduler" @click="router.push('/quartz/batch-scheduler')">Batch Jobs</MenuItem>
+          </SubMenu>
+          <SubMenu key="cron">
             <template #title>
               <span>
-                <laptop-outlined />
+                <LaptopOutlined />
                 Cron
               </span>
             </template>
-            <a-menu-item key="5">option5</a-menu-item>
-            <a-menu-item key="6">option6</a-menu-item>
-            <a-menu-item key="7">option7</a-menu-item>
-            <a-menu-item key="8">option8</a-menu-item>
-          </a-sub-menu>
-        </a-menu>
-      </a-layout-sider>
-      <a-layout style="padding: 0 24px 24px">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>List</a-breadcrumb-item>
-          <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb>
-        <a-layout-content :style="{
+            <MenuItem key="option">option</MenuItem>
+          </SubMenu>
+        </Menu>
+      </LayoutSider>
+      <Layout style="padding: 0 24px 24px">
+        <LayoutContent :style="{
           background: '#fff',
           padding: '24px',
           margin: 0,
           minHeight: '280px',
         }">
           <router-view></router-view>
-        </a-layout-content>
-      </a-layout>
-    </a-layout>
-  </a-layout>
+        </LayoutContent>
+      </Layout>
+    </Layout>
+  </Layout>
 </template>
-<script lang="ts">
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  ScheduleOutlined
-} from "@ant-design/icons-vue";
-import { defineComponent, ref } from "vue";
-export default defineComponent({
-  components: {
-    ScheduleOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
-  },
-  setup() {
-    return {
-      selectedKeys1: ref<string[]>(["2"]),
-      selectedKeys2: ref<string[]>(["1"]),
-      collapsed: ref<boolean>(false),
-      openKeys: ref<string[]>([]),
-    };
-  },
-});
+<script setup lang="ts">
+import { LaptopOutlined, ScheduleOutlined } from "@ant-design/icons-vue";
+import { computed } from "@vue/reactivity";
+import { Layout, LayoutContent, LayoutHeader, LayoutSider, Menu, MenuItem, SubMenu } from "ant-design-vue";
+import { Ref, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const collapsed: Ref<boolean> = ref(false);
+const openKeys: Ref<string[]> = ref([]);
+
+const selectedKey = computed(() => {
+  return [router.currentRoute.value.name];
+})
 </script>
 <style>
 #components-layout-demo-top-side-2 .logo {
