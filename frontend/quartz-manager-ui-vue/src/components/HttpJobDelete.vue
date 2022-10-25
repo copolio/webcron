@@ -3,21 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import { useMutation } from 'vue-query';
-import { useQuartzApi } from '../util/AxiosUtil';
+import { useDeleteHttpJobMutation } from '../composables/HttpJob';
 
 interface PropsInterface {
     groupName: string;
     jobName: string;
 }
-const quartzApi = useQuartzApi();
 const props = defineProps<PropsInterface>();
 
-function deleteJobMutation() {
-    return useMutation(() => quartzApi.HttpSchedulerApi.deleteJob(props.groupName, props.jobName));
-}
 
-const { isLoading, mutate } = deleteJobMutation();
+const { isLoading, mutate } = useDeleteHttpJobMutation(props.groupName, props.jobName);
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
-import NotFound from "../views/NotFound.vue";
-import QuartzHttpScheduler from "../views/QuartzHttpScheduler.vue";
+import Home from "../pages/Home.vue";
+import NotFound from "../pages/NotFound.vue";
+import QuartzHttpScheduler from "../pages/QuartzHttpScheduler.vue";
 
 const routes: RouteRecordRaw[] = [
   {

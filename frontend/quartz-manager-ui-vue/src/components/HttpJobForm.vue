@@ -4,14 +4,11 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
-import { useMutation } from 'vue-query';
+import { ref } from 'vue';
 import { PostHttpJobRequest } from '../api/quartmanager';
-import { useQuartzApi } from '../util/AxiosUtil';
+import { useAddHttpJobMutation } from '../composables/HttpJob';
 
-const quartzApi = useQuartzApi();
-
-const formState: Ref<PostHttpJobRequest> = ref({
+const formState = ref<PostHttpJobRequest>({
     jobGroup: "",
     jobName: "",
     description: "",
@@ -21,14 +18,9 @@ const formState: Ref<PostHttpJobRequest> = ref({
     requestBody: "",
     httpMethod: "GET",
     cronExpression: "",
-} as PostHttpJobRequest);
+});
 
-function addJobMutation() {
-    return useMutation(() => quartzApi.HttpSchedulerApi.addJob(formState.value));
-}
-
-const { isLoading, isError, error, isSuccess, mutate } = addJobMutation();
-
+const { isLoading, isError, error, isSuccess, mutate } = useAddHttpJobMutation(formState.value);
 </script>
 
 <style scoped>

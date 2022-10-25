@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useSchedulerStore = defineStore("scheduler", {
+export const useHttpJobStore = defineStore("httpJob", {
   state: () => {
     return {
       jobGroups: [],

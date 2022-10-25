@@ -47,7 +47,7 @@
         </Form>
       </Modal>
     </HttpJobForm>
-    <HttpJobGroupList v-slot="{ isLoading, data }">
+    <HttpJobGroupList v-slot="{ isLoading, data, refetch }">
       <Table :columns="groupColumns" :data-source="data?.data" :loading="isLoading"
         :pagination="{ hideOnSinglePage: true }" rowKey="name">
         <template #expandedRowRender="{ record }">
