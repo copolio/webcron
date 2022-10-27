@@ -1,20 +1,20 @@
 <template>
-    <slot :isLoading="isLoading" :mutate="mutate" />
+  <slot :isLoading="isLoading" :mutateAsync="mutateAsync" />
 </template>
 
 <script setup lang="ts">
-import { useDeleteHttpJobMutation } from '../composables/HttpJob';
+import { useDeleteHttpJobMutation } from "../composables/HttpJob";
 
 interface PropsInterface {
-    groupName: string;
-    jobName: string;
+  groupName: string;
+  jobName: string;
 }
 const props = defineProps<PropsInterface>();
 
-
-const { isLoading, mutate } = useDeleteHttpJobMutation(props.groupName, props.jobName);
+const { isLoading, mutateAsync } = useDeleteHttpJobMutation(
+  props.groupName,
+  props.jobName
+);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

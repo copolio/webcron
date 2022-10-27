@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <Button @click="() => (showJobForm = true)">Add</Button>
-    <HttpJobForm
-      v-slot="{ formState, isLoading, isError, error, isSuccess, mutate }"
-    >
+  <HttpJobGroupList v-slot="{ isFetching, data, refetch }">
+    <Button @click="() => (showJobForm = true)">Create New</Button>
+    <Button @click="refetch()">Search</Button>
+    <HttpJobForm v-slot="{ formState, mutateAsync, resetForm }">
       <Modal
         v-model:visible="showJobForm"
         title="Add Job"
-        @ok="() => closeJobForm(mutate)"
+        @ok="() => closeJobForm(mutateAsync, resetForm, refetch)"
       >
         <Form
           v-bind="{
@@ -56,45 +55,46 @@
         </Form>
       </Modal>
     </HttpJobForm>
-    <HttpJobGroupList v-slot="{ isLoading, data, refetch }">
-      <Table
-        :columns="groupColumns"
-        :data-source="data?.data"
-        :loading="isLoading"
-        :pagination="{ hideOnSinglePage: true }"
-        rowKey="name"
-      >
-        <template #expandedRowRender="{ record }">
-          <p style="margin: 0">
-            {{ record.description }}
-            <HttpJobList :group-name="record.name" v-slot="{ isLoading, data }">
-              <Table
-                :columns="jobColumns"
-                :data-source="data?.data"
-                :loading="isLoading"
-              >
-                <template #bodyCell="{ column, record }">
-                  <template v-if="column.key === 'action'">
-                    <HttpJobDelete
-                      :group-name="record.groupName"
-                      :job-name="record.name"
-                      v-slot="{ mutate }"
+    <Table
+      :columns="groupColumns"
+      :data-source="data?.data"
+      :loading="isFetching"
+      :pagination="{ hideOnSinglePage: true }"
+      rowKey="name"
+    >
+      <template #expandedRowRender="{ record }">
+        <p style="margin: 0">
+          {{ record.description }}
+          <HttpJobList :group-name="record.name" v-slot="{ isFetching, data }">
+            <Table
+              :columns="jobColumns"
+              :data-source="data?.data"
+              :loading="isFetching"
+            >
+              <template #bodyCell="{ column, record }">
+                <template v-if="column.key === 'action'">
+                  <HttpJobDelete
+                    :group-name="record.groupName"
+                    :job-name="record.name"
+                    v-slot="{ mutateAsync }"
+                  >
+                    <Button
+                      @click="showDeleteConfirm(mutateAsync, refetch)"
+                      danger
                     >
-                      <Button @click="showDeleteConfirm(() => mutate())" danger>
-                        <template #icon>
-                          <DeleteOutlined />
-                        </template>
-                      </Button>
-                    </HttpJobDelete>
-                  </template>
+                      <template #icon>
+                        <DeleteOutlined />
+                      </template>
+                    </Button>
+                  </HttpJobDelete>
                 </template>
-              </Table>
-            </HttpJobList>
-          </p>
-        </template>
-      </Table>
-    </HttpJobGroupList>
-  </div>
+              </template>
+            </Table>
+          </HttpJobList>
+        </p>
+      </template>
+    </Table>
+  </HttpJobGroupList>
 </template>
 
 <script setup lang="ts">
@@ -123,8 +123,14 @@ import HttpJobGroupList from "../components/HttpJobGroupList.vue";
 import HttpJobList from "../components/HttpJobList.vue";
 
 const showJobForm = ref(false);
-const closeJobForm = (callback: Function) => {
-  callback();
+const closeJobForm = async (
+  mutateAsync: Function,
+  refetch: Function,
+  resetForm: Function
+) => {
+  await mutateAsync();
+  await resetForm();
+  await refetch();
   showJobForm.value = false;
 };
 const groupColumns = [
@@ -136,7 +142,7 @@ const groupColumns = [
   },
 ];
 
-const showDeleteConfirm = (callback: Function) => {
+const showDeleteConfirm = (mutateAsync: Function, refetch: Function) => {
   Modal.confirm({
     title: "Do you want to delete this job?",
     icon: createVNode(ExclamationCircleOutlined),
@@ -145,8 +151,9 @@ const showDeleteConfirm = (callback: Function) => {
       { style: "color:red;" },
       "Deleted job will be permanently removed from the database."
     ),
-    onOk() {
-      callback();
+    onOk: async () => {
+      await mutateAsync();
+      await refetch();
     },
     onCancel() {},
   });

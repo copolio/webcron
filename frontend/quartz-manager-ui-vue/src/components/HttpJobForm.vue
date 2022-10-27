@@ -5,7 +5,8 @@
     :isError="isError"
     :error="error"
     :isSuccess="isSuccess"
-    :mutate="mutateAsync"
+    :mutateAsync="mutateAsync"
+    :resetForm="resetForm"
   />
 </template>
 
@@ -25,6 +26,20 @@ const formState = ref<PostHttpJobRequest>({
   httpMethod: "GET",
   cronExpression: "",
 });
+
+const resetForm = () => {
+  formState.value = {
+    jobGroup: "",
+    jobName: "",
+    description: "",
+    url: "",
+    username: "",
+    password: "",
+    requestBody: "",
+    httpMethod: "GET",
+    cronExpression: "",
+  };
+};
 
 const { isLoading, isError, error, isSuccess, mutateAsync } =
   useAddHttpJobMutation(formState.value);
