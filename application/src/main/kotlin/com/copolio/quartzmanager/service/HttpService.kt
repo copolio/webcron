@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.services
+package com.copolio.quartzmanager.service
 
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity

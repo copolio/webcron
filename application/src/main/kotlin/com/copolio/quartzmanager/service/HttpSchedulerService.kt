@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.services
+package com.copolio.quartzmanager.service
 
 import com.copolio.quartzmanager.dto.GetHttpJobResponse
 import com.copolio.quartzmanager.dto.GetJobGroupResponse

@@ -3,7 +3,7 @@ package com.copolio.quartzmanager.controllers
 import com.copolio.quartzmanager.dto.GetHttpJobResponse
 import com.copolio.quartzmanager.dto.GetJobGroupResponse
 import com.copolio.quartzmanager.dto.PostHttpJobRequest
-import com.copolio.quartzmanager.services.HttpSchedulerService
+import com.copolio.quartzmanager.service.HttpSchedulerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

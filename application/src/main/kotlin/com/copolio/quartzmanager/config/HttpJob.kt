@@ -1,6 +1,6 @@
 package com.copolio.quartzmanager.config
 
-import com.copolio.quartzmanager.services.HttpService
+import com.copolio.quartzmanager.service.HttpService
 import org.quartz.JobExecutionContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
