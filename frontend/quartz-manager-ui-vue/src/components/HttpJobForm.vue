@@ -1,28 +1,33 @@
 <template>
-    <slot :formState="formState" :isLoading="isLoading" :isError="isError" :error="error" :isSuccess="isSuccess"
-        :mutate="mutate" />
+  <slot
+    :formState="formState"
+    :isLoading="isLoading"
+    :isError="isError"
+    :error="error"
+    :isSuccess="isSuccess"
+    :mutate="mutateAsync"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { PostHttpJobRequest } from '../api/quartmanager';
-import { useAddHttpJobMutation } from '../composables/HttpJob';
+import { ref } from "vue";
+import { PostHttpJobRequest } from "../api";
+import { useAddHttpJobMutation } from "../composables/HttpJob";
 
 const formState = ref<PostHttpJobRequest>({
-    jobGroup: "",
-    jobName: "",
-    description: "",
-    url: "",
-    username: "",
-    password: "",
-    requestBody: "",
-    httpMethod: "GET",
-    cronExpression: "",
+  jobGroup: "",
+  jobName: "",
+  description: "",
+  url: "",
+  username: "",
+  password: "",
+  requestBody: "",
+  httpMethod: "GET",
+  cronExpression: "",
 });
 
-const { isLoading, isError, error, isSuccess, mutate } = useAddHttpJobMutation(formState.value);
+const { isLoading, isError, error, isSuccess, mutateAsync } =
+  useAddHttpJobMutation(formState.value);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

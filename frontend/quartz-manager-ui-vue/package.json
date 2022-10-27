@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "openapi": "openapi-generator-cli generate -i http://localhost:8080/v3/api-docs.yaml -g typescript-axios -o ./src/api/quartmanager"
+    "openapi": "openapi-generator-cli generate -i http://localhost:8080/v3/api-docs.yaml -g typescript-axios -o ./src/api"
   },
   "dependencies": {
     "ant-design-vue": "^3.2.13",

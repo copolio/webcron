@@ -4,7 +4,7 @@ import {
   GetHttpJobResponse,
   GetJobGroupResponse,
   PostHttpJobRequest,
-} from "../api/quartmanager";
+} from "../api";
 import { useQuartzApi } from "../util/AxiosUtil";
 
 const quartzApi = useQuartzApi();

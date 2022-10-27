@@ -1,7 +1,4 @@
-import {
-  Configuration,
-  HttpSchedulerControllerApiFactory,
-} from "../api/quartmanager";
+import { Configuration, HttpSchedulerControllerApiFactory } from "../api";
 
 export function useQuartzApi() {
   const config = new Configuration({
