@@ -1,6 +1,7 @@
 package com.copolio.quartzmanager.controllers
 
 import org.quartz.SchedulerException
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -11,14 +12,13 @@ class GlobalExceptionHandler {
     fun handleSchedulerException(
         ex: SchedulerException
     ): ResponseEntity<String> {
-        return ResponseEntity.badRequest()
-            .body(ex.message)
+        return ResponseEntity(ex.message, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNoSuchElementException(
         ex: NoSuchElementException
     ): ResponseEntity<String> {
-        return ResponseEntity.notFound().build()
+        return ResponseEntity(ex.message, HttpStatus.NOT_FOUND)
     }
 }

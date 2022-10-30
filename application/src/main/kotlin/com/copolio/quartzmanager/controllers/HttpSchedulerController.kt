@@ -1,9 +1,14 @@
 package com.copolio.quartzmanager.controllers
 
+import com.copolio.quartzmanager.domain.HttpJobExecution
 import com.copolio.quartzmanager.dto.GetHttpJobResponse
 import com.copolio.quartzmanager.dto.GetJobGroupResponse
 import com.copolio.quartzmanager.dto.PostHttpJobRequest
 import com.copolio.quartzmanager.service.HttpSchedulerService
+import org.springdoc.api.annotations.ParameterObject
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -53,6 +58,19 @@ class HttpSchedulerController(
             httpSchedulerService.deleteJob(
                 jobName = jobName,
                 jobGroup = groupName
+            )
+        )
+    }
+
+    @GetMapping("/groups/{groupName}/jobs/{jobName}/executions")
+    fun getJobExecutions(
+        @PathVariable("groupName") groupName: String,
+        @PathVariable("jobName") jobName: String,
+        @ParameterObject @PageableDefault(page = 0, size = 20) pageable: Pageable
+    ): ResponseEntity<Page<HttpJobExecution>> {
+        return ResponseEntity.ok(
+            httpSchedulerService.getJobExecutions(
+                jobGroup = groupName, jobName = jobName, pageable = pageable
             )
         )
     }

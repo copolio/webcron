@@ -1,16 +1,21 @@
 package com.copolio.quartzmanager.service
 
 import com.copolio.quartzmanager.config.HttpJob
+import com.copolio.quartzmanager.domain.HttpJobExecution
+import com.copolio.quartzmanager.domain.HttpJobExecutionRepository
 import com.copolio.quartzmanager.dto.GetHttpJobResponse
 import com.copolio.quartzmanager.dto.GetJobGroupResponse
 import com.copolio.quartzmanager.dto.PostHttpJobRequest
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class HttpSchedulerServiceImpl(
-    private val scheduler: Scheduler
+    private val scheduler: Scheduler,
+    private val httpJobExecutionRepository: HttpJobExecutionRepository
 ) : HttpSchedulerService {
     override fun getGroups(): List<GetJobGroupResponse> {
         return scheduler.jobGroupNames.map { groupName -> GetJobGroupResponse(groupName) }
@@ -20,6 +25,8 @@ class HttpSchedulerServiceImpl(
         params: PostHttpJobRequest
     ): GetHttpJobResponse {
         val jobDataMap = JobDataMap()
+        jobDataMap.put("jobName", params.jobName)
+        jobDataMap.put("jobGroup", params.jobGroup)
         jobDataMap.put("url", params.url)
         jobDataMap.put("username", params.username)
         jobDataMap.put("password", params.password)
@@ -79,5 +86,17 @@ class HttpSchedulerServiceImpl(
         if (triggersOfJob.isEmpty())
             throw NoSuchElementException("Cron Trigger does not exists for the job(${jobGroup} : ${jobName})")
         return (triggersOfJob[0] as CronTrigger).cronExpression
+    }
+
+    override fun getJobExecutions(
+        jobName: String,
+        jobGroup: String,
+        pageable: Pageable
+    ): Page<HttpJobExecution> {
+        return httpJobExecutionRepository.findAllByJobGroupAndJobName(
+            jobName = jobName,
+            jobGroup = jobGroup,
+            pageable = pageable
+        )
     }
 }
