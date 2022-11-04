@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.domain
+package com.copolio.crontab.domain
 
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

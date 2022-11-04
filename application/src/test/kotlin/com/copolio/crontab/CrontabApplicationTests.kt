@@ -1,10 +1,10 @@
-package com.copolio.quartzmanager
+package com.copolio.crontab
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class QuartzManagerApplicationTests {
+class CrontabApplicationTests {
 
     @Test
     fun contextLoads() {

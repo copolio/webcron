@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.config
+package com.copolio.crontab.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod

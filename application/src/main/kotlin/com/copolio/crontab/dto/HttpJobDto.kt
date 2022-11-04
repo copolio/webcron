@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.dto
+package com.copolio.crontab.dto
 
 import org.springframework.http.HttpMethod
 

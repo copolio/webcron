@@ -1,11 +1,11 @@
-package com.copolio.quartzmanager
+package com.copolio.crontab
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class QuartzManagerApplication
+class CrontabApplication
 
 fun main(args: Array<String>) {
-    runApplication<QuartzManagerApplication>(*args)
+    runApplication<CrontabApplication>(*args)
 }

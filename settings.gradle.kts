@@ -1,2 +1,2 @@
-rootProject.name = "quartz-manager"
+rootProject.name = "spring-crontab"
 include("application")

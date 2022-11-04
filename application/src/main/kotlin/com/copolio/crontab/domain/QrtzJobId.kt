@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.domain
+package com.copolio.crontab.domain
 
 import java.io.Serializable
 import javax.persistence.Column

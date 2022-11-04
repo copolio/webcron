@@ -1,10 +1,10 @@
-package com.copolio.quartzmanager.controllers
+package com.copolio.crontab.controllers
 
-import com.copolio.quartzmanager.domain.HttpJobExecution
-import com.copolio.quartzmanager.dto.GetHttpJobResponse
-import com.copolio.quartzmanager.dto.GetJobGroupResponse
-import com.copolio.quartzmanager.dto.PostHttpJobRequest
-import com.copolio.quartzmanager.service.HttpSchedulerService
+import com.copolio.crontab.domain.HttpJobExecution
+import com.copolio.crontab.dto.GetHttpJobResponse
+import com.copolio.crontab.dto.GetJobGroupResponse
+import com.copolio.crontab.dto.PostHttpJobRequest
+import com.copolio.crontab.service.HttpSchedulerService
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

@@ -1,8 +1,8 @@
-package com.copolio.quartzmanager.config
+package com.copolio.crontab.config
 
-import com.copolio.quartzmanager.domain.HttpJobExecution
-import com.copolio.quartzmanager.domain.HttpJobExecutionRepository
-import com.copolio.quartzmanager.service.HttpService
+import com.copolio.crontab.domain.HttpJobExecution
+import com.copolio.crontab.domain.HttpJobExecutionRepository
+import com.copolio.crontab.service.HttpService
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
 import org.slf4j.Logger

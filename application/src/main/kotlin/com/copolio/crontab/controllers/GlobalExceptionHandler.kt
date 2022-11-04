@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.controllers
+package com.copolio.crontab.controllers
 
 import org.quartz.SchedulerException
 import org.springframework.http.HttpStatus

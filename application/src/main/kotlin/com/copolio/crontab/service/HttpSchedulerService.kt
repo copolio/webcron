@@ -1,9 +1,9 @@
-package com.copolio.quartzmanager.service
+package com.copolio.crontab.service
 
-import com.copolio.quartzmanager.domain.HttpJobExecution
-import com.copolio.quartzmanager.dto.GetHttpJobResponse
-import com.copolio.quartzmanager.dto.GetJobGroupResponse
-import com.copolio.quartzmanager.dto.PostHttpJobRequest
+import com.copolio.crontab.domain.HttpJobExecution
+import com.copolio.crontab.dto.GetHttpJobResponse
+import com.copolio.crontab.dto.GetJobGroupResponse
+import com.copolio.crontab.dto.PostHttpJobRequest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 

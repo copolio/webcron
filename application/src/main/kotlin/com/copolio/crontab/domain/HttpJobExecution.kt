@@ -1,4 +1,4 @@
-package com.copolio.quartzmanager.domain
+package com.copolio.crontab.domain
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
