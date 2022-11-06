@@ -5,6 +5,7 @@ import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
 import com.copolio.crontab.service.HttpSchedulerService
 import com.copolio.quartzapi.entity.HttpJobExecution
+import com.copolio.quartzapi.service.HttpJobService
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/scheduler")
 class HttpSchedulerController(
-    val httpSchedulerService: HttpSchedulerService
+    val httpSchedulerService: HttpSchedulerService,
+    val httpJobService: HttpJobService
 ) {
     @PostMapping("/")
     fun addJob(@RequestBody params: PostHttpJobRequest): ResponseEntity<GetHttpJobResponse> {
@@ -69,7 +71,7 @@ class HttpSchedulerController(
         @ParameterObject @PageableDefault(page = 0, size = 20) pageable: Pageable
     ): ResponseEntity<Page<HttpJobExecution>> {
         return ResponseEntity.ok(
-            httpSchedulerService.getJobExecutions(
+            httpJobService.getJobExecutions(
                 jobGroup = groupName, jobName = jobName, pageable = pageable
             )
         )

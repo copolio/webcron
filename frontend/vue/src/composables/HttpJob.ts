@@ -1,4 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
+import { ref } from "vue";
 import { useMutation, useQuery } from "vue-query";
 import {
   GetHttpJobResponse,
@@ -32,4 +33,28 @@ export function useDeleteHttpJobMutation(groupName: string, jobName: string) {
   return useMutation(() =>
     quartzApi.HttpSchedulerApi.deleteJob(groupName, jobName)
   );
+}
+
+export function useHttpJobExecutionQuery() {
+  const searchCondition = ref({
+    groupName: "",
+    jobName: "",
+    page: 0,
+    size: 20,
+    sort: ["instanceId,desc"],
+  });
+  const queryKey = ["httpJobExecutions", searchCondition];
+
+  return {
+    searchCondition,
+    ...useQuery(queryKey, () =>
+      quartzApi.HttpSchedulerApi.getJobExecutions(
+        searchCondition.value.groupName,
+        searchCondition.value.jobName,
+        searchCondition.value.page,
+        searchCondition.value.size,
+        searchCondition.value.sort
+      )
+    ),
+  };
 }

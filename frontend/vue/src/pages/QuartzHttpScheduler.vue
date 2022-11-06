@@ -2,12 +2,19 @@
   <HttpJobGroupList v-slot="{ isFetching, data, refetch }">
     <Button @click="() => (showJobForm = true)">Create New</Button>
     <Button @click="refetch()">Search</Button>
-    <HttpJobForm v-slot="{ formState, mutateAsync, resetForm }">
+    <HttpJobForm v-slot="{ formState, mutateAsync, resetForm, error, isError }">
       <Modal
         v-model:visible="showJobForm"
         title="Add Job"
         @ok="() => closeJobForm(mutateAsync, resetForm, refetch)"
       >
+        <Alert
+          v-if="isError"
+          :message="error.name"
+          :description="error.message"
+          type="error"
+          closable
+        />
         <Form
           v-bind="{
             labelCol: { span: 5 },
@@ -87,6 +94,15 @@
                       </template>
                     </Button>
                   </HttpJobDelete>
+                  <Button
+                    @click="
+                      () =>
+                        router.push(
+                          `/quartz/http-executions?groupName=${record.groupName}&jobName=${record.name}`
+                        )
+                    "
+                    >Logs</Button
+                  >
                 </template>
               </template>
             </Table>
@@ -103,6 +119,7 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons-vue";
 import {
+  Alert,
   Button,
   Col,
   Form,
@@ -117,10 +134,13 @@ import {
   Textarea,
 } from "ant-design-vue";
 import { createVNode, ref } from "vue";
+import { useRouter } from "vue-router";
 import HttpJobDelete from "../components/HttpJobDelete.vue";
 import HttpJobForm from "../components/HttpJobForm.vue";
 import HttpJobGroupList from "../components/HttpJobGroupList.vue";
 import HttpJobList from "../components/HttpJobList.vue";
+
+const router = useRouter();
 
 const showJobForm = ref(false);
 const closeJobForm = async (

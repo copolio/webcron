@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../pages/Home.vue";
 import NotFound from "../pages/NotFound.vue";
+import QuartzHttpJobLogBoard from "../pages/QuartzHttpJobLogBoard.vue";
 import QuartzHttpScheduler from "../pages/QuartzHttpScheduler.vue";
 
 const routes: RouteRecordRaw[] = [
@@ -21,6 +22,17 @@ const routes: RouteRecordRaw[] = [
         path: "http-scheduler",
         name: "QuartzHttpScheduler",
         component: QuartzHttpScheduler,
+      },
+      {
+        path: "http-executions",
+        name: "QuartzHttpJobLogBoard",
+        component: QuartzHttpJobLogBoard,
+        props: (route) => {
+          return {
+            groupName: route.query.groupName,
+            jobName: route.query.jobName,
+          };
+        },
       },
     ],
   },

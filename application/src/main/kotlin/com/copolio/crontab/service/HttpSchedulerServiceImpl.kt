@@ -87,16 +87,4 @@ class HttpSchedulerServiceImpl(
             throw NoSuchElementException("Cron Trigger does not exists for the job(${jobGroup} : ${jobName})")
         return (triggersOfJob[0] as CronTrigger).cronExpression
     }
-
-    override fun getJobExecutions(
-        jobName: String,
-        jobGroup: String,
-        pageable: Pageable
-    ): Page<HttpJobExecution> {
-        return httpJobExecutionRepository.findAllByJobGroupAndJobName(
-            jobName = jobName,
-            jobGroup = jobGroup,
-            pageable = pageable
-        )
-    }
 }

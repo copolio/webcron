@@ -3,9 +3,6 @@ package com.copolio.crontab.service
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
-import com.copolio.quartzapi.entity.HttpJobExecution
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 
 interface HttpSchedulerService {
     fun addJob(params: PostHttpJobRequest): GetHttpJobResponse
@@ -14,5 +11,4 @@ interface HttpSchedulerService {
     fun getJob(jobName: String, jobGroup: String): GetHttpJobResponse
     fun deleteJob(jobName: String, jobGroup: String): String
     fun getTrigger(jobName: String, jobGroup: String): String
-    fun getJobExecutions(jobName: String, jobGroup: String, pageable: Pageable): Page<HttpJobExecution>
 }

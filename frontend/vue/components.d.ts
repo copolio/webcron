@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     HttpJobForm: typeof import('./src/components/HttpJobForm.vue')['default']
     HttpJobGroupList: typeof import('./src/components/HttpJobGroupList.vue')['default']
     HttpJobList: typeof import('./src/components/HttpJobList.vue')['default']
+    HttpJobLogList: typeof import('./src/components/HttpJobLogList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
