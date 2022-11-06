@@ -1,21 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.mysql.cj.jdbc.MysqlDataSource
     url: jdbc:mysql://localhost:3306/quartz
     username: root
     password: test
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-      properties:
-        hibernate:
-          format_sql: true
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    hikari:
+      pool-name: QuartzHikariCP
+      maximum-pool-size: 1
+      connection-timeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
   quartz:
-    scheduler-name: common
+    scheduler-name: domaincron
     job-store-type: jdbc
     jdbc:
       initialize-schema: never
@@ -31,9 +27,19 @@ spring:
             threadPriority: 5
           jobStore:
             isClustered: true
-#            class: org.quartz.impl.jdbcjobstore.JobStoreTX
-#            dataSource: spring.datasource
-#            clusterCheckinInterval: 20000
+  #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+  #            dataSource: spring.datasource
+  #            clusterCheckinInterval: 20000
+  mvc:
+    log-request-details: true
 logging:
   level:
-    org.spring.framework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    root: DEBUG
+    org.springframework.web.filter: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

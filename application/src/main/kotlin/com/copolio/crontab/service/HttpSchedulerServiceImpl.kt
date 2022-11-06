@@ -1,11 +1,11 @@
 package com.copolio.crontab.service
 
 import com.copolio.crontab.config.HttpJob
-import com.copolio.crontab.domain.HttpJobExecution
-import com.copolio.crontab.domain.HttpJobExecutionRepository
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
+import com.copolio.quartzapi.entity.HttpJobExecution
+import com.copolio.quartzapi.repository.HttpJobExecutionRepository
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import org.springframework.data.domain.Page

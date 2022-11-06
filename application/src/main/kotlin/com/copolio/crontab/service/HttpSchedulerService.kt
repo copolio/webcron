@@ -1,9 +1,9 @@
 package com.copolio.crontab.service
 
-import com.copolio.crontab.domain.HttpJobExecution
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
+import com.copolio.quartzapi.entity.HttpJobExecution
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 

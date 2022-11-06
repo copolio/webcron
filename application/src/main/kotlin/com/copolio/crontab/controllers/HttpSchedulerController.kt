@@ -1,10 +1,10 @@
 package com.copolio.crontab.controllers
 
-import com.copolio.crontab.domain.HttpJobExecution
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
 import com.copolio.crontab.service.HttpSchedulerService
+import com.copolio.quartzapi.entity.HttpJobExecution
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
