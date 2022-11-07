@@ -6,10 +6,10 @@ spring:
     password: test
     hikari:
       pool-name: QuartzApiHikariCP
-      maximum-pool-size: 1
       connection-timeout: 30000
-      idleTimeout: 30000
-      maxLifetime: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 1
+      leak-detection-threshold: 1000
   jpa:
     show-sql: true
     hibernate:
@@ -17,11 +17,13 @@ spring:
       properties:
         hibernate:
           format_sql: true
+          connection:
+            handling_mode: DELAYED_ACQUISITION_AND_RELEASE_AFTER_TRANSACTION
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 logging:
   level:
-    root: DEBUG
     org.springframework.web: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
     com.zaxxer.hikari.HikariConfig: DEBUG
     com.zaxxer.hikari: TRACE

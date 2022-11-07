@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/scheduler")
+@RequestMapping("/api/http-scheduler")
 class HttpSchedulerController(
     val httpSchedulerService: HttpSchedulerService,
     val httpJobService: HttpJobService
@@ -64,10 +64,10 @@ class HttpSchedulerController(
         )
     }
 
-    @GetMapping("/groups/{groupName}/jobs/{jobName}/executions")
+    @GetMapping("/executions/search")
     fun getJobExecutions(
-        @PathVariable("groupName") groupName: String,
-        @PathVariable("jobName") jobName: String,
+        @RequestParam("groupName") groupName: String?,
+        @RequestParam("jobName") jobName: String?,
         @ParameterObject @PageableDefault(page = 0, size = 20) pageable: Pageable
     ): ResponseEntity<Page<HttpJobExecution>> {
         return ResponseEntity.ok(
