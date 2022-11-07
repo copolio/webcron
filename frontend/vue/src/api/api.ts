@@ -250,16 +250,16 @@ export interface PageHttpJobExecution {
     'sort'?: SortObject;
     /**
      * 
-     * @type {number}
-     * @memberof PageHttpJobExecution
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {PageableObject}
      * @memberof PageHttpJobExecution
      */
     'pageable'?: PageableObject;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageHttpJobExecution
+     */
+    'numberOfElements'?: number;
     /**
      * 
      * @type {boolean}
@@ -426,7 +426,7 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
         addJob: async (postHttpJobRequest: PostHttpJobRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'postHttpJobRequest' is not null or undefined
             assertParamExists('addJob', 'postHttpJobRequest', postHttpJobRequest)
-            const localVarPath = `/scheduler/`;
+            const localVarPath = `/api/http-scheduler/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -464,7 +464,7 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
             assertParamExists('deleteJob', 'groupName', groupName)
             // verify required parameter 'jobName' is not null or undefined
             assertParamExists('deleteJob', 'jobName', jobName)
-            const localVarPath = `/scheduler/groups/{groupName}/jobs/{jobName}`
+            const localVarPath = `/api/http-scheduler/groups/{groupName}/jobs/{jobName}`
                 .replace(`{${"groupName"}}`, encodeURIComponent(String(groupName)))
                 .replace(`{${"jobName"}}`, encodeURIComponent(String(jobName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -495,7 +495,7 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
          * @throws {RequiredError}
          */
         getGroups: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/scheduler/groups`;
+            const localVarPath = `/api/http-scheduler/groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -530,7 +530,7 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
             assertParamExists('getJob', 'groupName', groupName)
             // verify required parameter 'jobName' is not null or undefined
             assertParamExists('getJob', 'jobName', jobName)
-            const localVarPath = `/scheduler/groups/{groupName}/jobs/{jobName}`
+            const localVarPath = `/api/http-scheduler/groups/{groupName}/jobs/{jobName}`
                 .replace(`{${"groupName"}}`, encodeURIComponent(String(groupName)))
                 .replace(`{${"jobName"}}`, encodeURIComponent(String(jobName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -557,22 +557,16 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
         },
         /**
          * 
-         * @param {string} groupName 
-         * @param {string} jobName 
+         * @param {string} [groupName] 
+         * @param {string} [jobName] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobExecutions: async (groupName: string, jobName: string, page?: number, size?: number, sort?: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'groupName' is not null or undefined
-            assertParamExists('getJobExecutions', 'groupName', groupName)
-            // verify required parameter 'jobName' is not null or undefined
-            assertParamExists('getJobExecutions', 'jobName', jobName)
-            const localVarPath = `/scheduler/groups/{groupName}/jobs/{jobName}/executions`
-                .replace(`{${"groupName"}}`, encodeURIComponent(String(groupName)))
-                .replace(`{${"jobName"}}`, encodeURIComponent(String(jobName)));
+        getJobExecutions: async (groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/http-scheduler/executions/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -583,6 +577,14 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (groupName !== undefined) {
+                localVarQueryParameter['groupName'] = groupName;
+            }
+
+            if (jobName !== undefined) {
+                localVarQueryParameter['jobName'] = jobName;
+            }
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -616,7 +618,7 @@ export const HttpSchedulerControllerApiAxiosParamCreator = function (configurati
         getJobs: async (groupName: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupName' is not null or undefined
             assertParamExists('getJobs', 'groupName', groupName)
-            const localVarPath = `/scheduler/groups/{groupName}/jobs`
+            const localVarPath = `/api/http-scheduler/groups/{groupName}/jobs`
                 .replace(`{${"groupName"}}`, encodeURIComponent(String(groupName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -693,15 +695,15 @@ export const HttpSchedulerControllerApiFp = function(configuration?: Configurati
         },
         /**
          * 
-         * @param {string} groupName 
-         * @param {string} jobName 
+         * @param {string} [groupName] 
+         * @param {string} [jobName] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobExecutions(groupName: string, jobName: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageHttpJobExecution>> {
+        async getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageHttpJobExecution>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobExecutions(groupName, jobName, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -764,15 +766,15 @@ export const HttpSchedulerControllerApiFactory = function (configuration?: Confi
         },
         /**
          * 
-         * @param {string} groupName 
-         * @param {string} jobName 
+         * @param {string} [groupName] 
+         * @param {string} [jobName] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobExecutions(groupName: string, jobName: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageHttpJobExecution> {
+        getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageHttpJobExecution> {
             return localVarFp.getJobExecutions(groupName, jobName, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
@@ -841,8 +843,8 @@ export class HttpSchedulerControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} groupName 
-     * @param {string} jobName 
+     * @param {string} [groupName] 
+     * @param {string} [jobName] 
      * @param {number} [page] Zero-based page index (0..N)
      * @param {number} [size] The size of the page to be returned
      * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -850,7 +852,7 @@ export class HttpSchedulerControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HttpSchedulerControllerApi
      */
-    public getJobExecutions(groupName: string, jobName: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig) {
+    public getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig) {
         return HttpSchedulerControllerApiFp(this.configuration).getJobExecutions(groupName, jobName, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 

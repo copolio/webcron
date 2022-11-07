@@ -6,8 +6,8 @@
       layout="inline"
       @vnode-mounted="
         () => {
-          searchCondition.groupName = props.groupName;
-          searchCondition.jobName = props.jobName;
+          searchCondition.groupName = props.groupName ?? '';
+          searchCondition.jobName = props.jobName ?? '';
         }
       "
     >
@@ -20,6 +20,7 @@
     </Form>
 
     <Table
+      :loading="isFetching"
       :data-source="data?.data.content"
       :columns="antColumns"
       bordered
@@ -42,12 +43,12 @@
 </template>
 
 <script setup lang="ts">
-import { Form, FormItem, Input, Table } from "ant-design-vue";
+import { Form, FormItem, Input, Spin, Table } from "ant-design-vue";
 import HttpJobLogList from "../components/HttpJobLogList.vue";
 
 const props = defineProps<{
-  groupName: string;
-  jobName: string;
+  groupName?: string;
+  jobName?: string;
 }>();
 </script>
 

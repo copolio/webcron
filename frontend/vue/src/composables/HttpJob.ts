@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosPromise, AxiosResponse } from "axios";
 import { ref } from "vue";
 import { useMutation, useQuery } from "vue-query";
 import {
@@ -26,7 +26,9 @@ export function useHttpJobQuery(groupName: string) {
 }
 
 export function useAddHttpJobMutation(newJob: PostHttpJobRequest) {
-  return useMutation(() => quartzApi.HttpSchedulerApi.addJob(newJob));
+  return useMutation<AxiosResponse<GetHttpJobResponse>, AxiosError>(() =>
+    quartzApi.HttpSchedulerApi.addJob(newJob)
+  );
 }
 
 export function useDeleteHttpJobMutation(groupName: string, jobName: string) {

@@ -2,7 +2,7 @@ import { Configuration, HttpSchedulerControllerApiFactory } from "../api";
 
 export function useQuartzApi() {
   const config = new Configuration({
-    basePath: "http://localhost:8080",
+    basePath: "http://localhost",
     baseOptions: { withCredentials: true },
   });
   return {

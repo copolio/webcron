@@ -10,8 +10,8 @@
       >
         <Alert
           v-if="isError"
-          :message="error.name"
-          :description="error.message"
+          :message="error?.name"
+          :description="error?.message"
           type="error"
           closable
         />
