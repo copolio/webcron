@@ -1,4 +1,4 @@
-package com.copolio.quartzapi.config
+package com.copolio.domains.quartz.config
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder
@@ -16,30 +16,30 @@ import javax.sql.DataSource
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = ["com.copolio.quartzapi.entity", "com.copolio.quartzapi.repository"],
-    entityManagerFactoryRef = "quartzApiEntityManagerFactory",
-    transactionManagerRef = "quartzApiTransactionManager"
+    basePackages = ["com.copolio.domains.quartz.entity", "com.copolio.domains.quartz.repository"],
+    entityManagerFactoryRef = "quartzEntityManagerFactory",
+    transactionManagerRef = "quartzTransactionManager"
 )
-class QuartzApiJpaConfig {
+class QuartzJpaConfig {
     @Bean
-    fun quartzApiEntityManagerFactory(
-        @Qualifier("quartzApiDataSource") quartzApiDataSource: DataSource,
+    fun quartzEntityManagerFactory(
+        @Qualifier("quartzDataSource") quartzDataSource: DataSource,
         entityManagerFactoryBean: EntityManagerFactoryBuilder
     ): LocalContainerEntityManagerFactoryBean {
         val em = entityManagerFactoryBean
-            .dataSource(quartzApiDataSource)
-            .packages("com.copolio.quartzapi.entity")
+            .dataSource(quartzDataSource)
+            .packages("com.copolio.domains.quartz.entity")
             .build()
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         return em
     }
 
     @Bean
-    fun quartzApiTransactionManager(
-        @Qualifier("quartzApiEntityManagerFactory") quartzApiEntityManagerFactory: LocalContainerEntityManagerFactoryBean
+    fun quartzTransactionManager(
+        @Qualifier("quartzEntityManagerFactory") quartzEntityManagerFactory: LocalContainerEntityManagerFactoryBean
     ): PlatformTransactionManager {
         return JpaTransactionManager(
-            Objects.requireNonNull(quartzApiEntityManagerFactory.`object`)!!
+            Objects.requireNonNull(quartzEntityManagerFactory.`object`)!!
         )
     }
 }

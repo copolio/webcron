@@ -1,10 +1,10 @@
-package com.copolio.quartzapi
+package com.copolio.domains.quartz
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class QuartzApiApplicationTests {
+class QuartzApplicationTests {
 
     @Test
     fun contextLoads() {

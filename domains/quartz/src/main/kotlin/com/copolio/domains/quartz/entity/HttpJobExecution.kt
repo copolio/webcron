@@ -1,4 +1,4 @@
-package com.copolio.quartzapi.entity
+package com.copolio.domains.quartz.entity
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime

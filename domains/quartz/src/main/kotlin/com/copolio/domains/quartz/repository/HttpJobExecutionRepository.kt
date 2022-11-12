@@ -1,6 +1,6 @@
-package com.copolio.quartzapi.repository
+package com.copolio.domains.quartz.repository
 
-import com.copolio.quartzapi.entity.HttpJobExecution
+import com.copolio.domains.quartz.entity.HttpJobExecution
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

@@ -1,7 +1,7 @@
-package com.copolio.quartzapi.service
+package com.copolio.domains.quartz.service
 
-import com.copolio.quartzapi.entity.HttpJobExecution
-import com.copolio.quartzapi.repository.HttpJobExecutionRepository
+import com.copolio.domains.quartz.entity.HttpJobExecution
+import com.copolio.domains.quartz.repository.HttpJobExecutionRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

@@ -1,6 +1,6 @@
-package com.copolio.quartzapi
+package com.copolio.domains.quartz
 
-import com.copolio.springutil.YamlPropertySourceFactory
+import com.copolio.core.springconfig.YamlPropertySourceFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.runApplication
@@ -10,14 +10,14 @@ import org.springframework.context.annotation.PropertySource
 @ConfigurationProperties(prefix = "yaml")
 @PropertySource(
     value = [
-        "classpath:application-quartz-api.yml",
-        "classpath:application-quartz-api-\${spring.profiles.active}.yml"
+        "classpath:application-quartz.yml",
+        "classpath:application-quartz-\${spring.profiles.active}.yml"
     ],
     factory = YamlPropertySourceFactory::class,
     ignoreResourceNotFound = true
 )
-class QuartzApiApplication
+class QuartzApplication
 
 fun main(args: Array<String>) {
-    runApplication<QuartzApiApplication>(*args)
+    runApplication<QuartzApplication>(*args)
 }
