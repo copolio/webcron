@@ -1,15 +1,16 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/quartz
-    username: root
-    password: test
-    hikari:
-      pool-name: QuartzHikariCP
-      maximum-pool-size: 1
-      connection-timeout: 30000
-      idleTimeout: 600000
-      maxLifetime: 1800000
+    application:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/quartz
+      username: root
+      password: test
+      hikari:
+        pool-name: QuartzHikariCP
+        maximum-pool-size: 1
+        connection-timeout: 30000
+        idleTimeout: 600000
+        maxLifetime: 1800000
   quartz:
     scheduler-name: crontab-scheduler
     job-store-type: jdbc
@@ -21,15 +22,11 @@ spring:
         quartz:
           scheduler:
             instanceId: AUTO
-            instanceName: ApiQuartzClusteredScheduler
           threadPool:
             threadCount: 25
             threadPriority: 5
           jobStore:
             isClustered: true
-  #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
-  #            dataSource: spring.datasource
-  #            clusterCheckinInterval: 20000
   mvc:
     log-request-details: true
 logging:

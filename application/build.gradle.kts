@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-quartz")
@@ -27,14 +28,13 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // documentation
+    // Springdoc
     implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
     implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.12")
     runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.6.12")
 
-    // multi-module
-    api(project(":domains:quartz-api"))
-    api(project(":core:spring-util"))
+    // Multi-module
+    api(project(":domains:quartz"))
 }
 
 tasks.withType<KotlinCompile> {

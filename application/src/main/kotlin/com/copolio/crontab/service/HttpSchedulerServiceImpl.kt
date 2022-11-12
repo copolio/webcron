@@ -4,12 +4,9 @@ import com.copolio.crontab.config.HttpJob
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
-import com.copolio.quartzapi.entity.HttpJobExecution
-import com.copolio.quartzapi.repository.HttpJobExecutionRepository
+import com.copolio.domains.quartz.repository.HttpJobExecutionRepository
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
