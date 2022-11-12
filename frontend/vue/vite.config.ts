@@ -12,7 +12,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "../../backend/src/main/resources/static",
+    outDir: "../../application/src/main/resources/static",
   },
   server: {
     port: 3000,
