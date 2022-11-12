@@ -1,4 +1,4 @@
-package com.copolio.springutil;
+package com.copolio.core.springconfig;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;
