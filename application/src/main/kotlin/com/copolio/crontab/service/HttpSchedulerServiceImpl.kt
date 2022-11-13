@@ -4,6 +4,7 @@ import com.copolio.crontab.config.HttpJob
 import com.copolio.crontab.dto.GetHttpJobResponse
 import com.copolio.crontab.dto.GetJobGroupResponse
 import com.copolio.crontab.dto.PostHttpJobRequest
+import com.copolio.domains.quartz.dto.HttpJobRequest
 import com.copolio.domains.quartz.repository.HttpJobExecutionRepository
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
@@ -56,12 +57,13 @@ class HttpSchedulerServiceImpl(
 
     override fun getJob(jobName: String, jobGroup: String): GetHttpJobResponse {
         val jobDetail = scheduler.getJobDetail(JobKey(jobName, jobGroup))
+        val httpJobRequest = jobDetail.jobDataMap["httpJobRequest"] as HttpJobRequest
         return GetHttpJobResponse(
             groupName = jobDetail.key.group,
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = getTrigger(jobName, jobGroup),
-            url = jobDetail.jobDataMap["url"] as String
+            url = httpJobRequest.url
         )
     }
 

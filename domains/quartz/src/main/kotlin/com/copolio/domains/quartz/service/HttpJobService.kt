@@ -43,17 +43,17 @@ class HttpJobServiceImpl(
     @Transactional
     override fun sendRequest(request: HttpJobRequest) {
         val client = WebClient
-            .create(request.url)
+            .create(if (request.url.startsWith("http")) request.url else "http://${request.url}")
         val startTime = LocalDateTime.now()
         val responseEntity = client
             .method(request.httpMethod)
             .uri(request.uri ?: "")
             .contentType(MediaType.APPLICATION_JSON)
             .headers { headers ->
-                if (!request.apiKey.isNullOrBlank() && !request.apiPass.isNullOrBlank())
-                    headers.setBasicAuth(request.apiKey, request.apiPass)
+                if (!request.apiKey.isNullOrBlank() && !request.apiToken.isNullOrBlank())
+                    headers.setBasicAuth(request.apiKey, request.apiToken)
             }
-            .body(request.body ?: "", String::class.java)
+            .bodyValue(request.body ?: "")
             .retrieve()
             .toEntity(String::class.java)
             .block()

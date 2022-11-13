@@ -25,7 +25,7 @@
           <FormItem label="URL">
             <Row>
               <Col :span="6">
-                <Select v-model:value="formState.httpMethod">
+                <Select v-model:value="formState.httpJobRequest.httpMethod">
                   <SelectOption value="GET">GET</SelectOption>
                   <SelectOption value="POST">POST</SelectOption>
                   <SelectOption value="PUT">PUT</SelectOption>
@@ -34,27 +34,27 @@
                 </Select>
               </Col>
               <Col :span="18">
-                <Input v-model:value="formState.url" />
+                <Input v-model:value="formState.httpJobRequest.url" />
               </Col>
             </Row>
           </FormItem>
           <FormItem label="Request Body">
-            <Textarea v-model:value="formState.requestBody" />
+            <Textarea v-model:value="formState.httpJobRequest.body" />
           </FormItem>
           <FormItem label="Username">
-            <Input v-model:value="formState.username" />
+            <Input v-model:value="formState.httpJobRequest.apiKey" />
           </FormItem>
           <FormItem label="Password">
-            <InputPassword v-model:value="formState.password" />
+            <InputPassword v-model:value="formState.httpJobRequest.apiToken" />
           </FormItem>
           <FormItem label="Cron">
             <Input v-model:value="formState.cronExpression" />
           </FormItem>
           <FormItem label="Group">
-            <Input v-model:value="formState.jobGroup" />
+            <Input v-model:value="formState.httpJobRequest.jobGroup" />
           </FormItem>
           <FormItem label="Name">
-            <Input v-model:value="formState.jobName" />
+            <Input v-model:value="formState.httpJobRequest.jobName" />
           </FormItem>
           <FormItem label="Description">
             <Input v-model:value="formState.description" />

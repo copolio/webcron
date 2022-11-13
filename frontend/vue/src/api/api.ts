@@ -197,6 +197,75 @@ export type HttpJobExecutionStatusCodeEnum = typeof HttpJobExecutionStatusCodeEn
 /**
  * 
  * @export
+ * @interface HttpJobRequest
+ */
+export interface HttpJobRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'uri'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'body'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'apiKey'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'apiToken'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'httpMethod': HttpJobRequestHttpMethodEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'jobName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobRequest
+     */
+    'jobGroup': string;
+}
+
+export const HttpJobRequestHttpMethodEnum = {
+    Get: 'GET',
+    Head: 'HEAD',
+    Post: 'POST',
+    Put: 'PUT',
+    Patch: 'PATCH',
+    Delete: 'DELETE',
+    Options: 'OPTIONS',
+    Trace: 'TRACE'
+} as const;
+
+export type HttpJobRequestHttpMethodEnum = typeof HttpJobRequestHttpMethodEnum[keyof typeof HttpJobRequestHttpMethodEnum];
+
+/**
+ * 
+ * @export
  * @interface PageHttpJobExecution
  */
 export interface PageHttpJobExecution {
@@ -287,18 +356,6 @@ export interface PageableObject {
     'sort'?: SortObject;
     /**
      * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'paged'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'unpaged'?: boolean;
-    /**
-     * 
      * @type {number}
      * @memberof PageableObject
      */
@@ -309,6 +366,18 @@ export interface PageableObject {
      * @memberof PageableObject
      */
     'pageSize'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'paged'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'unpaged'?: boolean;
 }
 /**
  * 
@@ -318,16 +387,10 @@ export interface PageableObject {
 export interface PostHttpJobRequest {
     /**
      * 
-     * @type {string}
+     * @type {HttpJobRequest}
      * @memberof PostHttpJobRequest
      */
-    'jobGroup'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
-    'jobName': string;
+    'httpJobRequest': HttpJobRequest;
     /**
      * 
      * @type {string}
@@ -339,52 +402,8 @@ export interface PostHttpJobRequest {
      * @type {string}
      * @memberof PostHttpJobRequest
      */
-    'url': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
-    'username'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
-    'password'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
-    'requestBody'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
-    'httpMethod': PostHttpJobRequestHttpMethodEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof PostHttpJobRequest
-     */
     'cronExpression': string;
 }
-
-export const PostHttpJobRequestHttpMethodEnum = {
-    Get: 'GET',
-    Head: 'HEAD',
-    Post: 'POST',
-    Put: 'PUT',
-    Patch: 'PATCH',
-    Delete: 'DELETE',
-    Options: 'OPTIONS',
-    Trace: 'TRACE'
-} as const;
-
-export type PostHttpJobRequestHttpMethodEnum = typeof PostHttpJobRequestHttpMethodEnum[keyof typeof PostHttpJobRequestHttpMethodEnum];
-
 /**
  * 
  * @export

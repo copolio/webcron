@@ -16,27 +16,31 @@ import { PostHttpJobRequest } from "../api";
 import { useAddHttpJobMutation } from "../composables/HttpJob";
 
 const formState = ref<PostHttpJobRequest>({
-  jobGroup: "",
-  jobName: "",
+  httpJobRequest: {
+    jobName: "",
+    jobGroup: "",
+    url: "",
+    apiKey: "",
+    apiToken: "",
+    body: "",
+    httpMethod: "GET",
+  },
   description: "",
-  url: "",
-  username: "",
-  password: "",
-  requestBody: "",
-  httpMethod: "GET",
   cronExpression: "",
 });
 
 const resetForm = () => {
   formState.value = {
-    jobGroup: "",
-    jobName: "",
+    httpJobRequest: {
+      jobName: "",
+      jobGroup: "",
+      url: "",
+      apiKey: "",
+      apiToken: "",
+      body: "",
+      httpMethod: "GET",
+    },
     description: "",
-    url: "",
-    username: "",
-    password: "",
-    requestBody: "",
-    httpMethod: "GET",
     cronExpression: "",
   };
 };

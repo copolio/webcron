@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <LayoutHeader class="header">
-      <div class="logo" @click="router.push('/')">Quartz Manager</div>
+      <div class="logo" @click="router.push('/')">Web Crontab</div>
     </LayoutHeader>
     <Layout>
       <LayoutSider width="200" style="background: #fff">
@@ -35,7 +35,7 @@
               >Batch Jobs</MenuItem
             >
           </SubMenu>
-          <SubMenu key="cron">
+          <!-- <SubMenu key="cron">
             <template #title>
               <span>
                 <LaptopOutlined />
@@ -43,7 +43,7 @@
               </span>
             </template>
             <MenuItem key="option">option</MenuItem>
-          </SubMenu>
+          </SubMenu> -->
         </Menu>
       </LayoutSider>
       <Layout style="padding: 0 24px 24px">
