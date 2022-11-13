@@ -12,6 +12,7 @@ class HttpJobExecution(
     @Column(name = "END_TIME")
     val endTime: LocalDateTime,
     @Column(name = "STATUS_CODE")
+    @Enumerated(EnumType.ORDINAL)
     val statusCode: HttpStatus,
     @Column(name = "RESPONSE")
     val response: String,

@@ -1,20 +1,14 @@
 package com.copolio.crontab.dto
 
-import org.springframework.http.HttpMethod
+import com.copolio.domains.quartz.dto.HttpJobRequest
 
 data class GetJobGroupResponse(
     val name: String
 )
 
 data class PostHttpJobRequest(
-    val jobGroup: String?,
-    val jobName: String,
+    val httpJobRequest: HttpJobRequest,
     val description: String,
-    val url: String,
-    val username: String?,
-    val password: String?,
-    val requestBody: String?,
-    val httpMethod: HttpMethod,
     val cronExpression: String,
 )
 

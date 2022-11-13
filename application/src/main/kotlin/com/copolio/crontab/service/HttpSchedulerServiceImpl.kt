@@ -22,17 +22,11 @@ class HttpSchedulerServiceImpl(
         params: PostHttpJobRequest
     ): GetHttpJobResponse {
         val jobDataMap = JobDataMap()
-        jobDataMap.put("jobName", params.jobName)
-        jobDataMap.put("jobGroup", params.jobGroup)
-        jobDataMap.put("url", params.url)
-        jobDataMap.put("username", params.username)
-        jobDataMap.put("password", params.password)
-        jobDataMap.put("requestBody", params.requestBody)
-        jobDataMap.put("httpMethod", params.httpMethod)
+        jobDataMap.put("httpJobRequest", params.httpJobRequest)
         val jobDetail = JobBuilder.newJob()
             .ofType(HttpJob::class.java)
             .storeDurably()
-            .withIdentity(params.jobName, params.jobGroup)
+            .withIdentity(params.httpJobRequest.jobName, params.httpJobRequest.jobGroup)
             .withDescription(params.description)
             .setJobData(jobDataMap)
             .build()
@@ -48,7 +42,7 @@ class HttpSchedulerServiceImpl(
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = params.cronExpression,
-            url = params.url
+            url = params.httpJobRequest.url,
         )
     }
 

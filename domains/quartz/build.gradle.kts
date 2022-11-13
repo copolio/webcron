@@ -35,6 +35,7 @@ dependencies {
 
     // Multi-module
     implementation(project(":core:webmvc"))
+    implementation(project(":core:webflux"))
 }
 
 tasks.withType<KotlinCompile> {
