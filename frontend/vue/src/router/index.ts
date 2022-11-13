@@ -7,16 +7,11 @@ import QuartzHttpScheduler from "../pages/QuartzHttpScheduler.vue";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/spring/http-scheduler",
   },
   {
-    path: "/home",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/quartz",
-    name: "Quartz",
+    path: "/spring",
+    name: "Spring",
     children: [
       {
         path: "http-scheduler",

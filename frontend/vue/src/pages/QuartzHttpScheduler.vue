@@ -10,8 +10,8 @@
       >
         <Alert
           v-if="isError"
-          :message="error?.name"
-          :description="error?.message"
+          :message="error?.response?.data.error"
+          :description="error?.response?.data.message"
           type="error"
           closable
         />
@@ -101,8 +101,9 @@
                           `/quartz/http-executions?groupName=${record.groupName}&jobName=${record.name}`
                         )
                     "
-                    >Logs</Button
                   >
+                    Logs
+                  </Button>
                 </template>
               </template>
             </Table>

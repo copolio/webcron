@@ -26,9 +26,10 @@ export function useHttpJobQuery(groupName: string) {
 }
 
 export function useAddHttpJobMutation(newJob: PostHttpJobRequest) {
-  return useMutation<AxiosResponse<GetHttpJobResponse>, AxiosError>(() =>
-    quartzApi.HttpSchedulerApi.addJob(newJob)
-  );
+  return useMutation<
+    AxiosResponse<GetHttpJobResponse>,
+    AxiosError<{ error: string; message: string }>
+  >(() => quartzApi.HttpSchedulerApi.addJob(newJob));
 }
 
 export function useDeleteHttpJobMutation(groupName: string, jobName: string) {
