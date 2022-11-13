@@ -32,7 +32,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Multi-module
-    api(project(":core:webmvc"))
+    implementation(project(":core:webmvc"))
 }
 
 tasks.withType<KotlinCompile> {
