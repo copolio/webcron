@@ -1,11 +1,10 @@
 subprojects {
-    val moduleBuildPath = project.displayName.substring(9).dropLast(1).replace(":", "/")
-    buildDir = File("$rootDir/build$moduleBuildPath")
+    setBuildDir("$rootDir/build/${project.path.replace(":", "/")}")
 }
 
-task("copyJar") {
-    copy({
-        from("$buildDir/application/libs/app.jar")
-        into("$buildDir")
-    })
+project.task("copyJar") {
+    copy {
+        from("$rootDir/build/application/libs/app.jar")
+        into("$rootDir/build/libs")
+    }
 }

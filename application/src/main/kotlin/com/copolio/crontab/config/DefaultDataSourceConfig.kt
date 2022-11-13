@@ -12,15 +12,15 @@ import javax.sql.DataSource
 
 @Configuration
 class DefaultDataSourceConfig {
-    @Bean
     @Primary
+    @Bean
     @ConfigurationProperties(value = "spring.datasource.application")
     fun defaultDataSourceProperties(): DataSourceProperties {
         return DataSourceProperties()
     }
 
-    @Bean
     @Primary
+    @Bean
     @ConfigurationProperties("spring.datasource.application.hikari")
     fun defaultDataSource(): HikariDataSource {
         return defaultDataSourceProperties()
@@ -29,6 +29,7 @@ class DefaultDataSourceConfig {
             .build()
     }
 
+    @Primary
     @Bean
     fun defaultJdbcTemplate(@Qualifier("defaultDataSource") defaultDataSource: DataSource): JdbcTemplate {
         return JdbcTemplate(defaultDataSource)

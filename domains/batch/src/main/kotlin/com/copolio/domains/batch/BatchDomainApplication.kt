@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BatchApiApplication
+class BatchDomainApplication
 
 fun main(args: Array<String>) {
-    runApplication<BatchApiApplication>(*args)
+    runApplication<BatchDomainApplication>(*args)
 }
