@@ -1,116 +1,135 @@
 <template>
   <HttpJobGroupList v-slot="{ isFetching, data, refetch }">
-    <Button @click="() => (showJobForm = true)">Create New</Button>
-    <Button @click="refetch()">Search</Button>
-    <HttpJobForm v-slot="{ formState, mutateAsync, resetForm, error, isError }">
-      <Modal
-        v-model:visible="showJobForm"
-        title="Add Job"
-        @ok="() => closeJobForm(mutateAsync, resetForm, refetch)"
+    <Space direction="vertical" style="width: 100%" size="small">
+      <Form layout="vertical">
+        <Row :gutter="24">
+          <Col>
+            <FormItem>
+              <Button @click="() => (showJobForm = true)">Create New</Button>
+            </FormItem>
+          </Col>
+          <Col>
+            <Button @click="refetch()">Search</Button>
+          </Col>
+        </Row>
+      </Form>
+      <HttpJobForm
+        v-slot="{ formState, mutateAsync, resetForm, error, isError }"
       >
-        <Alert
-          v-if="isError"
-          :message="error?.response?.data.error"
-          :description="error?.response?.data.message"
-          type="error"
-          closable
-        />
-        <Form
-          v-bind="{
-            labelCol: { span: 5 },
-            wrapperCol: { span: 19 },
-          }"
-          :model="formState"
+        <Modal
+          v-model:visible="showJobForm"
+          title="Add Job"
+          @ok="() => closeJobForm(mutateAsync, resetForm, refetch)"
         >
-          <FormItem label="URL">
-            <Row>
-              <Col :span="6">
-                <Select v-model:value="formState.httpJobRequest.httpMethod">
-                  <SelectOption value="GET">GET</SelectOption>
-                  <SelectOption value="POST">POST</SelectOption>
-                  <SelectOption value="PUT">PUT</SelectOption>
-                  <SelectOption value="PATCH">PATCH</SelectOption>
-                  <SelectOption value="DELETE">DELETE</SelectOption>
-                </Select>
-              </Col>
-              <Col :span="18">
-                <Input v-model:value="formState.httpJobRequest.url" />
-              </Col>
-            </Row>
-          </FormItem>
-          <FormItem label="Request Body">
-            <Textarea v-model:value="formState.httpJobRequest.body" />
-          </FormItem>
-          <FormItem label="Username">
-            <Input v-model:value="formState.httpJobRequest.apiKey" />
-          </FormItem>
-          <FormItem label="Password">
-            <InputPassword v-model:value="formState.httpJobRequest.apiToken" />
-          </FormItem>
-          <FormItem label="Cron">
-            <Input v-model:value="formState.cronExpression" />
-          </FormItem>
-          <FormItem label="Group">
-            <Input v-model:value="formState.httpJobRequest.jobGroup" />
-          </FormItem>
-          <FormItem label="Name">
-            <Input v-model:value="formState.httpJobRequest.jobName" />
-          </FormItem>
-          <FormItem label="Description">
-            <Input v-model:value="formState.description" />
-          </FormItem>
-        </Form>
-      </Modal>
-    </HttpJobForm>
-    <Table
-      :columns="groupColumns"
-      :data-source="data?.data"
-      :loading="isFetching"
-      :pagination="{ hideOnSinglePage: true }"
-      rowKey="name"
-    >
-      <template #expandedRowRender="{ record }">
-        <p style="margin: 0">
-          {{ record.description }}
-          <HttpJobList :group-name="record.name" v-slot="{ isFetching, data }">
-            <Table
-              :columns="jobColumns"
-              :data-source="data?.data"
-              :loading="isFetching"
+          <Alert
+            v-if="isError"
+            :message="error?.response?.data.error"
+            :description="error?.response?.data.message"
+            type="error"
+            closable
+          />
+          <Form
+            v-bind="{
+              labelCol: { span: 5 },
+              wrapperCol: { span: 19 },
+            }"
+            :model="formState"
+          >
+            <FormItem label="URL">
+              <Row>
+                <Col :span="6">
+                  <Select v-model:value="formState.httpJobRequest.httpMethod">
+                    <SelectOption value="GET">GET</SelectOption>
+                    <SelectOption value="POST">POST</SelectOption>
+                    <SelectOption value="PUT">PUT</SelectOption>
+                    <SelectOption value="PATCH">PATCH</SelectOption>
+                    <SelectOption value="DELETE">DELETE</SelectOption>
+                  </Select>
+                </Col>
+                <Col :span="18">
+                  <Input v-model:value="formState.httpJobRequest.url" />
+                </Col>
+              </Row>
+            </FormItem>
+            <FormItem label="Request Body">
+              <Textarea v-model:value="formState.httpJobRequest.body" />
+            </FormItem>
+            <FormItem label="Username">
+              <Input v-model:value="formState.httpJobRequest.apiKey" />
+            </FormItem>
+            <FormItem label="Password">
+              <InputPassword
+                v-model:value="formState.httpJobRequest.apiToken"
+              />
+            </FormItem>
+            <FormItem label="Cron">
+              <Input v-model:value="formState.cronExpression" />
+            </FormItem>
+            <FormItem label="Group">
+              <Input v-model:value="formState.httpJobRequest.jobGroup" />
+            </FormItem>
+            <FormItem label="Name">
+              <Input v-model:value="formState.httpJobRequest.jobName" />
+            </FormItem>
+            <FormItem label="Description">
+              <Input v-model:value="formState.description" />
+            </FormItem>
+          </Form>
+        </Modal>
+      </HttpJobForm>
+      <Table
+        :columns="groupColumns"
+        :data-source="data?.data"
+        :loading="isFetching"
+        :pagination="{ hideOnSinglePage: true }"
+        rowKey="name"
+      >
+        <template #expandedRowRender="{ record }">
+          <p style="margin: 0">
+            {{ record.description }}
+            <HttpJobList
+              :group-name="record.name"
+              v-slot="{ isFetching, data }"
             >
-              <template #bodyCell="{ column, record }">
-                <template v-if="column.key === 'action'">
-                  <HttpJobDelete
-                    :group-name="record.groupName"
-                    :job-name="record.name"
-                    v-slot="{ mutateAsync }"
-                  >
-                    <Button
-                      @click="showDeleteConfirm(mutateAsync, refetch)"
-                      danger
+              <Table
+                :columns="jobColumns"
+                :data-source="data?.data"
+                :loading="isFetching"
+              >
+                <template #bodyCell="{ column, record }">
+                  <template v-if="column.key === 'action'">
+                    <HttpJobDelete
+                      :group-name="record.groupName"
+                      :job-name="record.name"
+                      v-slot="{ mutateAsync }"
                     >
-                      <template #icon>
-                        <DeleteOutlined />
-                      </template>
+                      <Button
+                        @click="showDeleteConfirm(mutateAsync, refetch)"
+                        danger
+                      >
+                        <template #icon>
+                          <DeleteOutlined />
+                        </template>
+                      </Button>
+                    </HttpJobDelete>
+                    <Button
+                      @click="
+                        () =>
+                          router.push(
+                            `/quartz/http-executions?groupName=${record.groupName}&jobName=${record.name}`
+                          )
+                      "
+                    >
+                      Logs
                     </Button>
-                  </HttpJobDelete>
-                  <Button
-                    @click="
-                      () =>
-                        router.push(
-                          `/quartz/http-executions?groupName=${record.groupName}&jobName=${record.name}`
-                        )
-                    "
-                  >
-                    Logs
-                  </Button>
+                  </template>
                 </template>
-              </template>
-            </Table>
-          </HttpJobList>
-        </p>
-      </template>
-    </Table>
+              </Table>
+            </HttpJobList>
+          </p>
+        </template>
+      </Table>
+    </Space>
   </HttpJobGroupList>
 </template>
 
@@ -131,6 +150,7 @@ import {
   Row,
   Select,
   SelectOption,
+  Space,
   Table,
   Textarea,
 } from "ant-design-vue";

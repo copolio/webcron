@@ -1,7 +1,12 @@
 <template>
   <Layout>
     <LayoutHeader class="header">
-      <div class="logo" @click="router.push('/')">Web Crontab</div>
+      <div class="logo" draggable="false">
+        <RouterLink to="/">
+          <img src="../../public/images/scheduler.svg" />
+          crontab
+        </RouterLink>
+      </div>
     </LayoutHeader>
     <Layout>
       <LayoutSider width="200" style="background: #fff">
@@ -14,21 +19,17 @@
           <SubMenu key="Spring">
             <template #title>
               <span>
-                <ScheduleOutlined />
+                <CloudServerOutlined />
                 Spring
               </span>
             </template>
-            <MenuItem
-              key="QuartzHttpScheduler"
-              @click="router.push('/spring/http-scheduler')"
-            >
-              HTTP Jobs
+            <MenuItem key="QuartzHttpScheduler">
+              <RouterLink to="/spring/http-scheduler"> HTTP Jobs </RouterLink>
             </MenuItem>
-            <MenuItem
-              key="QuartzHttpJobLogBoard"
-              @click="router.push('/spring/http-executions')"
-            >
-              HTTP Executions
+            <MenuItem key="QuartzHttpJobLogBoard">
+              <RouterLink to="/spring/http-executions">
+                HTTP Executions
+              </RouterLink>
             </MenuItem>
             <MenuItem
               key="QuartzBatchScheduler"
@@ -64,7 +65,12 @@
   </Layout>
 </template>
 <script setup lang="ts">
-import { LaptopOutlined, ScheduleOutlined } from "@ant-design/icons-vue";
+import {
+  CloudOutlined,
+  CloudServerOutlined,
+  LaptopOutlined,
+  ScheduleOutlined,
+} from "@ant-design/icons-vue";
 import { computed } from "@vue/reactivity";
 import {
   Layout,
@@ -102,6 +108,10 @@ const selectedKey = computed(() => {
 .logo {
   color: #fff;
   font-size: 20px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* 인터넷익스플로러 */
+  user-select: none;
 }
 
 .site-layout-background {
