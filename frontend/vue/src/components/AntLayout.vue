@@ -3,7 +3,7 @@
     <LayoutHeader class="header">
       <div class="logo" draggable="false">
         <RouterLink to="/">
-          <img src="../../public/images/scheduler.svg" />
+          <img src="/images/scheduler.svg" />
           crontab
         </RouterLink>
       </div>
