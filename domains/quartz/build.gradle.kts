@@ -9,7 +9,7 @@ plugins {
     kotlin("kapt") version "1.6.21"
 }
 
-group = "com.copolio"
+group = "com.copolio.domains"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -36,8 +36,7 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
 
     // Multi-module
-    implementation(project(":core:webmvc"))
-    implementation(project(":core:webflux"))
+    implementation(project(":core:spring-yaml-importer"))
 }
 
 tasks.withType<KotlinCompile> {

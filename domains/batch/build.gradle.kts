@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.jpa") version "1.6.21"
 }
 
-group = "com.copolio"
+group = "com.copolio.domains"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -32,7 +32,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Multi-module
-    implementation(project(":core:webmvc"))
+    implementation(project(":core:spring-yaml-importer"))
 }
 
 tasks.withType<KotlinCompile> {

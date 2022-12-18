@@ -1,6 +1,6 @@
 package com.copolio.domains.quartz
 
-import com.copolio.core.springconfig.YamlPropertySourceFactory
+import com.copolio.core.YamlPropertySourceFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.runApplication

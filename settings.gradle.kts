@@ -1,6 +1,5 @@
-rootProject.name = "spring-crontab"
-include("application")
-include("core:webflux")
-include("core:webmvc")
+rootProject.name = "copolio-monorepo-jvm"
+include("applications:webcron:backend")
+include("core:spring-yaml-importer")
 include("domains:batch")
 include("domains:quartz")
