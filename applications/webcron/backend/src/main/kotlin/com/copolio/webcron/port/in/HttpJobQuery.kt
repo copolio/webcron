@@ -1,8 +1,23 @@
 package com.copolio.webcron.port.`in`
 
+import com.fasterxml.jackson.annotation.JsonFormat
+import org.springframework.http.HttpStatus
+import java.time.LocalDateTime
+
 data class HttpJobExecutionQuery(
     val jobGroup: String?,
     val jobName: String?,
+)
+
+data class HttpJobExecutionQueryResult(
+    val jobGroup: String,
+    val jobName: String,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    val startTime: LocalDateTime,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    val endTime: LocalDateTime,
+    val statusCode: HttpStatus,
+    val response: String
 )
 
 data class HttpJobGroupQueryResult(

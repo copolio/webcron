@@ -4,7 +4,7 @@
   >
     <Space direction="vertical" style="width: 100%" size="small">
       <Form
-        layout="vertical"
+        layout="horizontal"
         @vnode-mounted="
           () => {
             searchCondition.groupName = props.groupName ?? '';
@@ -13,6 +13,11 @@
         "
       >
         <Row :gutter="24">
+          <Col>
+            <FormItem>
+              <Button type="primary" @click="refetch()">Search</Button>
+            </FormItem>
+          </Col>
           <Col>
             <FormItem label="Group">
               <Input v-model:value="searchCondition.groupName">
@@ -25,11 +30,6 @@
               <Input v-model:value="searchCondition.jobName">
                 <template #prefix><SnippetsOutlined /></template>
               </Input>
-            </FormItem>
-          </Col>
-          <Col>
-            <FormItem label=" ">
-              <Button type="primary" @click="refetch()">Search</Button>
             </FormItem>
           </Col>
         </Row>
@@ -68,7 +68,6 @@ import {
   Input,
   Row,
   Space,
-  Spin,
   Table,
 } from "ant-design-vue";
 import HttpJobLogList from "../components/HttpJobLogList.vue";

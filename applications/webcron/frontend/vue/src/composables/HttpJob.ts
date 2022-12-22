@@ -4,16 +4,17 @@ import { useMutation, useQuery } from "vue-query";
 import {
   CreateHttpJob,
   CreateHttpJobResult,
+  DefaultError,
   HttpJobGroupQueryResult,
 } from "../api";
-import { useQuartzApi } from "../util/AxiosUtil";
+import { useQuartzApi } from "../util/api-util";
 
 const quartzApi = useQuartzApi();
 
 export function useHttpJobGroupQuery() {
   return useQuery<
     AxiosResponse<Array<HttpJobGroupQueryResult>>,
-    AxiosError<string>
+    AxiosError<DefaultError>
   >("jobGroups", quartzApi.HttpSchedulerApi.getGroups);
 }
 
@@ -21,14 +22,14 @@ export function useHttpJobQuery(groupName: string) {
   const queryKey = ["jobs", groupName];
   return useQuery<
     AxiosResponse<Array<HttpJobGroupQueryResult>>,
-    AxiosResponse<string>
+    AxiosResponse<DefaultError>
   >(queryKey, () => quartzApi.HttpSchedulerApi.getJobs(groupName));
 }
 
 export function useAddHttpJobMutation(newJob: CreateHttpJob) {
   return useMutation<
     AxiosResponse<CreateHttpJobResult>,
-    AxiosError<{ error: string; message: string }>
+    AxiosError<DefaultError>
   >(() => quartzApi.HttpSchedulerApi.addJob(newJob));
 }
 

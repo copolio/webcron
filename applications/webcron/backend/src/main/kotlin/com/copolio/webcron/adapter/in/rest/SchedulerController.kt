@@ -1,6 +1,5 @@
 package com.copolio.webcron.adapter.`in`.rest
 
-import com.copolio.domains.quartz.model.HttpJobExecution
 import com.copolio.webcron.port.`in`.*
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Page
@@ -71,7 +70,7 @@ class SchedulerController(
         @RequestParam("groupName") groupName: String?,
         @RequestParam("jobName") jobName: String?,
         @ParameterObject @PageableDefault(page = 0, size = 20) pageable: Pageable
-    ): ResponseEntity<Page<HttpJobExecution>> {
+    ): ResponseEntity<Page<HttpJobExecutionQueryResult>> {
         return ResponseEntity.ok(
             httpJobQueryUseCase.handle(
                 HttpJobExecutionQuery(

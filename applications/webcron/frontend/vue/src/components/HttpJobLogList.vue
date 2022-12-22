@@ -17,35 +17,36 @@ const { searchCondition, isFetching, data, refetch } =
 
 const antColumns: ColumnType[] = [
   {
-    title: "Id",
-    dataIndex: "instanceId",
-    key: "instanceId",
+    title: "Group",
+    dataIndex: "jobGroup",
+    key: "jobGroup",
+    width: 100,
     fixed: true,
   },
   {
-    title: "Group Name",
-    dataIndex: "jobGroup",
-    key: "jobGroup",
-  },
-  {
-    title: "Job Name",
+    title: "Job",
     dataIndex: "jobName",
     key: "jobName",
+    width: 100,
+    fixed: true,
   },
   {
     title: "Start time",
     dataIndex: "startTime",
     key: "startTime",
+    width: 200,
   },
   {
     title: "End time",
     dataIndex: "endTime",
     key: "endTime",
+    width: 200,
   },
   {
     title: "Status",
     dataIndex: "statusCode",
     key: "statusCode",
+    width: 220,
   },
   {
     title: "Response",

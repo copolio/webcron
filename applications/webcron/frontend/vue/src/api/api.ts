@@ -86,123 +86,48 @@ export interface CreateHttpJobResult {
 /**
  * 
  * @export
- * @interface HttpJob
+ * @interface DefaultError
  */
-export interface HttpJob {
+export interface DefaultError {
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'url': string;
+    'timestamp': string;
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'uri'?: string;
+    'status': DefaultErrorStatusEnum;
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'body'?: string;
+    'error': string;
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'apiKey'?: string;
+    'exception': string;
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'apiToken'?: string;
+    'message': string;
     /**
      * 
      * @type {string}
-     * @memberof HttpJob
+     * @memberof DefaultError
      */
-    'httpMethod': HttpJobHttpMethodEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJob
-     */
-    'jobName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJob
-     */
-    'jobGroup': string;
+    'path': string;
 }
 
-export const HttpJobHttpMethodEnum = {
-    Get: 'GET',
-    Head: 'HEAD',
-    Post: 'POST',
-    Put: 'PUT',
-    Patch: 'PATCH',
-    Delete: 'DELETE',
-    Options: 'OPTIONS',
-    Trace: 'TRACE'
-} as const;
-
-export type HttpJobHttpMethodEnum = typeof HttpJobHttpMethodEnum[keyof typeof HttpJobHttpMethodEnum];
-
-/**
- * 
- * @export
- * @interface HttpJobExecution
- */
-export interface HttpJobExecution {
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'startTime': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'endTime': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'statusCode': HttpJobExecutionStatusCodeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'response': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'jobName': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HttpJobExecution
-     */
-    'jobGroup': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof HttpJobExecution
-     */
-    'instanceId'?: number;
-}
-
-export const HttpJobExecutionStatusCodeEnum = {
+export const DefaultErrorStatusEnum = {
     _100Continue: '100 CONTINUE',
     _101SwitchingProtocols: '101 SWITCHING_PROTOCOLS',
     _102Processing: '102 PROCESSING',
@@ -273,7 +198,206 @@ export const HttpJobExecutionStatusCodeEnum = {
     _511NetworkAuthenticationRequired: '511 NETWORK_AUTHENTICATION_REQUIRED'
 } as const;
 
-export type HttpJobExecutionStatusCodeEnum = typeof HttpJobExecutionStatusCodeEnum[keyof typeof HttpJobExecutionStatusCodeEnum];
+export type DefaultErrorStatusEnum = typeof DefaultErrorStatusEnum[keyof typeof DefaultErrorStatusEnum];
+
+/**
+ * 
+ * @export
+ * @interface DeleteHttpJobResult
+ */
+export interface DeleteHttpJobResult {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteHttpJobResult
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface HttpJob
+ */
+export interface HttpJob {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'uri'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'body'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'apiKey'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'apiToken'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'httpMethod': HttpJobHttpMethodEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'jobName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJob
+     */
+    'jobGroup': string;
+}
+
+export const HttpJobHttpMethodEnum = {
+    Get: 'GET',
+    Head: 'HEAD',
+    Post: 'POST',
+    Put: 'PUT',
+    Patch: 'PATCH',
+    Delete: 'DELETE',
+    Options: 'OPTIONS',
+    Trace: 'TRACE'
+} as const;
+
+export type HttpJobHttpMethodEnum = typeof HttpJobHttpMethodEnum[keyof typeof HttpJobHttpMethodEnum];
+
+/**
+ * 
+ * @export
+ * @interface HttpJobExecutionQueryResult
+ */
+export interface HttpJobExecutionQueryResult {
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'jobGroup': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'jobName': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'startTime': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'endTime': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'statusCode': HttpJobExecutionQueryResultStatusCodeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpJobExecutionQueryResult
+     */
+    'response': string;
+}
+
+export const HttpJobExecutionQueryResultStatusCodeEnum = {
+    _100Continue: '100 CONTINUE',
+    _101SwitchingProtocols: '101 SWITCHING_PROTOCOLS',
+    _102Processing: '102 PROCESSING',
+    _103Checkpoint: '103 CHECKPOINT',
+    _200Ok: '200 OK',
+    _201Created: '201 CREATED',
+    _202Accepted: '202 ACCEPTED',
+    _203NonAuthoritativeInformation: '203 NON_AUTHORITATIVE_INFORMATION',
+    _204NoContent: '204 NO_CONTENT',
+    _205ResetContent: '205 RESET_CONTENT',
+    _206PartialContent: '206 PARTIAL_CONTENT',
+    _207MultiStatus: '207 MULTI_STATUS',
+    _208AlreadyReported: '208 ALREADY_REPORTED',
+    _226ImUsed: '226 IM_USED',
+    _300MultipleChoices: '300 MULTIPLE_CHOICES',
+    _301MovedPermanently: '301 MOVED_PERMANENTLY',
+    _302Found: '302 FOUND',
+    _302MovedTemporarily: '302 MOVED_TEMPORARILY',
+    _303SeeOther: '303 SEE_OTHER',
+    _304NotModified: '304 NOT_MODIFIED',
+    _305UseProxy: '305 USE_PROXY',
+    _307TemporaryRedirect: '307 TEMPORARY_REDIRECT',
+    _308PermanentRedirect: '308 PERMANENT_REDIRECT',
+    _400BadRequest: '400 BAD_REQUEST',
+    _401Unauthorized: '401 UNAUTHORIZED',
+    _402PaymentRequired: '402 PAYMENT_REQUIRED',
+    _403Forbidden: '403 FORBIDDEN',
+    _404NotFound: '404 NOT_FOUND',
+    _405MethodNotAllowed: '405 METHOD_NOT_ALLOWED',
+    _406NotAcceptable: '406 NOT_ACCEPTABLE',
+    _407ProxyAuthenticationRequired: '407 PROXY_AUTHENTICATION_REQUIRED',
+    _408RequestTimeout: '408 REQUEST_TIMEOUT',
+    _409Conflict: '409 CONFLICT',
+    _410Gone: '410 GONE',
+    _411LengthRequired: '411 LENGTH_REQUIRED',
+    _412PreconditionFailed: '412 PRECONDITION_FAILED',
+    _413PayloadTooLarge: '413 PAYLOAD_TOO_LARGE',
+    _413RequestEntityTooLarge: '413 REQUEST_ENTITY_TOO_LARGE',
+    _414UriTooLong: '414 URI_TOO_LONG',
+    _414RequestUriTooLong: '414 REQUEST_URI_TOO_LONG',
+    _415UnsupportedMediaType: '415 UNSUPPORTED_MEDIA_TYPE',
+    _416RequestedRangeNotSatisfiable: '416 REQUESTED_RANGE_NOT_SATISFIABLE',
+    _417ExpectationFailed: '417 EXPECTATION_FAILED',
+    _418IAmATeapot: '418 I_AM_A_TEAPOT',
+    _419InsufficientSpaceOnResource: '419 INSUFFICIENT_SPACE_ON_RESOURCE',
+    _420MethodFailure: '420 METHOD_FAILURE',
+    _421DestinationLocked: '421 DESTINATION_LOCKED',
+    _422UnprocessableEntity: '422 UNPROCESSABLE_ENTITY',
+    _423Locked: '423 LOCKED',
+    _424FailedDependency: '424 FAILED_DEPENDENCY',
+    _425TooEarly: '425 TOO_EARLY',
+    _426UpgradeRequired: '426 UPGRADE_REQUIRED',
+    _428PreconditionRequired: '428 PRECONDITION_REQUIRED',
+    _429TooManyRequests: '429 TOO_MANY_REQUESTS',
+    _431RequestHeaderFieldsTooLarge: '431 REQUEST_HEADER_FIELDS_TOO_LARGE',
+    _451UnavailableForLegalReasons: '451 UNAVAILABLE_FOR_LEGAL_REASONS',
+    _500InternalServerError: '500 INTERNAL_SERVER_ERROR',
+    _501NotImplemented: '501 NOT_IMPLEMENTED',
+    _502BadGateway: '502 BAD_GATEWAY',
+    _503ServiceUnavailable: '503 SERVICE_UNAVAILABLE',
+    _504GatewayTimeout: '504 GATEWAY_TIMEOUT',
+    _505HttpVersionNotSupported: '505 HTTP_VERSION_NOT_SUPPORTED',
+    _506VariantAlsoNegotiates: '506 VARIANT_ALSO_NEGOTIATES',
+    _507InsufficientStorage: '507 INSUFFICIENT_STORAGE',
+    _508LoopDetected: '508 LOOP_DETECTED',
+    _509BandwidthLimitExceeded: '509 BANDWIDTH_LIMIT_EXCEEDED',
+    _510NotExtended: '510 NOT_EXTENDED',
+    _511NetworkAuthenticationRequired: '511 NETWORK_AUTHENTICATION_REQUIRED'
+} as const;
+
+export type HttpJobExecutionQueryResultStatusCodeEnum = typeof HttpJobExecutionQueryResultStatusCodeEnum[keyof typeof HttpJobExecutionQueryResultStatusCodeEnum];
 
 /**
  * 
@@ -328,73 +452,73 @@ export interface HttpJobQueryResult {
 /**
  * 
  * @export
- * @interface PageHttpJobExecution
+ * @interface PageHttpJobExecutionQueryResult
  */
-export interface PageHttpJobExecution {
+export interface PageHttpJobExecutionQueryResult {
     /**
      * 
      * @type {number}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'totalPages'?: number;
     /**
      * 
      * @type {number}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'totalElements'?: number;
     /**
      * 
      * @type {boolean}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'first'?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'last'?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'size'?: number;
     /**
      * 
-     * @type {Array<HttpJobExecution>}
-     * @memberof PageHttpJobExecution
+     * @type {Array<HttpJobExecutionQueryResult>}
+     * @memberof PageHttpJobExecutionQueryResult
      */
-    'content'?: Array<HttpJobExecution>;
+    'content'?: Array<HttpJobExecutionQueryResult>;
     /**
      * 
      * @type {number}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'number'?: number;
     /**
      * 
      * @type {SortObject}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'sort'?: SortObject;
     /**
      * 
-     * @type {number}
-     * @memberof PageHttpJobExecution
-     */
-    'numberOfElements'?: number;
-    /**
-     * 
      * @type {PageableObject}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {number}
+     * @memberof PageHttpJobExecutionQueryResult
+     */
+    'numberOfElements'?: number;
+    /**
+     * 
      * @type {boolean}
-     * @memberof PageHttpJobExecution
+     * @memberof PageHttpJobExecutionQueryResult
      */
     'empty'?: boolean;
 }
@@ -418,18 +542,6 @@ export interface PageableObject {
     'sort'?: SortObject;
     /**
      * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    'pageNumber'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageableObject
-     */
-    'pageSize'?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof PageableObject
      */
@@ -440,6 +552,18 @@ export interface PageableObject {
      * @memberof PageableObject
      */
     'unpaged'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageSize'?: number;
 }
 /**
  * 
@@ -468,10 +592,10 @@ export interface SortObject {
 }
 
 /**
- * HttpSchedulerRestControllerApi - axios parameter creator
+ * SchedulerControllerApi - axios parameter creator
  * @export
  */
-export const HttpSchedulerRestControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SchedulerControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -702,11 +826,11 @@ export const HttpSchedulerRestControllerApiAxiosParamCreator = function (configu
 };
 
 /**
- * HttpSchedulerRestControllerApi - functional programming interface
+ * SchedulerControllerApi - functional programming interface
  * @export
  */
-export const HttpSchedulerRestControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = HttpSchedulerRestControllerApiAxiosParamCreator(configuration)
+export const SchedulerControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SchedulerControllerApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -725,7 +849,7 @@ export const HttpSchedulerRestControllerApiFp = function(configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteJob(groupName: string, jobName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async deleteJob(groupName: string, jobName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteHttpJobResult>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteJob(groupName, jobName, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -759,7 +883,7 @@ export const HttpSchedulerRestControllerApiFp = function(configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageHttpJobExecution>> {
+        async getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageHttpJobExecutionQueryResult>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobExecutions(groupName, jobName, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -777,11 +901,11 @@ export const HttpSchedulerRestControllerApiFp = function(configuration?: Configu
 };
 
 /**
- * HttpSchedulerRestControllerApi - factory interface
+ * SchedulerControllerApi - factory interface
  * @export
  */
-export const HttpSchedulerRestControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = HttpSchedulerRestControllerApiFp(configuration)
+export const SchedulerControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SchedulerControllerApiFp(configuration)
     return {
         /**
          * 
@@ -799,7 +923,7 @@ export const HttpSchedulerRestControllerApiFactory = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteJob(groupName: string, jobName: string, options?: any): AxiosPromise<string> {
+        deleteJob(groupName: string, jobName: string, options?: any): AxiosPromise<DeleteHttpJobResult> {
             return localVarFp.deleteJob(groupName, jobName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -830,7 +954,7 @@ export const HttpSchedulerRestControllerApiFactory = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageHttpJobExecution> {
+        getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageHttpJobExecutionQueryResult> {
             return localVarFp.getJobExecutions(groupName, jobName, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
@@ -846,21 +970,21 @@ export const HttpSchedulerRestControllerApiFactory = function (configuration?: C
 };
 
 /**
- * HttpSchedulerRestControllerApi - object-oriented interface
+ * SchedulerControllerApi - object-oriented interface
  * @export
- * @class HttpSchedulerRestControllerApi
+ * @class SchedulerControllerApi
  * @extends {BaseAPI}
  */
-export class HttpSchedulerRestControllerApi extends BaseAPI {
+export class SchedulerControllerApi extends BaseAPI {
     /**
      * 
      * @param {CreateHttpJob} createHttpJob 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public addJob(createHttpJob: CreateHttpJob, options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).addJob(createHttpJob, options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).addJob(createHttpJob, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -869,20 +993,20 @@ export class HttpSchedulerRestControllerApi extends BaseAPI {
      * @param {string} jobName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public deleteJob(groupName: string, jobName: string, options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).deleteJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).deleteJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public getGroups(options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).getGroups(options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).getGroups(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -891,10 +1015,10 @@ export class HttpSchedulerRestControllerApi extends BaseAPI {
      * @param {string} jobName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public getJob(groupName: string, jobName: string, options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).getJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).getJob(groupName, jobName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -906,10 +1030,10 @@ export class HttpSchedulerRestControllerApi extends BaseAPI {
      * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public getJobExecutions(groupName?: string, jobName?: string, page?: number, size?: number, sort?: Array<string>, options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).getJobExecutions(groupName, jobName, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).getJobExecutions(groupName, jobName, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -917,10 +1041,10 @@ export class HttpSchedulerRestControllerApi extends BaseAPI {
      * @param {string} groupName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof HttpSchedulerRestControllerApi
+     * @memberof SchedulerControllerApi
      */
     public getJobs(groupName: string, options?: AxiosRequestConfig) {
-        return HttpSchedulerRestControllerApiFp(this.configuration).getJobs(groupName, options).then((request) => request(this.axios, this.basePath));
+        return SchedulerControllerApiFp(this.configuration).getJobs(groupName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
