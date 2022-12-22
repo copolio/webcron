@@ -1,7 +1,5 @@
 package com.copolio.webcron.port.`in`
 
-import com.copolio.webcron.model.HttpJob
-
 data class CreateHttpJob(
     val httpJob: HttpJob,
     val description: String,
@@ -19,4 +17,8 @@ data class CreateHttpJobResult(
 data class DeleteHttpJob(
     val jobName: String,
     val jobGroup: String
+)
+
+data class DeleteHttpJobResult(
+    val message: String
 )

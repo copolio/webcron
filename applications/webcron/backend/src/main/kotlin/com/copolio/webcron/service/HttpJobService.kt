@@ -1,7 +1,7 @@
 package com.copolio.webcron.service
 
-import com.copolio.webcron.model.HttpJob
 import com.copolio.webcron.port.`in`.CreateHttpJobExecution
+import com.copolio.webcron.port.`in`.HttpJob
 import com.copolio.webcron.port.`in`.HttpJobCommandUseCase
 import com.copolio.webcron.port.out.HttpJobExecutionSavePort
 import org.springframework.http.HttpStatus

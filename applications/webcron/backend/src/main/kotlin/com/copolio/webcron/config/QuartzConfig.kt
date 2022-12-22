@@ -1,6 +1,6 @@
 package com.copolio.webcron.config
 
-import com.copolio.webcron.model.HttpJob
+import com.copolio.webcron.port.`in`.HttpJob
 import com.copolio.webcron.port.`in`.HttpJobCommandUseCase
 import org.quartz.JobExecutionContext
 import org.springframework.scheduling.quartz.QuartzJobBean

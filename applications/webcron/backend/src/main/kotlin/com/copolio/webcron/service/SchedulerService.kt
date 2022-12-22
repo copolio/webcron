@@ -1,7 +1,6 @@
 package com.copolio.webcron.service
 
 import com.copolio.webcron.config.QuartzConfig
-import com.copolio.webcron.model.HttpJob
 import com.copolio.webcron.port.`in`.*
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
@@ -45,11 +44,11 @@ class SchedulerService(
         )
     }
 
-    override fun handle(deleteHttpJob: DeleteHttpJob): String {
+    override fun handle(deleteHttpJob: DeleteHttpJob): DeleteHttpJobResult {
         if (!scheduler.deleteJob(JobKey(deleteHttpJob.jobName, deleteHttpJob.jobGroup))) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Requested job does not exists")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Requested job does not exists")
         }
-        return "Deleted scheduler job (${deleteHttpJob.jobGroup} : ${deleteHttpJob.jobName})"
+        return DeleteHttpJobResult(message = "Deleted scheduler job (${deleteHttpJob.jobGroup} : ${deleteHttpJob.jobName})")
     }
 
     override fun getJobs(jobGroup: String): List<HttpJobQueryResult> {

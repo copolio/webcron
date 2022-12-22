@@ -1,4 +1,4 @@
-package com.copolio.webcron.adapter.`in`
+package com.copolio.webcron.adapter.`in`.rest
 
 import com.copolio.domains.quartz.model.HttpJobExecution
 import com.copolio.webcron.port.`in`.*
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/http-scheduler")
-class HttpSchedulerRestController(
+class SchedulerController(
     val schedulerQueryUseCase: SchedulerQueryUseCase,
     val schedulerCommandUseCase: SchedulerCommandUseCase,
     val httpJobQueryUseCase: HttpJobQueryUseCase
@@ -55,7 +55,7 @@ class HttpSchedulerRestController(
     fun deleteJob(
         @PathVariable("groupName") groupName: String,
         @PathVariable("jobName") jobName: String
-    ): ResponseEntity<String> {
+    ): ResponseEntity<DeleteHttpJobResult> {
         return ResponseEntity.ok(
             schedulerCommandUseCase.handle(
                 DeleteHttpJob(
