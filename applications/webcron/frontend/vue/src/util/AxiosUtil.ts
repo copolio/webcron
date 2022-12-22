@@ -1,4 +1,4 @@
-import { Configuration, HttpSchedulerControllerApiFactory } from "../api";
+import { Configuration, HttpSchedulerRestControllerApiFactory } from "../api";
 
 export function useQuartzApi() {
   const config = new Configuration({
@@ -6,6 +6,6 @@ export function useQuartzApi() {
     baseOptions: { withCredentials: true },
   });
   return {
-    HttpSchedulerApi: HttpSchedulerControllerApiFactory(config),
+    HttpSchedulerApi: HttpSchedulerRestControllerApiFactory(config),
   };
 }

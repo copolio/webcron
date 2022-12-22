@@ -1,35 +1,24 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Home from "../pages/Home.vue";
 import NotFound from "../pages/NotFound.vue";
-import QuartzHttpJobLogBoard from "../pages/QuartzHttpJobLogBoard.vue";
-import QuartzHttpScheduler from "../pages/QuartzHttpScheduler.vue";
+import HttpLogBoard from "../pages/HttpLogBoard.vue";
+import HttpCrontab from "../pages/HttpCrontab.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/spring/http-scheduler",
+    name: "HttpCrontab",
+    component: HttpCrontab,
   },
   {
-    path: "/spring",
-    name: "Spring",
-    children: [
-      {
-        path: "http-scheduler",
-        name: "QuartzHttpScheduler",
-        component: QuartzHttpScheduler,
-      },
-      {
-        path: "http-executions",
-        name: "QuartzHttpJobLogBoard",
-        component: QuartzHttpJobLogBoard,
-        props: (route) => {
-          return {
-            groupName: route.query.groupName,
-            jobName: route.query.jobName,
-          };
-        },
-      },
-    ],
+    path: "/logs",
+    name: "HttpLogBoard",
+    component: HttpLogBoard,
+    props: (route) => {
+      return {
+        groupName: route.query.groupName,
+        jobName: route.query.jobName,
+      };
+    },
   },
   {
     path: "/404",

@@ -1,5 +1,5 @@
-rootProject.name = "copolio-monorepo-jvm"
+rootProject.name = "copolio-jvm"
 include("applications:webcron:backend")
 include("core:spring-yaml-importer")
-include("domains:batch")
-include("domains:quartz")
+include("domains:mysql-batch")
+include("domains:mysql-quartz")

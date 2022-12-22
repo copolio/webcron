@@ -16,37 +16,14 @@
           mode="inline"
           :style="{ height: '100%', borderRight: 0 }"
         >
-          <SubMenu key="Spring">
-            <template #title>
-              <span>
-                <CloudServerOutlined />
-                Spring
-              </span>
-            </template>
-            <MenuItem key="QuartzHttpScheduler">
-              <RouterLink to="/spring/http-scheduler"> HTTP Jobs </RouterLink>
-            </MenuItem>
-            <MenuItem key="QuartzHttpJobLogBoard">
-              <RouterLink to="/spring/http-executions">
-                HTTP Executions
-              </RouterLink>
-            </MenuItem>
-            <MenuItem
-              key="QuartzBatchScheduler"
-              @click="router.push('/spring/batch-scheduler')"
-            >
-              Batch Jobs
-            </MenuItem>
-          </SubMenu>
-          <!-- <SubMenu key="cron">
-            <template #title>
-              <span>
-                <LaptopOutlined />
-                Cron
-              </span>
-            </template>
-            <MenuItem key="option">option</MenuItem>
-          </SubMenu> -->
+          <MenuItem key="HttpCrontab">
+            <ScheduleOutlined />
+            <RouterLink to="/"> Cron Jobs </RouterLink>
+          </MenuItem>
+          <MenuItem key="HttpLogBoard">
+            <CloudServerOutlined />
+            <RouterLink to="/logs"> Logs </RouterLink>
+          </MenuItem>
         </Menu>
       </LayoutSider>
       <Layout style="padding: 0 24px 24px">
@@ -66,9 +43,8 @@
 </template>
 <script setup lang="ts">
 import {
-  CloudOutlined,
   CloudServerOutlined,
-  LaptopOutlined,
+  FileTextOutlined,
   ScheduleOutlined,
 } from "@ant-design/icons-vue";
 import { computed } from "@vue/reactivity";
@@ -79,13 +55,12 @@ import {
   LayoutSider,
   Menu,
   MenuItem,
-  SubMenu,
 } from "ant-design-vue";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const openKeys: Ref<string[]> = ref(["Spring"]);
+const openKeys: Ref<string[]> = ref(["http"]);
 
 const selectedKey = computed(() => {
   return [router.currentRoute.value.name];

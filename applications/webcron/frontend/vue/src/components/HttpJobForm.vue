@@ -12,11 +12,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { PostHttpJobRequest } from "../api";
+import { CreateHttpJob } from "../api";
 import { useAddHttpJobMutation } from "../composables/HttpJob";
 
-const formState = ref<PostHttpJobRequest>({
-  httpJobRequest: {
+const formState = ref<CreateHttpJob>({
+  httpJob: {
     jobName: "",
     jobGroup: "",
     url: "",
@@ -31,7 +31,7 @@ const formState = ref<PostHttpJobRequest>({
 
 const resetForm = () => {
   formState.value = {
-    httpJobRequest: {
+    httpJob: {
       jobName: "",
       jobGroup: "",
       url: "",
