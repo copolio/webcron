@@ -12,8 +12,8 @@ import org.springframework.web.server.ResponseStatusException
 class SchedulerService(
     private val scheduler: Scheduler
 ) : SchedulerCommandUseCase, SchedulerQueryUseCase {
-    override fun getGroups(): List<HttpJobGroupQueryResult> {
-        return scheduler.jobGroupNames.map { groupName -> HttpJobGroupQueryResult(groupName) }
+    override fun getGroups(): List<SchedulerJobGroupQueryResult> {
+        return scheduler.jobGroupNames.map { groupName -> SchedulerJobGroupQueryResult(groupName) }
     }
 
     override fun handle(
@@ -51,32 +51,46 @@ class SchedulerService(
         return DeleteHttpJobResult(message = "Deleted scheduler job (${deleteHttpJob.jobGroup} : ${deleteHttpJob.jobName})")
     }
 
-    override fun getJobs(jobGroup: String): List<HttpJobQueryResult> {
-        val jobs = ArrayList<HttpJobQueryResult>()
-        for (jobKey in scheduler.getJobKeys(GroupMatcher.jobGroupEquals(jobGroup))) {
-            jobs.add(getJob(jobKey.name, jobKey.group))
+    override fun handle(schedulerJobByGroupQuery: SchedulerJobByGroupQuery): List<SchedulerJobQueryResult> {
+        val jobs = ArrayList<SchedulerJobQueryResult>()
+        for (jobKey in scheduler.getJobKeys(GroupMatcher.jobGroupEquals(schedulerJobByGroupQuery.jobGroup))) {
+            jobs.add(
+                handle(
+                    SchedulerJobDetailQuery(
+                        jobName = jobKey.name, jobGroup = jobKey.group
+                    )
+                )
+            )
         }
         return jobs
     }
 
-    override fun getJob(jobName: String, jobGroup: String): HttpJobQueryResult {
-        val jobDetail = scheduler.getJobDetail(JobKey(jobName, jobGroup))
+    override fun handle(schedulerJobDetailQuery: SchedulerJobDetailQuery): SchedulerJobQueryResult {
+        val jobDetail = scheduler.getJobDetail(
+            JobKey(schedulerJobDetailQuery.jobName, schedulerJobDetailQuery.jobGroup)
+        )
         val httpJob = jobDetail.jobDataMap["httpJob"] as HttpJob
-        return HttpJobQueryResult(
+        return SchedulerJobQueryResult(
             groupName = jobDetail.key.group,
             name = jobDetail.key.name,
             description = jobDetail.description,
-            cronExpression = getTrigger(jobName, jobGroup),
+            cronExpression = handle(
+                SchedulerTriggerQuery(
+                    schedulerJobDetailQuery.jobName,
+                    schedulerJobDetailQuery.jobGroup
+                )
+            ),
             url = httpJob.url
         )
     }
 
-    override fun getTrigger(jobName: String, jobGroup: String): String {
-        val triggersOfJob = scheduler.getTriggersOfJob(JobKey(jobName, jobGroup))
+    override fun handle(schedulerTriggerQuery: SchedulerTriggerQuery): String {
+        val triggersOfJob =
+            scheduler.getTriggersOfJob(JobKey(schedulerTriggerQuery.jobName, schedulerTriggerQuery.jobGroup))
         if (triggersOfJob.isEmpty())
             throw ResponseStatusException(
                 HttpStatus.NOT_FOUND,
-                "Cron Trigger does not exists for the job(${jobGroup} : ${jobName})"
+                "Cron Trigger does not exists for the job(${schedulerTriggerQuery.jobGroup} : ${schedulerTriggerQuery.jobName})"
             )
         return (triggersOfJob[0] as CronTrigger).cronExpression
     }

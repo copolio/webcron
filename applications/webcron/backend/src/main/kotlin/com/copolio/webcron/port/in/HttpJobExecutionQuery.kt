@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
 
-data class HttpJobExecutionQuery(
+data class HttpJobExecutionSearchQuery(
     val jobGroup: String?,
     val jobName: String?,
 )
 
-data class HttpJobExecutionQueryResult(
+data class HttpJobExecutionSearchQueryResult(
     val jobGroup: String,
     val jobName: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -18,16 +18,4 @@ data class HttpJobExecutionQueryResult(
     val endTime: LocalDateTime,
     val statusCode: HttpStatus,
     val response: String
-)
-
-data class HttpJobGroupQueryResult(
-    val name: String
-)
-
-data class HttpJobQueryResult(
-    val groupName: String,
-    val name: String,
-    val description: String,
-    val cronExpression: String,
-    val url: String,
 )

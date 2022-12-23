@@ -1,5 +1,5 @@
 package com.copolio.webcron.port.out
 
-import com.copolio.webcron.port.`in`.HttpJobQueryUseCase
+import com.copolio.webcron.port.`in`.HttpJobExecutionQueryUseCase
 
-interface HttpJobExecutionLoadPort : HttpJobQueryUseCase
+interface HttpJobExecutionLoadPort : HttpJobExecutionQueryUseCase
