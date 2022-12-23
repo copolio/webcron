@@ -5,7 +5,7 @@ import {
   CreateHttpJob,
   CreateHttpJobResult,
   DefaultError,
-  HttpJobGroupQueryResult,
+  SchedulerJobGroupQueryResult,
 } from "../api";
 import { useQuartzApi } from "../util/api-util";
 
@@ -13,7 +13,7 @@ const quartzApi = useQuartzApi();
 
 export function useHttpJobGroupQuery() {
   return useQuery<
-    AxiosResponse<Array<HttpJobGroupQueryResult>>,
+    AxiosResponse<Array<SchedulerJobGroupQueryResult>>,
     AxiosError<DefaultError>
   >("jobGroups", quartzApi.HttpSchedulerApi.getGroups);
 }
@@ -21,7 +21,7 @@ export function useHttpJobGroupQuery() {
 export function useHttpJobQuery(groupName: string) {
   const queryKey = ["jobs", groupName];
   return useQuery<
-    AxiosResponse<Array<HttpJobGroupQueryResult>>,
+    AxiosResponse<Array<SchedulerJobGroupQueryResult>>,
     AxiosResponse<DefaultError>
   >(queryKey, () => quartzApi.HttpSchedulerApi.getJobs(groupName));
 }
@@ -52,7 +52,7 @@ export function useHttpJobExecutionQuery() {
   return {
     searchCondition,
     ...useQuery(queryKey, () =>
-      quartzApi.HttpSchedulerApi.getJobExecutions(
+      quartzApi.JobExecutionApi.getJobExecutions(
         searchCondition.value.groupName,
         searchCondition.value.jobName,
         searchCondition.value.page,

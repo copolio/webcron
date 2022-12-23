@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDeleteHttpJobMutation } from "../composables/HttpJob";
+import { useDeleteHttpJobMutation } from "../composables/http-job";
 
 interface PropsInterface {
   groupName: string;

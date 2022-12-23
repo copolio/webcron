@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { useHttpJobQuery } from "../composables/HttpJob";
+import { useHttpJobQuery } from "../composables/http-job";
 
 const props = defineProps<{ groupName: string }>();
 const { isFetching, isError, data, error, refetch } = useHttpJobQuery(

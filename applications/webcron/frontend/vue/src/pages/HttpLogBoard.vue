@@ -15,13 +15,23 @@
         <Row :gutter="24">
           <Col>
             <FormItem>
-              <Button type="primary" @click="refetch()">Search</Button>
+              <Button
+                type="primary"
+                @click="refetch()"
+                :loading="isFetching"
+                shape="circle"
+              >
+                <template #icon>
+                  <ReloadOutlined />
+                </template>
+              </Button>
             </FormItem>
           </Col>
           <Col>
             <FormItem label="Group">
               <Input v-model:value="searchCondition.groupName">
                 <template #prefix><GroupOutlined /></template>
+                <template #suffix><SearchOutlined /></template>
               </Input>
             </FormItem>
           </Col>
@@ -29,6 +39,7 @@
             <FormItem label="Job">
               <Input v-model:value="searchCondition.jobName">
                 <template #prefix><SnippetsOutlined /></template>
+                <template #suffix><SearchOutlined /></template>
               </Input>
             </FormItem>
           </Col>
@@ -39,7 +50,7 @@
         :data-source="data?.data.content"
         :columns="antColumns"
         bordered
-        :scroll="{ x: 2000, y: 900 }"
+        :scroll="{ x: false, y: 900 }"
         v-model:current="searchCondition.page"
         v-model:pageSize="searchCondition.size"
         :pagination="{
@@ -59,7 +70,12 @@
 </template>
 
 <script setup lang="ts">
-import { GroupOutlined, SnippetsOutlined } from "@ant-design/icons-vue";
+import {
+  GroupOutlined,
+  ReloadOutlined,
+  SearchOutlined,
+  SnippetsOutlined,
+} from "@ant-design/icons-vue";
 import {
   Button,
   Col,

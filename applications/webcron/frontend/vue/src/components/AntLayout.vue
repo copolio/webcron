@@ -4,7 +4,7 @@
       <div class="logo" draggable="false">
         <RouterLink to="/">
           <img src="/images/scheduler.svg" />
-          crontab
+          webcron
         </RouterLink>
       </div>
     </LayoutHeader>
@@ -22,7 +22,7 @@
           </MenuItem>
           <MenuItem key="HttpLogBoard">
             <CloudServerOutlined />
-            <RouterLink to="/logs"> Logs </RouterLink>
+            <RouterLink to="/logs"> Job Executions </RouterLink>
           </MenuItem>
         </Menu>
       </LayoutSider>
@@ -37,6 +37,9 @@
         >
           <router-view></router-view>
         </LayoutContent>
+        <LayoutFooter :style="{ textAlign: 'center' }">
+          Copolio ©2022
+        </LayoutFooter>
       </Layout>
     </Layout>
   </Layout>
@@ -51,6 +54,7 @@ import { computed } from "@vue/reactivity";
 import {
   Layout,
   LayoutContent,
+  LayoutFooter,
   LayoutHeader,
   LayoutSider,
   Menu,

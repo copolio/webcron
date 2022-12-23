@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { useHttpJobGroupQuery } from "../composables/HttpJob";
+import { useHttpJobGroupQuery } from "../composables/http-job";
 
 const { isLoading, isFetching, isError, data, error, refetch } =
   useHttpJobGroupQuery();
