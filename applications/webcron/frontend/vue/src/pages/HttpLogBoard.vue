@@ -50,7 +50,7 @@
         :data-source="data?.data.content"
         :columns="antColumns"
         bordered
-        :scroll="{ x: false, y: 900 }"
+        :scroll="{ y: 900 }"
         v-model:current="searchCondition.page"
         v-model:pageSize="searchCondition.size"
         :pagination="{

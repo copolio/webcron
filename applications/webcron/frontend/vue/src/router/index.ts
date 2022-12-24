@@ -1,18 +1,15 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import NotFound from "../pages/NotFound.vue";
-import HttpLogBoard from "../pages/HttpLogBoard.vue";
-import HttpCrontab from "../pages/HttpCrontab.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "HttpCrontab",
-    component: HttpCrontab,
+    component: () => import("../pages/HttpCrontab.vue"),
   },
   {
     path: "/logs",
     name: "HttpLogBoard",
-    component: HttpLogBoard,
+    component: () => import("../pages/HttpLogBoard.vue"),
     props: (route) => {
       return {
         groupName: route.query.groupName,
@@ -23,7 +20,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/404",
     name: "NotFound",
-    component: NotFound,
+    component: () => import("../pages/NotFound.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
