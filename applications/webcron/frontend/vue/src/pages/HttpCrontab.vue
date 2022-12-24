@@ -5,11 +5,22 @@
         <Row :gutter="24">
           <Col>
             <FormItem>
-              <Button @click="() => (showJobForm = true)">Create New</Button>
+              <Button
+                type="primary"
+                @click="refetch()"
+                shape="circle"
+                :loading="isFetching"
+              >
+                <template #icon>
+                  <ReloadOutlined />
+                </template>
+              </Button>
             </FormItem>
           </Col>
           <Col>
-            <Button @click="refetch()">Search</Button>
+            <FormItem>
+              <Button @click="() => (showJobForm = true)">Create New</Button>
+            </FormItem>
           </Col>
         </Row>
       </Form>
@@ -135,6 +146,7 @@
 import {
   DeleteOutlined,
   ExclamationCircleOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons-vue";
 import {
   Alert,
