@@ -1,6 +1,11 @@
-# Spring Crontab
+# copolio-jvm
 
-- 주기적으로 HTTP 통신을 수행하는 크론 작업의 등록, 삭제 및 로그를 추적할 수 있는 관리툴
-- Spring Batch On-demand 작업 관리
-- Backend: Spring Boot + Quartz
-- Frontend: Vue 3 + Ant Design Vue
+- JVM(Java, Kotlin) 기반으로 진행된 사이드 프로젝트 모노레포
+- 멀티모듈 구조로 설계
+    - [applications](applications/README.md)
+    - [core](core/README.md)
+    - [domains](domains/README.md)
+
+## 목차
+
+- [Webcron](applications/webcron/README.md)
