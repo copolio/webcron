@@ -16,7 +16,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = ["com.copolio.domains.quartz.model"],
+    basePackages = ["com.copolio.domains.quartz.repository"],
     entityManagerFactoryRef = "quartzEntityManagerFactory",
     transactionManagerRef = "quartzTransactionManager"
 )
@@ -28,7 +28,7 @@ class QuartzJpaConfig {
     ): LocalContainerEntityManagerFactoryBean {
         val em = entityManagerFactoryBean
             .dataSource(quartzDataSource)
-            .packages("com.copolio.domains.quartz.model")
+            .packages("com.copolio.domains.quartz.entity")
             .build()
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         return em
