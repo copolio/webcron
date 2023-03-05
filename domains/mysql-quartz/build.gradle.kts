@@ -49,3 +49,5 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.bootJar { enabled = false }
