@@ -1,11 +1,12 @@
-# copolio-jvm
+# Webcron
 
-- JVM(Java, Kotlin) 기반으로 진행된 사이드 프로젝트 모노레포
-- 멀티모듈 구조로 설계
-    - [applications](applications/README.md)
-    - [core](core/README.md)
-    - [domains](domains/README.md)
+Webcron is a distributed scheduler web application based on Quartz, Spring, and Vue. It attempts to ease the complex
+functionalities of Java Quartz Scheduler by providing administration tool with web GUI and RESTFul API.
 
-## 목차
-
-- [Webcron](applications/webcron/README.md)
+## Built with
+- Java Quartz Scheduler
+- Spring Boot
+  - Spring MVC for web accessibility
+  - Spring Data JPA for data persistence
+  - Springdoc for document generation
+- MySQL as primary database
