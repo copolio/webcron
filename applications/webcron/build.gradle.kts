@@ -55,6 +55,7 @@ dependencies {
 
     // Multi-module
     api(project(":domains:mysql-quartz"))
+    api(project(":applications:webcron-ui"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -69,5 +70,5 @@ tasks.withType<Test> {
 }
 
 tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    this.archiveFileName.set("app.jar")
+    dependsOn(":applications:webcron-ui:npmRunBuild")
 }
