@@ -1,12 +1,12 @@
 package com.copolio.webcron.config
 
-import com.copolio.webcron.port.`in`.HttpJob
-import com.copolio.webcron.port.`in`.HttpJobCommandUseCase
+import com.copolio.webcron.domain.HttpJob
+import com.copolio.webcron.port.`in`.HttpJobPublishUseCase
 import org.quartz.JobExecutionContext
 import org.springframework.scheduling.quartz.QuartzJobBean
 
 class QuartzConfig(
-    private val httpJobCommandUseCase: HttpJobCommandUseCase,
+    private val httpJobPublishUseCase: HttpJobPublishUseCase,
 ) : QuartzJobBean() {
     private lateinit var httpJob: HttpJob
 
@@ -15,6 +15,6 @@ class QuartzConfig(
     }
 
     override fun executeInternal(context: JobExecutionContext) {
-        httpJobCommandUseCase.execute(httpJob)
+        httpJobPublishUseCase.publish(httpJob)
     }
 }

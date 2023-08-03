@@ -1,4 +1,4 @@
-package com.copolio.webcron.service
+package com.copolio.webcron.domain
 
 import com.copolio.webcron.config.QuartzConfig
 import com.copolio.webcron.port.`in`.*

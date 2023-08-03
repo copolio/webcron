@@ -1,4 +1,4 @@
-package com.copolio.webcron.port.`in`
+package com.copolio.webcron.domain
 
 import org.springframework.http.HttpMethod
 import java.io.Serializable

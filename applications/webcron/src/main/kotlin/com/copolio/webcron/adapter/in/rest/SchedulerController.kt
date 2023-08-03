@@ -1,13 +1,17 @@
-package com.copolio.webcron.adapter.`in`
+package com.copolio.webcron.adapter.`in`.rest
 
 import com.copolio.webcron.port.`in`.*
+import com.copolio.webcron.domain.CreateHttpJob
+import com.copolio.webcron.domain.CreateHttpJobResult
+import com.copolio.webcron.domain.DeleteHttpJob
+import com.copolio.webcron.domain.DeleteHttpJobResult
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/http-scheduler")
-class SchedulerRestController(
+class SchedulerController(
     val schedulerQueryUseCase: SchedulerQueryUseCase,
     val schedulerCommandUseCase: SchedulerCommandUseCase,
     val httpJobExecutionQueryUseCase: HttpJobExecutionQueryUseCase

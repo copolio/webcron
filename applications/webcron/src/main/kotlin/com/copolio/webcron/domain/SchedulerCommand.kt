@@ -1,4 +1,4 @@
-package com.copolio.webcron.port.`in`
+package com.copolio.webcron.domain
 
 data class CreateHttpJob(
     val httpJob: HttpJob,

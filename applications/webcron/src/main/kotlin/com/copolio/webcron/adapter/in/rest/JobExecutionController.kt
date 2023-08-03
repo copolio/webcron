@@ -1,4 +1,4 @@
-package com.copolio.webcron.adapter.`in`
+package com.copolio.webcron.adapter.`in`.rest
 
 import com.copolio.webcron.port.`in`.HttpJobExecutionQueryUseCase
 import com.copolio.webcron.port.`in`.HttpJobExecutionSearchQuery
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/job-executions")
-class JobExecutionRestController(
+class JobExecutionController(
     val httpJobExecutionQueryUseCase: HttpJobExecutionQueryUseCase
 ) {
     @GetMapping("/search")

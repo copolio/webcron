@@ -1,8 +1,7 @@
-package com.copolio.webcron.service
+package com.copolio.webcron.domain
 
 import com.copolio.webcron.port.`in`.CreateHttpJobExecution
-import com.copolio.webcron.port.`in`.HttpJob
-import com.copolio.webcron.port.`in`.HttpJobCommandUseCase
+import com.copolio.webcron.port.`in`.HttpJobPublishUseCase
 import com.copolio.webcron.port.out.HttpJobExecutionSavePort
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -14,10 +13,15 @@ import java.time.LocalDateTime
 @Service
 class HttpJobService(
     private val httpJobExecutionSavePort: HttpJobExecutionSavePort
-) : HttpJobCommandUseCase {
+) : HttpJobPublishUseCase {
     @Transactional
-    override fun execute(httpJob: HttpJob) {
-        val client = WebClient.create(if (httpJob.url.startsWith("http")) httpJob.url else "http://${httpJob.url}")
+    override fun publish(httpJob: HttpJob) {
+        val client = WebClient.create(
+            if (httpJob.url.startsWith("http"))
+                httpJob.url
+            else
+                "http://${httpJob.url}"
+        )
         val startTime = LocalDateTime.now()
         try {
             val responseEntity = client
