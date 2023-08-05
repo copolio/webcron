@@ -1,7 +1,13 @@
 package com.copolio.webcron.domain
 
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJob
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobResult
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJob
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJobResult
+import com.copolio.clients.webcronclient.dto.query.*
 import com.copolio.webcron.config.QuartzConfig
 import com.copolio.webcron.port.`in`.*
+import com.copolio.webcron.util.HttpJobMapper
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import org.springframework.http.HttpStatus
@@ -10,21 +16,22 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class SchedulerService(
-    private val scheduler: Scheduler
+    private val scheduler: Scheduler,
+    private val httpJobMapper: HttpJobMapper,
 ) : SchedulerCommandUseCase, SchedulerQueryUseCase {
-    override fun getGroups(): List<SchedulerJobGroupQueryResult> {
-        return scheduler.jobGroupNames.map { groupName -> SchedulerJobGroupQueryResult(groupName) }
+    override fun getGroups(): List<SchedulerJobGroupInfo> {
+        return scheduler.jobGroupNames.map { groupName -> SchedulerJobGroupInfo(groupName) }
     }
 
     override fun handle(
         createHttpJob: CreateHttpJob
     ): CreateHttpJobResult {
         val jobDataMap = JobDataMap()
-        jobDataMap.put("httpJob", createHttpJob.httpJob)
+        jobDataMap.put("httpJob", httpJobMapper.mapTo(createHttpJob))
         val jobDetail = JobBuilder.newJob()
             .ofType(QuartzConfig::class.java)
             .storeDurably()
-            .withIdentity(createHttpJob.httpJob.jobName, createHttpJob.httpJob.jobGroup)
+            .withIdentity(createHttpJob.jobName, createHttpJob.jobGroup)
             .withDescription(createHttpJob.description)
             .setJobData(jobDataMap)
             .build()
@@ -40,7 +47,7 @@ class SchedulerService(
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = createHttpJob.cronExpression,
-            url = createHttpJob.httpJob.url,
+            url = createHttpJob.url,
         )
     }
 
@@ -51,12 +58,12 @@ class SchedulerService(
         return DeleteHttpJobResult(message = "Deleted scheduler job (${deleteHttpJob.jobGroup} : ${deleteHttpJob.jobName})")
     }
 
-    override fun handle(schedulerJobByGroupQuery: SchedulerJobByGroupQuery): List<SchedulerJobQueryResult> {
-        val jobs = ArrayList<SchedulerJobQueryResult>()
-        for (jobKey in scheduler.getJobKeys(GroupMatcher.jobGroupEquals(schedulerJobByGroupQuery.jobGroup))) {
+    override fun handle(searchSchedulerJobs: SearchSchedulerJobs): List<SchedulerJobInfo> {
+        val jobs = ArrayList<SchedulerJobInfo>()
+        for (jobKey in scheduler.getJobKeys(GroupMatcher.jobGroupEquals(searchSchedulerJobs.jobGroup))) {
             jobs.add(
                 handle(
-                    SchedulerJobDetailQuery(
+                    SearchSchedulerJobInfo(
                         jobName = jobKey.name, jobGroup = jobKey.group
                     )
                 )
@@ -65,19 +72,19 @@ class SchedulerService(
         return jobs
     }
 
-    override fun handle(schedulerJobDetailQuery: SchedulerJobDetailQuery): SchedulerJobQueryResult {
+    override fun handle(searchSchedulerJobInfo: SearchSchedulerJobInfo): SchedulerJobInfo {
         val jobDetail = scheduler.getJobDetail(
-            JobKey(schedulerJobDetailQuery.jobName, schedulerJobDetailQuery.jobGroup)
+            JobKey(searchSchedulerJobInfo.jobName, searchSchedulerJobInfo.jobGroup)
         )
         val httpJob = jobDetail.jobDataMap["httpJob"] as HttpJob
-        return SchedulerJobQueryResult(
+        return SchedulerJobInfo(
             groupName = jobDetail.key.group,
             name = jobDetail.key.name,
             description = jobDetail.description,
             cronExpression = handle(
                 SchedulerTriggerQuery(
-                    schedulerJobDetailQuery.jobName,
-                    schedulerJobDetailQuery.jobGroup
+                    searchSchedulerJobInfo.jobName,
+                    searchSchedulerJobInfo.jobGroup
                 )
             ),
             url = httpJob.url

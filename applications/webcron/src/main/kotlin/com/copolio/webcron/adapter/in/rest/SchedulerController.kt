@@ -1,10 +1,13 @@
 package com.copolio.webcron.adapter.`in`.rest
 
 import com.copolio.webcron.port.`in`.*
-import com.copolio.webcron.domain.CreateHttpJob
-import com.copolio.webcron.domain.CreateHttpJobResult
-import com.copolio.webcron.domain.DeleteHttpJob
-import com.copolio.webcron.domain.DeleteHttpJobResult
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJob
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobResult
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJob
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJobResult
+import com.copolio.clients.webcronclient.dto.query.SearchSchedulerJobs
+import com.copolio.clients.webcronclient.dto.query.SchedulerJobGroupInfo
+import com.copolio.clients.webcronclient.dto.query.SchedulerJobInfo
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.*
 class SchedulerController(
     val schedulerQueryUseCase: SchedulerQueryUseCase,
     val schedulerCommandUseCase: SchedulerCommandUseCase,
-    val httpJobExecutionQueryUseCase: HttpJobExecutionQueryUseCase
 ) {
     @PostMapping("/")
     fun addJob(@RequestBody createHttpJob: CreateHttpJob): ResponseEntity<CreateHttpJobResult> {
@@ -25,16 +27,16 @@ class SchedulerController(
     }
 
     @GetMapping("/groups")
-    fun getGroups(): ResponseEntity<List<SchedulerJobGroupQueryResult>> {
+    fun getGroups(): ResponseEntity<List<SchedulerJobGroupInfo>> {
         return ResponseEntity.ok(
             schedulerQueryUseCase.getGroups()
         )
     }
 
     @GetMapping("/groups/{groupName}/jobs")
-    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<SchedulerJobQueryResult>> {
+    fun getJobs(@PathVariable("groupName") groupName: String): ResponseEntity<List<SchedulerJobInfo>> {
         return ResponseEntity.ok(
-            schedulerQueryUseCase.handle(SchedulerJobByGroupQuery(jobGroup = groupName))
+            schedulerQueryUseCase.handle(SearchSchedulerJobs(jobGroup = groupName))
         )
     }
 

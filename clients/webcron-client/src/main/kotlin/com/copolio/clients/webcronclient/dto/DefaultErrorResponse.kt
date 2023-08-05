@@ -1,4 +1,4 @@
-package com.copolio.webcron.dto
+package com.copolio.clients.webcronclient.dto
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime

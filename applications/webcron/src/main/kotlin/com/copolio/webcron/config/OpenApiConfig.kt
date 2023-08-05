@@ -1,6 +1,6 @@
 package com.copolio.webcron.config
 
-import com.copolio.webcron.dto.DefaultErrorResponse
+import com.copolio.clients.webcronclient.dto.DefaultErrorResponse
 import io.swagger.v3.core.converter.ModelConverters
 import io.swagger.v3.oas.models.media.Content
 import io.swagger.v3.oas.models.media.MediaType

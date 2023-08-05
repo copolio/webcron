@@ -54,8 +54,9 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 
     // Multi-module
-    api(project(":domains:db-quartz"))
     api(project(":applications:webcron-ui"))
+    api(project(":clients:webcron-client"))
+    api(project(":domains:db-quartz"))
 }
 
 tasks.withType<KotlinCompile> {

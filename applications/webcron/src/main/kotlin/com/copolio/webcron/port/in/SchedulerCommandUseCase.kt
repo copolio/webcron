@@ -1,9 +1,9 @@
 package com.copolio.webcron.port.`in`
 
-import com.copolio.webcron.domain.CreateHttpJob
-import com.copolio.webcron.domain.CreateHttpJobResult
-import com.copolio.webcron.domain.DeleteHttpJob
-import com.copolio.webcron.domain.DeleteHttpJobResult
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJob
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobResult
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJob
+import com.copolio.clients.webcronclient.dto.command.DeleteHttpJobResult
 
 interface SchedulerCommandUseCase {
     fun handle(createHttpJob: CreateHttpJob): CreateHttpJobResult
