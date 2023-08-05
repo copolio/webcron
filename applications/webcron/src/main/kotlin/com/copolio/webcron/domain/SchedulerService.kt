@@ -87,7 +87,7 @@ class SchedulerService(
                     searchSchedulerJobInfo.jobGroup
                 )
             ),
-            url = httpJob.url
+            url = httpJob.uri
         )
     }
 

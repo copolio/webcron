@@ -4,7 +4,7 @@ import org.springframework.http.HttpMethod
 import java.io.Serializable
 
 data class HttpJob(
-    val url: String,
+    val uri: String,
     val body: String?,
     val apiKey: String?,
     val apiToken: String?,

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class HttpJobMapperImpl: HttpJobMapper {
     override fun mapTo(request: CreateHttpJob): HttpJob {
         return HttpJob(
-            url = request.url,
+            uri = request.url,
             body = request.body,
             apiKey = request.apiKey,
             apiToken = request.apiToken,

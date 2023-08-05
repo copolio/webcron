@@ -2,7 +2,8 @@ package com.copolio.domains.quartz.entity
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
-import javax.persistence.*
+import jakarta.persistence.*
+import org.springframework.http.HttpStatusCode
 
 @Entity
 @Table(name = "HTTP_JOB_EXECUTION")

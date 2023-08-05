@@ -1,10 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.2"
-    id("io.spring.dependency-management") version "1.1.2"
-    kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22"
+    val springBootVersion = System.getProperty("springBootVersion") ?: "3.1.2"
+    val springDependencyManagementVersion = System.getProperty("springDependencyManagementVersion") ?: "1.1.2"
+    val kotlinJvmVersion = System.getProperty("kotlinJvmVersion") ?:"1.8.22"
+
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springDependencyManagementVersion
+    kotlin("jvm") version kotlinJvmVersion
+    kotlin("plugin.spring") version kotlinJvmVersion
 }
 
 group = "com.copolio.clients"
@@ -17,8 +21,6 @@ java {
 repositories {
     mavenCentral()
 }
-
-extra["springCloudVersion"] = "2022.0.4"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -42,3 +44,5 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.bootJar { enabled = false }

@@ -1,12 +1,17 @@
+import org.jetbrains.kotlin.gradle.plugin.extraProperties
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.5"
-    id("io.spring.dependency-management") version "1.0.15.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("plugin.jpa") version "1.6.21"
-    kotlin("kapt") version "1.6.21"
+    val springBootVersion = System.getProperty("springBootVersion") ?: "2.7.5"
+    val springDependencyManagementVersion = System.getProperty("springDependencyManagementVersion") ?: "1.0.15.RELEASE"
+    val kotlinJvmVersion = System.getProperty("kotlinJvmVersion") ?: "1.6.21"
+
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springDependencyManagementVersion
+    kotlin("jvm") version kotlinJvmVersion
+    kotlin("plugin.spring") version kotlinJvmVersion
+    kotlin("plugin.jpa") version kotlinJvmVersion
+    kotlin("kapt") version kotlinJvmVersion
 }
 
 group = "com.copolio"
@@ -32,7 +37,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -59,6 +64,12 @@ dependencies {
     api(project(":domains:db-quartz"))
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -71,5 +82,5 @@ tasks.withType<Test> {
 }
 
 tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    dependsOn(":applications:webcron-ui:npmRunBuild")
+//    dependsOn(":applications:webcron-ui:npmRunBuild")
 }

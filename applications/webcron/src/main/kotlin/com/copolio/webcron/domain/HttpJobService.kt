@@ -17,16 +17,16 @@ class HttpJobService(
     @Transactional
     override fun publish(httpJob: HttpJob) {
         val client = WebClient.create(
-            if (httpJob.url.startsWith("http"))
-                httpJob.url
+            if (httpJob.uri.startsWith("http"))
+                httpJob.uri
             else
-                "http://${httpJob.url}"
+                "http://${httpJob.uri}"
         )
         val startTime = LocalDateTime.now()
         try {
             val responseEntity = client
                 .method(httpJob.httpMethod)
-                .uri(httpJob.uri ?: "")
+                .uri(httpJob.uri)
                 .contentType(MediaType.APPLICATION_JSON)
                 .headers { headers ->
                     if (!httpJob.apiKey.isNullOrBlank() && !httpJob.apiToken.isNullOrBlank())
@@ -40,7 +40,7 @@ class HttpJobService(
                 CreateHttpJobExecution(
                     startTime = startTime,
                     endTime = LocalDateTime.now(),
-                    httpStatus = responseEntity!!.statusCode,
+                    httpStatus = HttpStatus.valueOf(responseEntity!!.statusCode.toString()),
                     response = responseEntity.body ?: "",
                     jobGroup = httpJob.jobGroup,
                     jobName = httpJob.jobName

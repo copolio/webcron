@@ -8,3 +8,5 @@ project.task("copyJar") {
         into("$rootDir/build/libs")
     }
 }
+
+extra["springCloudVersion"] = System.getProperty("springCloudVersion") ?: "2022.0.4"
