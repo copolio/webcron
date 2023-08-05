@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate
 import javax.sql.DataSource
 
 @Configuration
-class DefaultDataSourceConfig {
+class DataSourceConfig {
     @Primary
     @Bean
     @ConfigurationProperties(value = "spring.datasource.application")

@@ -1,8 +1,8 @@
 package com.copolio.webcron.mapper
 
 import com.copolio.domains.quartz.entity.HttpJobExecution
-import com.copolio.webcron.port.`in`.HttpJobExecutionSearchQueryResult
+import com.copolio.clients.webcronclient.dto.query.HttpJobExecutionInfo
 
 interface HttpJobExecutionMapper {
-    fun convert(httpJobExecution: HttpJobExecution): HttpJobExecutionSearchQueryResult
+    fun convert(httpJobExecution: HttpJobExecution): HttpJobExecutionInfo
 }

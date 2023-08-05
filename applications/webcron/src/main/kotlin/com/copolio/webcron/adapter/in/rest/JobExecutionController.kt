@@ -1,8 +1,8 @@
 package com.copolio.webcron.adapter.`in`.rest
 
 import com.copolio.webcron.port.`in`.HttpJobExecutionQueryUseCase
-import com.copolio.webcron.port.`in`.HttpJobExecutionSearchQuery
-import com.copolio.webcron.port.`in`.HttpJobExecutionSearchQueryResult
+import com.copolio.clients.webcronclient.dto.query.SearchHttpJobExecution
+import com.copolio.clients.webcronclient.dto.query.HttpJobExecutionInfo
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -23,10 +23,10 @@ class JobExecutionController(
         @RequestParam("groupName") groupName: String?,
         @RequestParam("jobName") jobName: String?,
         @ParameterObject @PageableDefault(page = 0, size = 20) pageable: Pageable
-    ): ResponseEntity<Page<HttpJobExecutionSearchQueryResult>> {
+    ): ResponseEntity<Page<HttpJobExecutionInfo>> {
         return ResponseEntity.ok(
             httpJobExecutionQueryUseCase.handle(
-                HttpJobExecutionSearchQuery(
+                SearchHttpJobExecution(
                     jobGroup = groupName,
                     jobName = jobName
                 ),
