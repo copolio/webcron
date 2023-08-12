@@ -1,7 +1,6 @@
-package com.copolio.webcron.port.`in`
+package com.copolio.clients.webcronclient.dto.command
 
 import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import java.time.LocalDateTime
 
 data class CreateHttpJobExecution(

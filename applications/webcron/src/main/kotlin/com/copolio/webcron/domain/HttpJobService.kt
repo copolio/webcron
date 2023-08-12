@@ -1,6 +1,6 @@
 package com.copolio.webcron.domain
 
-import com.copolio.webcron.port.`in`.CreateHttpJobExecution
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
 import com.copolio.webcron.port.`in`.HttpJobPublishUseCase
 import com.copolio.webcron.port.out.HttpJobExecutionSavePort
 import org.springframework.http.HttpStatus

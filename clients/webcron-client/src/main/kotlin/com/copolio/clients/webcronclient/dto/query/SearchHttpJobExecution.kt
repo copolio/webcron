@@ -4,4 +4,3 @@ data class SearchHttpJobExecution(
     val jobGroup: String?,
     val jobName: String?,
 )
-

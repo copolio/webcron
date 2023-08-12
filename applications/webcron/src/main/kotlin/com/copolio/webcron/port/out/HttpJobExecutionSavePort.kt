@@ -1,6 +1,6 @@
 package com.copolio.webcron.port.out
 
-import com.copolio.webcron.port.`in`.CreateHttpJobExecution
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
 
 interface HttpJobExecutionSavePort {
     fun handle(

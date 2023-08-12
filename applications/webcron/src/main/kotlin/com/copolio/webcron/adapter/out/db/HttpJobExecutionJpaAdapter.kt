@@ -3,7 +3,7 @@ package com.copolio.webcron.adapter.out.db
 import com.copolio.domains.quartz.entity.HttpJobExecution
 import com.copolio.domains.quartz.repository.HttpJobExecutionRepository
 import com.copolio.webcron.mapper.HttpJobExecutionMapper
-import com.copolio.webcron.port.`in`.CreateHttpJobExecution
+import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
 import com.copolio.clients.webcronclient.dto.query.SearchHttpJobExecution
 import com.copolio.clients.webcronclient.dto.query.HttpJobExecutionInfo
 import com.copolio.webcron.port.out.HttpJobExecutionLoadPort
