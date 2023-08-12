@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val springBootVersion = System.getProperty("springBootVersion") ?: "2.7.5"
-    val springDependencyManagementVersion = System.getProperty("springDependencyManagementVersion") ?: "1.0.15.RELEASE"
-    val kotlinJvmVersion = System.getProperty("kotlinJvmVersion")  ?: "1.6.21"
+    val springBootVersion = System.getProperty("springBootVersion")!!
+    val springDependencyManagementVersion = System.getProperty("springDependencyManagementVersion")!!
+    val kotlinJvmVersion = System.getProperty("kotlinJvmVersion")!!
 
     id("org.springframework.boot") version springBootVersion
     id("io.spring.dependency-management") version springDependencyManagementVersion
@@ -15,7 +15,9 @@ plugins {
 
 group = "com.copolio.domains"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
 
 configurations {
     compileOnly {
