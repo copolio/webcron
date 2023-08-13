@@ -1,6 +1,6 @@
-package com.copolio.domains.quartz.repository
+package com.copolio.domains.webcron.repository
 
-import com.copolio.domains.quartz.entity.HttpJobExecution
+import com.copolio.domains.webcron.entity.HttpJobExecution
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

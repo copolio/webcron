@@ -1,4 +1,4 @@
-package com.copolio.domains.quartz.entity
+package com.copolio.domains.webcron.entity
 
 import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
@@ -6,7 +6,7 @@ import jakarta.persistence.*
 import org.springframework.http.HttpStatusCode
 
 @Entity
-@Table(name = "HTTP_JOB_EXECUTION")
+@Table(name = "HTTP_JOB_EXECUTION", schema = "WEBCRON")
 class HttpJobExecution(
     @Column(name = "START_TIME")
     val startTime: LocalDateTime,

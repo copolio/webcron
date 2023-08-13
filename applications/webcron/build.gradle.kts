@@ -62,6 +62,7 @@ dependencies {
     api(project(":applications:webcron-ui"))
     api(project(":clients:webcron-client"))
     api(project(":domains:db-quartz"))
+    api(project(":domains:db-webcron"))
 }
 
 dependencyManagement {

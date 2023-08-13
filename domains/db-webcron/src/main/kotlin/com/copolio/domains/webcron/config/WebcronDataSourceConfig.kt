@@ -1,4 +1,4 @@
-package com.copolio.domains.quartz.config
+package com.copolio.domains.webcron.config
 
 import com.copolio.core.YamlPropertySourceFactory
 import com.zaxxer.hikari.HikariDataSource
@@ -12,23 +12,23 @@ import org.springframework.context.annotation.PropertySource
 @ConfigurationProperties(prefix = "yaml")
 @PropertySource(
     value = [
-        "classpath:application-quartz.yml",
-        "classpath:application-quartz-\${spring.profiles.active}.yml"
+        "classpath:application-webcron.yml",
+        "classpath:application-webcron-\${spring.profiles.active}.yml"
     ],
     factory = YamlPropertySourceFactory::class,
     ignoreResourceNotFound = true
 )
-class QuartzDataSourceConfig {
+class WebcronDataSourceConfig {
     @Bean
-    @ConfigurationProperties(value = "spring.datasource.quartz")
-    fun quartzDataSourceProperties(): DataSourceProperties {
+    @ConfigurationProperties(value = "spring.datasource.webcron")
+    fun webcronDataSourceProperties(): DataSourceProperties {
         return DataSourceProperties()
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.quartz.hikari")
-    fun quartzDataSource(): HikariDataSource {
-        return quartzDataSourceProperties()
+    @ConfigurationProperties("spring.datasource.webcron.hikari")
+    fun webcronDataSource(): HikariDataSource {
+        return webcronDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource::class.java)
             .build()
