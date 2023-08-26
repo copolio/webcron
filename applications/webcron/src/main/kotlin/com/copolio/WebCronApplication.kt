@@ -1,9 +1,9 @@
-package com.copolio.webcron
+package com.copolio
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication(scanBasePackages = ["com.copolio.webcron", "com.copolio.domains"])
+@SpringBootApplication
 class WebCronApplication
 
 fun main(args: Array<String>) {

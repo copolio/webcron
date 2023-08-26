@@ -5,7 +5,7 @@ import com.copolio.clients.webcronclient.dto.command.CreateHttpJobResult
 import com.copolio.clients.webcronclient.dto.command.DeleteHttpJob
 import com.copolio.clients.webcronclient.dto.command.DeleteHttpJobResult
 
-interface SchedulerCommandUseCase {
+interface SchedulerUseCase {
     fun handle(createHttpJob: CreateHttpJob): CreateHttpJobResult
     fun handle(deleteHttpJob: DeleteHttpJob): DeleteHttpJobResult
 }

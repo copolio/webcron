@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/http-scheduler")
 class SchedulerController(
     val schedulerQueryUseCase: SchedulerQueryUseCase,
-    val schedulerCommandUseCase: SchedulerCommandUseCase,
+    val schedulerUseCase: SchedulerUseCase,
 ) {
     @PostMapping("/")
     fun addJob(@RequestBody createHttpJob: CreateHttpJob): ResponseEntity<CreateHttpJobResult> {
         return ResponseEntity(
-            schedulerCommandUseCase.handle(createHttpJob),
+            schedulerUseCase.handle(createHttpJob),
             HttpStatus.CREATED
         )
     }
@@ -46,7 +46,7 @@ class SchedulerController(
         @PathVariable("jobName") jobName: String
     ): ResponseEntity<DeleteHttpJobResult> {
         return ResponseEntity.ok(
-            schedulerCommandUseCase.handle(
+            schedulerUseCase.handle(
                 DeleteHttpJob(
                     jobName = jobName,
                     jobGroup = groupName

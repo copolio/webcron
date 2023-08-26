@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException
 class SchedulerService(
     private val scheduler: Scheduler,
     private val httpJobMapper: HttpJobMapper,
-) : SchedulerCommandUseCase, SchedulerQueryUseCase {
+) : SchedulerUseCase, SchedulerQueryUseCase {
     override fun getGroups(): List<SchedulerJobGroupInfo> {
         return scheduler.jobGroupNames.map { groupName -> SchedulerJobGroupInfo(groupName) }
     }

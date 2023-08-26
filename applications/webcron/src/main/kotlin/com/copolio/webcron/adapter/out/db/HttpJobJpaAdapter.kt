@@ -4,36 +4,36 @@ import com.copolio.domains.webcron.entity.HttpJobExecution
 import com.copolio.domains.webcron.repository.HttpJobExecutionRepository
 import com.copolio.webcron.mapper.HttpJobExecutionMapper
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
-import com.copolio.clients.webcronclient.dto.query.SearchHttpJobExecution
+import com.copolio.clients.webcronclient.dto.query.SearchHttpJobLog
 import com.copolio.clients.webcronclient.dto.query.HttpJobExecutionInfo
-import com.copolio.webcron.port.out.HttpJobExecutionLoadPort
-import com.copolio.webcron.port.out.HttpJobExecutionSavePort
+import com.copolio.webcron.port.out.HttpJobLoadPort
+import com.copolio.webcron.port.out.HttpJobSavePort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class HttpJobExecutionJpaAdapter(
+class HttpJobJpaAdapter(
     private val httpJobExecutionRepository: HttpJobExecutionRepository,
     private val httpJobExecutionMapper: HttpJobExecutionMapper
-) : HttpJobExecutionLoadPort, HttpJobExecutionSavePort {
+) : HttpJobLoadPort, HttpJobSavePort {
     @Transactional(readOnly = true)
     override fun handle(
-        searchHttpJobExecution: SearchHttpJobExecution,
+        searchHttpJobLog: SearchHttpJobLog,
         pageable: Pageable
     ): Page<HttpJobExecutionInfo> {
-        if (searchHttpJobExecution.jobGroup.isNullOrBlank()) {
+        if (searchHttpJobLog.jobGroup.isNullOrBlank()) {
             return httpJobExecutionRepository.findAll(pageable)
                 .map { httpJobExecution -> httpJobExecutionMapper.convert(httpJobExecution) }
-        } else if (searchHttpJobExecution.jobName.isNullOrBlank())
+        } else if (searchHttpJobLog.jobName.isNullOrBlank())
             return httpJobExecutionRepository.findAllByJobGroup(
-                jobGroup = searchHttpJobExecution.jobGroup!!,
+                jobGroup = searchHttpJobLog.jobGroup!!,
                 pageable = pageable
             ).map { httpJobExecution -> httpJobExecutionMapper.convert(httpJobExecution) }
         return httpJobExecutionRepository.findAllByJobGroupAndJobName(
-            jobName = searchHttpJobExecution.jobName!!,
-            jobGroup = searchHttpJobExecution.jobGroup!!,
+            jobName = searchHttpJobLog.jobName!!,
+            jobGroup = searchHttpJobLog.jobGroup!!,
             pageable = pageable
         ).map { httpJobExecution -> httpJobExecutionMapper.convert(httpJobExecution) }
     }

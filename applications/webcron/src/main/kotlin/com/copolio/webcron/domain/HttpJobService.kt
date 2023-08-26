@@ -2,7 +2,7 @@ package com.copolio.webcron.domain
 
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
 import com.copolio.webcron.port.`in`.HttpJobPublishUseCase
-import com.copolio.webcron.port.out.HttpJobExecutionSavePort
+import com.copolio.webcron.port.out.HttpJobSavePort
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 
 @Service
 class HttpJobService(
-    private val httpJobExecutionSavePort: HttpJobExecutionSavePort
+    private val httpJobSavePort: HttpJobSavePort
 ) : HttpJobPublishUseCase {
     @Transactional
     override fun publish(httpJob: HttpJob) {
@@ -36,7 +36,7 @@ class HttpJobService(
                 .retrieve()
                 .toEntity(String::class.java)
                 .block()
-            httpJobExecutionSavePort.handle(
+            httpJobSavePort.handle(
                 CreateHttpJobExecution(
                     startTime = startTime,
                     endTime = LocalDateTime.now(),
@@ -47,7 +47,7 @@ class HttpJobService(
                 )
             )
         } catch (e: Exception) {
-            httpJobExecutionSavePort.handle(
+            httpJobSavePort.handle(
                 CreateHttpJobExecution(
                     startTime = startTime,
                     endTime = LocalDateTime.now(),
