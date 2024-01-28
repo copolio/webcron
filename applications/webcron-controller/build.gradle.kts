@@ -59,8 +59,8 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 
     // Multi-module
-    api(project(":applications:webcron-ui"))
-    api(project(":clients:webcron-client"))
+    api(project(":applications:webcron-frontend"))
+    api(project(":clients:webcron-controller-client"))
     api(project(":domains:db-quartz"))
     api(project(":domains:db-webcron"))
 }
