@@ -1,7 +1,7 @@
 package com.copolio.webcron.util
 
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJob
-import com.copolio.webcron.domain.HttpJob
+import com.copolio.webcron.worker.entity.HttpJob
 import org.springframework.stereotype.Component
 
 @Component

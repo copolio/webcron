@@ -1,7 +1,7 @@
 package com.copolio.webcron.adapter.out.db
 
-import com.copolio.domains.webcron.entity.HttpJobExecution
-import com.copolio.domains.webcron.repository.HttpJobExecutionRepository
+import com.copolio.webcron.worker.entity.HttpJobExecution
+import com.copolio.webcron.worker.repository.HttpJobExecutionRepository
 import com.copolio.webcron.mapper.HttpJobExecutionMapper
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJobExecution
 import com.copolio.clients.webcronclient.dto.query.SearchHttpJobLog

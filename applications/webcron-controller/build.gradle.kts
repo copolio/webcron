@@ -61,8 +61,8 @@ dependencies {
     // Multi-module
     api(project(":applications:webcron-frontend"))
     api(project(":clients:webcron-controller-client"))
-    api(project(":domains:db-quartz"))
-    api(project(":domains:db-webcron"))
+    api(project(":domains:webcron-quartz"))
+    api(project(":domains:webcron-worker"))
 }
 
 dependencyManagement {

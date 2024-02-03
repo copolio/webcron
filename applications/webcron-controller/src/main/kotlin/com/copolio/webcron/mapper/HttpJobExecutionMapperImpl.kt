@@ -1,6 +1,6 @@
 package com.copolio.webcron.mapper
 
-import com.copolio.domains.webcron.entity.HttpJobExecution
+import com.copolio.webcron.worker.entity.HttpJobExecution
 import com.copolio.clients.webcronclient.dto.query.HttpJobExecutionInfo
 import org.springframework.stereotype.Service
 

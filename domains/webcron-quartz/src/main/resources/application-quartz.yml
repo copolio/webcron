@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    webcron:
+      quartz:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/quartz
+        username: root
+        password: test
+        hikari:
+          pool-name: mysql-quartz-hikariCP
+          connection-timeout: 30000
+          max-lifetime: 30000
+          maximum-pool-size: 2
+          leak-detection-threshold: 1000

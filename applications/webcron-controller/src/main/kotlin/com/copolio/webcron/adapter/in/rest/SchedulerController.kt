@@ -1,6 +1,5 @@
 package com.copolio.webcron.adapter.`in`.rest
 
-import com.copolio.webcron.port.`in`.*
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJob
 import com.copolio.clients.webcronclient.dto.command.CreateHttpJobResult
 import com.copolio.clients.webcronclient.dto.command.DeleteHttpJob
@@ -8,6 +7,8 @@ import com.copolio.clients.webcronclient.dto.command.DeleteHttpJobResult
 import com.copolio.clients.webcronclient.dto.query.SearchSchedulerJobs
 import com.copolio.clients.webcronclient.dto.query.SchedulerJobGroupInfo
 import com.copolio.clients.webcronclient.dto.query.SchedulerJobInfo
+import com.copolio.webcron.port.`in`.SchedulerQueryUseCase
+import com.copolio.webcron.port.`in`.SchedulerUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
