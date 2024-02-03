@@ -45,11 +45,7 @@
   </Layout>
 </template>
 <script setup lang="ts">
-import {
-  CloudServerOutlined,
-  FileTextOutlined,
-  ScheduleOutlined,
-} from "@ant-design/icons-vue";
+import { CloudServerOutlined, ScheduleOutlined } from "@ant-design/icons-vue";
 import { computed } from "@vue/reactivity";
 import {
   Layout,

@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { ColumnType } from "ant-design-vue/lib/table";
-import { useHttpJobExecutionQuery } from "../composables/http-job";
+import { useHttpJobExecutionQuery } from "../../composables/HttpJob";
 
 const { searchCondition, isFetching, data, refetch } =
   useHttpJobExecutionQuery();
@@ -59,3 +59,4 @@ const antColumns: ColumnType[] = [
 </script>
 
 <style scoped></style>
+../composables/HttpJob

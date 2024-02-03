@@ -166,10 +166,6 @@ import {
 } from "ant-design-vue";
 import { createVNode, ref } from "vue";
 import { useRouter } from "vue-router";
-import HttpJobDelete from "../components/HttpJobDelete.vue";
-import HttpJobForm from "../components/HttpJobForm.vue";
-import HttpJobGroupList from "../components/HttpJobGroupList.vue";
-import HttpJobList from "../components/HttpJobList.vue";
 
 const router = useRouter();
 

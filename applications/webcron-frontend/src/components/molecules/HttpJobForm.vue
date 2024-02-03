@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { CreateHttpJob } from "../api";
-import { useAddHttpJobMutation } from "../composables/http-job";
+import { CreateHttpJob } from "../../api";
+import { useAddHttpJobMutation } from "../../composables/HttpJob";
 
 const formState = ref<CreateHttpJob>({
   httpJob: {
